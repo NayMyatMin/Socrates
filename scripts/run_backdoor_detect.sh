@@ -3,4 +3,4 @@
 # requirements follow socrates: https://github.com/longph1989/Socrates
 # tested with python3.7
 
-time python -u source/run_backdoor_detect.py --algorithm backdoor_detect
+time python -u /Users/nay/Socrates-backdoor_detection/source/run_backdoor_detect.py --algorithm backdoor_detect

@@ -10,17 +10,17 @@ The benchmark of **SOCRATES** is available at [benchmark](https://figshare.com/s
 
 ## Installation:
 
-```
+```sh
 virtualenv -p python3 socrates_venv
 source socrates_venv/bin/activate
-pip install numpy scipy matplotlib torch autograd antlr4-python3-runtime==4.8 sklearn pyswarms gensim python-Levenshtein
+pip install numpy scikit-learn matplotlib torch torchvision autograd antlr4-python3-runtime==4.8 sklearn pyswarms gensim python-Levenshtein
 ```
 
 ## Publications:
 
 - [SOCRATES: Towards a Unified Platform for Neural Network Verification](https://arxiv.org/abs/2007.11206)
 
-  Long H. Pham, Jiaying Li, Jun Sun
+   Long H. Pham, Jiaying Li, Jun Sun
 
 ## Contributors:
 
