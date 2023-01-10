@@ -10,6 +10,7 @@ from solver.refinement_impl import Poly
 
 from utils import *
 from torch import nn
+import torch.nn as nn
 from torch.utils.data import TensorDataset, DataLoader
 
 from torch.utils.data import DataLoader
@@ -29,47 +30,28 @@ import ast
 
 from nn_utils import *
 
+import os
 import time
 import statistics
 
-###### Resnet - 18
-import torch
-import torch.nn as nn
-import os
-
-
+############################# Resnet - 18 (https://github.com/Gwinhen/MOTH)
 def conv3x3(in_planes, out_planes, stride=1, groups=1, dilation=1):
     """3x3 convolution with padding"""
     return nn.Conv2d(
-        in_planes,
-        out_planes,
-        kernel_size=3,
-        stride=stride,
-        padding=dilation,
-        groups=groups,
-        bias=False,
-        dilation=dilation,
+        in_planes, out_planes, kernel_size=3, stride=stride,
+        padding=dilation, groups=groups, bias=False, dilation=dilation,
     )
-
 
 def conv1x1(in_planes, out_planes, stride=1):
     """1x1 convolution"""
     return nn.Conv2d(in_planes, out_planes, kernel_size=1, stride=stride, bias=False)
 
-
 class BasicBlock(nn.Module):
     expansion = 1
 
     def __init__(
-        self,
-        inplanes,
-        planes,
-        stride=1,
-        downsample=None,
-        groups=1,
-        base_width=64,
-        dilation=1,
-        norm_layer=None,
+        self, inplanes, planes, stride=1, downsample=None,groups=1, 
+        base_width=64, dilation=1, norm_layer=None,
     ):
         super(BasicBlock, self).__init__()
         if norm_layer is None:
@@ -102,23 +84,14 @@ class BasicBlock(nn.Module):
 
         out += identity
         out = self.relu(out)
-
         return out
-
 
 class Bottleneck(nn.Module):
     expansion = 4
 
     def __init__(
-        self,
-        inplanes,
-        planes,
-        stride=1,
-        downsample=None,
-        groups=1,
-        base_width=64,
-        dilation=1,
-        norm_layer=None,
+        self, inplanes, planes, stride=1, downsample=None,
+        groups=1, base_width=64, dilation=1, norm_layer=None,
     ):
         super(Bottleneck, self).__init__()
         if norm_layer is None:
@@ -157,18 +130,10 @@ class Bottleneck(nn.Module):
 
         return out
 
-
 class ResNet(nn.Module):
     def __init__(
-        self,
-        block,
-        layers,
-        num_classes=10,
-        zero_init_residual=False,
-        groups=1,
-        width_per_group=64,
-        replace_stride_with_dilation=None,
-        norm_layer=None,
+        self, block, layers, num_classes=10, zero_init_residual=False, groups=1, 
+        width_per_group=64, replace_stride_with_dilation=None, norm_layer=None,
     ):
         super(ResNet, self).__init__()
         if norm_layer is None:
@@ -244,14 +209,8 @@ class ResNet(nn.Module):
         layers = []
         layers.append(
             block(
-                self.inplanes,
-                planes,
-                stride,
-                downsample,
-                self.groups,
-                self.base_width,
-                previous_dilation,
-                norm_layer,
+                self.inplanes, planes, stride, downsample,
+                self.groups, self.base_width, previous_dilation, norm_layer,
             )
         )
         self.inplanes = planes * block.expansion
@@ -288,9 +247,7 @@ class ResNet(nn.Module):
 
 class SubResNet(nn.Module):
     def __init__(
-        self,
-        block,
-        num_classes=10,
+        self, block, num_classes=10,
     ):
         super().__init__()
         self.avgpool = nn.AdaptiveAvgPool2d((1, 1))
@@ -301,7 +258,7 @@ class SubResNet(nn.Module):
         x = x.reshape(x.size(0), -1)
         x = self.fc(x)
         return x
-###########################################
+##################################################
 
 class MNISTNet(nn.Module):
     def __init__(self):
@@ -335,7 +292,7 @@ class SubMNISTNet(nn.Module):
         x = self.fc4(x)
         output = x # cross entropy in pytorch already includes softmax
         return output
-
+##################################################
 
 class CIFAR10Net(nn.Module):
     # from https://www.kaggle.com/code/shadabhussain/cifar-10-cnn-using-pytorch
@@ -397,7 +354,7 @@ class SubCIFAR10Net(nn.Module):
         x = self.fc3(x)
         output = x # cross entropy in pytorch already includes softmax
         return output
-
+##################################################
 
 class BackdoorDetectImpl():
     def __transfer_model(self, model, sub_model, dataset):
@@ -425,8 +382,7 @@ class BackdoorDetectImpl():
 
         for epoch in range(num_of_epochs):
             for batch, (x, y) in enumerate(dataloader):
-                # print("Input tensor shape: ", x.shape)
-                # print("Adversarial trigger shape: ", delta.shape)
+                
                 delta.requires_grad = True
                 x_adv = torch.clamp(torch.add(x, delta), minx, maxx)
                 target_tensor = torch.full(y.size(), target)
@@ -467,7 +423,7 @@ class BackdoorDetectImpl():
 
         acc_th, ano_th = 40.0, -1.5
 
-        dataset = 'cifar10'
+        dataset = 'cifar10-18'
         num_of_epochs = 200
         dist_lst, acc_lst = [], []
         norm = 2
@@ -510,9 +466,7 @@ class BackdoorDetectImpl():
 
             size_input, size_last = (3, 32, 32), 512
         
-        elif dataset == 'cifar10':
-            file_name = './backdoor_models/cifar10_resnet18_bd.pt'
-            last_layer = 'avgpool'
+        elif dataset == 'cifar10-18':
 
             def _resnet(arch, block, layers, pretrained, progress, device, **kwargs):
                 model = ResNet(block, layers, **kwargs)
@@ -523,10 +477,24 @@ class BackdoorDetectImpl():
                     model.load_state_dict(state_dict)
                 return model
 
-            model = _resnet("resnet18", BasicBlock, [2, 2, 2, 2], pretrained=True, progress=True, device="cpu")
-            model.avgpool.register_forward_hook(get_activation(last_layer))
+            last_layer = 'avgpool'
 
-            sub_model = SubResNet(BasicBlock)
+            if dataset == 'cifar10-18':
+                file_name = './backdoor_models/cifar10_resnet18_bd.pt'
+                model = _resnet("resnet18", BasicBlock, [2, 2, 2, 2], pretrained=True, progress=True, device="cpu")
+                model.avgpool.register_forward_hook(get_activation(last_layer))
+                sub_model = SubResNet(BasicBlock)
+            
+            elif dataset == 'cifar10-34':
+                file_name = './backdoor_models/cifar10_resnet34_bd.pt'
+                model = _resnet("resnet34", BasicBlock, [3, 4, 6, 3], pretrained=True, progress=True, device="cpu")
+                sub_model = SubResNet(BasicBlock)
+            
+            elif dataset == 'cifar10-50':
+                file_name = './backdoor_models/cifar10_resnet50_bd.pt'
+                model = _resnet("resnet50", Bottleneck, [3, 4, 6, 3], pretrained=True, progress=True, device="cpu")
+                sub_model = SubResNet(Bottleneck)
+                
             train_dataset = datasets.CIFAR10('./data', train=True, download=True, transform=transform)
             test_dataset = datasets.CIFAR10('./data', train=False, transform=transform)
 

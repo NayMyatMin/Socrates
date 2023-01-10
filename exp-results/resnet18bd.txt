@@ -1,2 +1,58 @@
 dataset = cifar10
 Files already downloaded and verified
+
+###############################
+
+target = 0, test accuracy = 9.969999999999999
+
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+
+###############################
+
+target = 1, test accuracy = 9.89
+
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+
+###############################
+
+target = 2, test accuracy = 9.83
+
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+
+###############################
+
+target = 3, test accuracy = 10.14
+
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+
+###############################
+
+target = 4, test accuracy = 10.05
+
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+
+###############################
+
+target = 5, test accuracy = 9.81
+
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+
+###############################
+
+target = 6, test accuracy = 10.059999999999999
+
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+
+###############################
+
+target = 7, test accuracy = 10.13
+
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
