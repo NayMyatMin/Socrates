@@ -217,12 +217,8 @@ class ResNet(nn.Module):
         for _ in range(1, blocks):
             layers.append(
                 block(
-                    self.inplanes,
-                    planes,
-                    groups=self.groups,
-                    base_width=self.base_width,
-                    dilation=self.dilation,
-                    norm_layer=norm_layer,
+                    self.inplanes, planes, groups=self.groups,
+                    base_width=self.base_width, dilation=self.dilation, norm_layer=norm_layer,
                 )
             )
 
@@ -369,10 +365,11 @@ class BackdoorDetectImpl():
             elif (dataset == 'cifar10_inv' or dataset == 'cifar10_sem' or dataset == 'cifar10_tro') \
                 and ('fc3.weight' in name or 'fc3.bias' in name):
                 dict_params[name].data.copy_(param.data)
-            elif dataset == 'cifar10' and ('fc.weight' in name or 'fc.bias' in name):
+            elif (dataset == 'cifar10_18' or dataset == 'cifar10_34' or dataset == 'cifar10_50') \
+                and ('fc.weight' in name or 'fc.bias' in name):
                 dict_params[name].data.copy_(param.data)
             elif dataset == 'cifar' and ('fc3.weight' in name or 'fc3.bias' in name):
-                dict_params[name].data.copy_(param.data)
+                dict_params[name].data.copy_(param.data) # testing with cifar10_bd.pt
         
         sub_model.load_state_dict(dict_params)
 
@@ -382,7 +379,7 @@ class BackdoorDetectImpl():
 
         for epoch in range(num_of_epochs):
             for batch, (x, y) in enumerate(dataloader):
-                
+
                 delta.requires_grad = True
                 x_adv = torch.clamp(torch.add(x, delta), minx, maxx)
                 target_tensor = torch.full(y.size(), target)
@@ -423,7 +420,7 @@ class BackdoorDetectImpl():
 
         acc_th, ano_th = 40.0, -1.5
 
-        dataset = 'cifar10-18'
+        dataset = 'cifar10_18'
         num_of_epochs = 200
         dist_lst, acc_lst = [], []
         norm = 2
@@ -466,7 +463,7 @@ class BackdoorDetectImpl():
 
             size_input, size_last = (3, 32, 32), 512
         
-        elif dataset == 'cifar10-18':
+        elif dataset == 'cifar10_18':
 
             def _resnet(arch, block, layers, pretrained, progress, device, **kwargs):
                 model = ResNet(block, layers, **kwargs)
@@ -479,18 +476,18 @@ class BackdoorDetectImpl():
 
             last_layer = 'avgpool'
 
-            if dataset == 'cifar10-18':
+            if dataset == 'cifar10_18':
                 file_name = './backdoor_models/cifar10_resnet18_bd.pt'
                 model = _resnet("resnet18", BasicBlock, [2, 2, 2, 2], pretrained=True, progress=True, device="cpu")
                 model.avgpool.register_forward_hook(get_activation(last_layer))
                 sub_model = SubResNet(BasicBlock)
             
-            elif dataset == 'cifar10-34':
+            elif dataset == 'cifar10_34':
                 file_name = './backdoor_models/cifar10_resnet34_bd.pt'
                 model = _resnet("resnet34", BasicBlock, [3, 4, 6, 3], pretrained=True, progress=True, device="cpu")
                 sub_model = SubResNet(BasicBlock)
             
-            elif dataset == 'cifar10-50':
+            elif dataset == 'cifar10_50':
                 file_name = './backdoor_models/cifar10_resnet50_bd.pt'
                 model = _resnet("resnet50", Bottleneck, [3, 4, 6, 3], pretrained=True, progress=True, device="cpu")
                 sub_model = SubResNet(Bottleneck)
