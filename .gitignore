@@ -1,2 +1,6 @@
 clib/clib.so
-source/solver/__pycache__/*
+**/__pycache__/*
+**/**/__pycache__/*
+trojan/*
+Socrates/source/solver/__pycache__
+Socrates/source/__pycache__

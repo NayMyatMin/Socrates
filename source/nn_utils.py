@@ -34,9 +34,12 @@ def save_model(model, name):
 
 
 def load_model(model_class, name, *args):
+    trojAI = True
     model = model_class(*args)
-
-    if torch.cuda.is_available():
+    
+    if trojAI and torch.cuda.is_available():
+        model.load_state_dict(torch.load(name).state_dict())
+    elif torch.cuda.is_available():
         model.load_state_dict(torch.load(name))
     else:
         model.load_state_dict(torch.load(name, map_location=torch.device('cpu')))
