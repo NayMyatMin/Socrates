@@ -1,6 +1,7 @@
 import torch
-import random
+import time
 import numpy as np
+import json
 
 from model.lib_models import *
 from model.lib_layers import *
@@ -119,106 +120,111 @@ class BackdoorDetectImpl():
         transform = transforms.ToTensor()
 
         acc_th, ano_th = 40.0, -1.5
-
-        # dataset = 'CIFAR-10'
-        dataset = 'mnist'
         num_of_epochs = 100
-        dist_lst, acc_lst = [], []
         norm = 2
 
-        print('dataset =', dataset)
+        root_dir = "benchmark-100"
+        for subdir, dirs, files in os.walk(root_dir):
+            start_time = time.time()
+            dist_lst, acc_lst = [], []
+            for file in files:
+                if file == "model.pt":
+                    model_path = os.path.join(subdir, file)
+                    print("Model Path:", model_path)
+                    info_path = os.path.join(subdir, "info.json")
+                    with open(info_path) as f:
+                        info = json.load(f)
+                        if info["dataset"] == "MNIST":
+                            dataset = info["dataset"]
+                            print('dataset =', dataset)
+                            last_layer = 'main[11]' # nn.BatchNorm1d(128)
 
-        ############################################################# - MNIST
+                            model = load_model(MNIST_Network, model_path)
+                            model.main[11].register_forward_hook(get_activation(last_layer))
+                        
+                            sub_model = SubMNISTNet()
+                            
+                            train_dataset = datasets.MNIST('./data', train=True, download=False, transform=transform)
+                            test_dataset = datasets.MNIST('./data', train=False, transform=transform)
 
-        if dataset == 'mnist':
-            file_name = './backdoor_models/model.pt'
-            last_layer = 'main[11]' # nn.BatchNorm1d(128)
+                            size_input, size_last = (28, 28), 128
 
-            model = load_model(MNIST_Network, file_name)
-            print(model.eval())
-            model.main[11].register_forward_hook(get_activation(last_layer))
-        
-            sub_model = SubMNISTNet()
+                        elif info["dataset"] == "CIFAR-10":
+                            dataset = info["dataset"]
+                            print('dataset =', dataset)
+                            last_layer = 'avgpool'
             
-            train_dataset = datasets.MNIST('./data', train=True, download=True, transform=transform)
-            test_dataset = datasets.MNIST('./data', train=False, transform=transform)
+                            model = load_model(WideResNet, model_path)
+                            model.avgpool.register_forward_hook(get_activation(last_layer))
+                        
+                            sub_model = SubWideResNet(depth=40, num_classes=10, widen_factor=2, dropRate=0)
 
-            size_input, size_last = (28, 28), 128
-        ############################################################# - CIFAR-10
+                            train_dataset = datasets.CIFAR10('./data', train=True, download=False, transform=transform)
+                            test_dataset = datasets.CIFAR10('./data', train=False, transform=transform)
 
-        elif dataset == 'CIFAR-10':
-            file_name = './backdoor_models/model-c.pt'
-            last_layer = 'avgpool'
-            
-            model = load_model(WideResNet, file_name)
-            print(model.eval())
-            model.avgpool.register_forward_hook(get_activation(last_layer))
-        
-            sub_model = SubWideResNet(depth=40, num_classes=10, widen_factor=2, dropRate=0)
+                            size_input, size_last = (3, 32, 32), 128
 
-            train_dataset = datasets.CIFAR10('./data', train=True, download=True, transform=transform)
-            test_dataset = datasets.CIFAR10('./data', train=False, transform=transform)
+                    self.__transfer_model(model, sub_model, dataset)
 
-            size_input, size_last = (3, 32, 32), 128
-        
-        #############################################################
+                    train_dataloader = torch.utils.data.DataLoader(train_dataset, **train_kwargs)
+                    test_dataloader = torch.utils.data.DataLoader(test_dataset, **test_kwargs)
 
-        self.__transfer_model(model, sub_model, dataset)
+                    last_layer_test_dataset = []
+                    for batch, (x, y) in enumerate(test_dataloader):
+                        model(x)
+                        if dataset == 'MNIST':
+                            last_layer_test_dataset.extend(F.relu(activation[last_layer]).detach().numpy())
+                        elif dataset == 'CIFAR-10':
+                            last_layer_test_dataset.extend(torch.flatten(activation[last_layer], 1).detach().numpy())
 
-        train_dataloader = torch.utils.data.DataLoader(train_dataset, **train_kwargs)
-        test_dataloader = torch.utils.data.DataLoader(test_dataset, **test_kwargs)
+                    last_layer_test_dataset = TensorDataset(torch.Tensor(np.array(last_layer_test_dataset)), torch.Tensor(np.array(test_dataset.targets))) # create dataset
+                    last_layer_test_dataloader = DataLoader(last_layer_test_dataset, **test_kwargs) # create dataloader
 
-        last_layer_test_dataset = []
-        for batch, (x, y) in enumerate(test_dataloader):
-            model(x)
-            if dataset == 'mnist':
-                last_layer_test_dataset.extend(F.relu(activation[last_layer]).detach().numpy())
-            elif dataset == 'CIFAR-10':
-                last_layer_test_dataset.extend(torch.flatten(activation[last_layer], 1).detach().numpy())
+                    # dataloader = test_dataloader
+                    dataloader = last_layer_test_dataloader
 
-        last_layer_test_dataset = TensorDataset(torch.Tensor(np.array(last_layer_test_dataset)), torch.Tensor(np.array(test_dataset.targets))) # create dataset
-        last_layer_test_dataloader = DataLoader(last_layer_test_dataset, **test_kwargs) # create dataloader
+                    for target in range(10):
+                        # delta = self.__generate_trigger(model, dataloader, num_of_epochs, size_input, target, norm, 0.0, 1.0)
+                        delta = self.__generate_trigger(sub_model, dataloader, num_of_epochs, size_last, target, norm, 0.0)
+                        delta = torch.where(abs(delta) < 0.1, delta - delta, delta)
 
-        # dataloader = test_dataloader
-        dataloader = last_layer_test_dataloader
+                        print('\n###############################\n')
 
-        for target in range(10):
-            # delta = self.__generate_trigger(model, dataloader, num_of_epochs, size_input, target, norm, 0.0, 1.0)
-            delta = self.__generate_trigger(sub_model, dataloader, num_of_epochs, size_last, target, norm, 0.0)
-            delta = torch.where(abs(delta) < 0.1, delta - delta, delta)
+                        # acc = self.__check(model, dataloader, delta, target)
+                        acc = self.__check(sub_model, dataloader, delta, target)
+                        dist = torch.norm(delta, 0)
+                        print('target = {}, delta = {}, dist = {}'.format(target, delta[:10], dist))
 
-            print('\n###############################\n')
+                        acc_lst.append(acc)
+                        dist_lst.append(dist.detach().item())
 
-            # acc = self.__check(model, dataloader, delta, target)
-            acc = self.__check(sub_model, dataloader, delta, target)
-            dist = torch.norm(delta, 0)
-            print('\ntarget = {}, delta = {}, dist = {}\n'.format(target, delta[:10], dist))
+                    print('\n###############################\n')
 
-            acc_lst.append(acc)
-            dist_lst.append(dist.detach().item())
+                    acc_lst = np.array(acc_lst)
+                    print('acc_lst = {}'.format(acc_lst))
 
-        print('\n###############################\n')
+                    dist_lst = np.array(dist_lst)
+                    print('dist_lst = {}'.format(dist_lst))
 
-        acc_lst = np.array(acc_lst)
-        print('acc_lst = {}'.format(acc_lst))
+                    med = statistics.median(dist_lst)
+                    print('med = {}'.format(med))
+                    
+                    dev_lst = abs(dist_lst - med)
+                    print('dev_lst = {}'.format(dev_lst))
+                    
+                    mad = statistics.median(dev_lst)
+                    print('mad = {}'.format(mad))
+                    
+                    ano_lst = (dist_lst - med) / mad
+                    print('ano_lst = {}'.format(ano_lst))
 
-        dist_lst = np.array(dist_lst)
-        print('dist_lst = {}'.format(dist_lst))
+                    end_time = time.time()
+                    print("Elapsed time:", end_time - start_time, "seconds")
+                    print('###############################\n')
 
-        med = statistics.median(dist_lst)
-        print('med = {}'.format(med))
-        
-        dev_lst = abs(dist_lst - med)
-        print('dev_lst = {}'.format(dev_lst))
-        
-        mad = statistics.median(dev_lst)
-        print('mad = {}'.format(mad))
-        
-        ano_lst = (dist_lst - med) / mad
-        print('ano_lst = {}'.format(ano_lst))
-
-        print('\n###############################\n')
-
-        for target in range(10):
-            if acc_lst[target] >= acc_th and ano_lst[target] <= ano_th:
-                print('Detect backdoor at target = {}'.format(target))
+                    for target in range(10):
+                        if acc_lst[target] >= acc_th and ano_lst[target] <= ano_th:
+                            print('Detect backdoor at target = {}'.format(target))
+                    
+                    
+                    

@@ -2,5 +2,4 @@ clib/clib.so
 **/__pycache__/*
 **/**/__pycache__/*
 trojan/*
-Socrates/source/solver/__pycache__
-Socrates/source/__pycache__
+benchmark-100/

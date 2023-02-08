@@ -1,0 +1,6438 @@
+Model Path: benchmark-100/id-0086/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.06
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 1.43
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 9.39
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.03
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.13
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 7.140000000000001
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.44
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.0
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 37.64
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 43.74
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [6.000e-02 1.430e+00 9.390e+00 3.000e-02 1.300e-01 7.140e+00 4.400e-01
+ 0.000e+00 3.764e+01 4.374e+01]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 346.7655885219574 seconds
+###############################
+
+Model Path: benchmark-100/id-0051/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 11.89
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 1.73
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 32.29
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.01
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 14.24
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 17.71
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 14.430000000000001
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.6
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 7.1
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.0
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [1.189e+01 1.730e+00 3.229e+01 1.000e-02 1.424e+01 1.771e+01 1.443e+01
+ 6.000e-01 7.100e+00 0.000e+00]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 335.34336256980896 seconds
+###############################
+
+Model Path: benchmark-100/id-0013/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 7.86
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 33.339999999999996
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 3.5999999999999996
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 2.6
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.3
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 31.41
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 1.1900000000000002
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 3.58
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 8.5
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 7.62
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 7.86 33.34  3.6   2.6   0.3  31.41  1.19  3.58  8.5   7.62]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 342.13672256469727 seconds
+###############################
+
+Model Path: benchmark-100/id-0025/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 38.96
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.0
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.0
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 25.509999999999998
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.0
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 13.04
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 1.43
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.06999999999999999
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 7.920000000000001
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 13.07
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [38.96  0.    0.   25.51  0.   13.04  1.43  0.07  7.92 13.07]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 351.54480481147766 seconds
+###############################
+
+Model Path: benchmark-100/id-0089/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 6.58
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.02
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 1.37
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.69
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 36.38
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 6.84
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 27.07
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 13.639999999999999
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 2.31
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 5.1
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [6.580e+00 2.000e-02 1.370e+00 6.900e-01 3.638e+01 6.840e+00 2.707e+01
+ 1.364e+01 2.310e+00 5.100e+00]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 338.1178729534149 seconds
+###############################
+
+Model Path: benchmark-100/id-0028/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.0
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.0
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.8
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.0
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.0
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 46.129999999999995
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.16999999999999998
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 4.35
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 48.55
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.0
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 0.    0.    0.8   0.    0.   46.13  0.17  4.35 48.55  0.  ]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 349.0119435787201 seconds
+###############################
+
+Model Path: benchmark-100/id-0036/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 23.71
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 22.43
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 10.32
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 1.39
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 9.3
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 26.57
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 4.53
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.12
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.9400000000000001
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.69
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [23.71 22.43 10.32  1.39  9.3  26.57  4.53  0.12  0.94  0.69]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 324.3722710609436 seconds
+###############################
+
+Model Path: benchmark-100/id-0085/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 9.71
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.05
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 7.48
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 1.4000000000000001
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 43.54
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 3.3300000000000005
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 22.650000000000002
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 2.36
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 2.81
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 6.67
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 9.71  0.05  7.48  1.4  43.54  3.33 22.65  2.36  2.81  6.67]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 352.19266057014465 seconds
+###############################
+
+Model Path: benchmark-100/id-0067/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 17.54
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.25
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 29.020000000000003
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 4.65
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 5.18
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.18
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 10.209999999999999
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.24
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 7.180000000000001
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 25.55
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [17.54  0.25 29.02  4.65  5.18  0.18 10.21  0.24  7.18 25.55]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 357.15061593055725 seconds
+###############################
+
+Model Path: benchmark-100/id-0022/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 8.63
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.0
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 2.0
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 32.37
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 19.97
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.03
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.73
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 24.32
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.0
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 11.95
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [8.630e+00 0.000e+00 2.000e+00 3.237e+01 1.997e+01 3.000e-02 7.300e-01
+ 2.432e+01 0.000e+00 1.195e+01]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 343.9246699810028 seconds
+###############################
+
+Model Path: benchmark-100/id-0048/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.0
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.22
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 1.6500000000000001
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 26.76
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.26
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.0
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 3.27
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 10.059999999999999
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 29.68
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 28.1
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 0.    0.22  1.65 26.76  0.26  0.    3.27 10.06 29.68 28.1 ]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 350.34229707717896 seconds
+###############################
+
+Model Path: benchmark-100/id-0088/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 30.84
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 4.65
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.06
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 6.909999999999999
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 11.450000000000001
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 6.35
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 10.37
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 5.56
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.0
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 23.810000000000002
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [30.84  4.65  0.06  6.91 11.45  6.35 10.37  5.56  0.   23.81]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 369.4681975841522 seconds
+###############################
+
+Model Path: benchmark-100/id-0001/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 22.12
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 6.04
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.01
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 10.780000000000001
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 3.5999999999999996
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 19.73
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 5.75
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 23.98
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 2.2800000000000002
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 5.71
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [2.212e+01 6.040e+00 1.000e-02 1.078e+01 3.600e+00 1.973e+01 5.750e+00
+ 2.398e+01 2.280e+00 5.710e+00]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 336.3037838935852 seconds
+###############################
+
+Model Path: benchmark-100/id-0037/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 2.76
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 7.5
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 15.659999999999998
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 52.92
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.0
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.0
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 1.54
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.42
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 18.4
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.8
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 2.76  7.5  15.66 52.92  0.    0.    1.54  0.42 18.4   0.8 ]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 350.6729209423065 seconds
+###############################
+
+Model Path: benchmark-100/id-0032/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 5.2299999999999995
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.38999999999999996
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 1.87
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 5.72
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 25.66
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 57.620000000000005
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.0
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 2.37
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.42
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.72
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 5.23  0.39  1.87  5.72 25.66 57.62  0.    2.37  0.42  0.72]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 348.21471881866455 seconds
+###############################
+
+Model Path: benchmark-100/id-0094/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 6.3100000000000005
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 22.869999999999997
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.21
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.0
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 4.03
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 20.45
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 5.52
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 40.03
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.58
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.0
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 6.31 22.87  0.21  0.    4.03 20.45  5.52 40.03  0.58  0.  ]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 336.50788974761963 seconds
+###############################
+
+Model Path: benchmark-100/id-0031/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 16.84
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 18.83
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.0
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.0
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.02
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 27.279999999999998
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 2.01
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 25.480000000000004
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 5.45
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 4.09
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [1.684e+01 1.883e+01 0.000e+00 0.000e+00 2.000e-02 2.728e+01 2.010e+00
+ 2.548e+01 5.450e+00 4.090e+00]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 350.2691946029663 seconds
+###############################
+
+Model Path: benchmark-100/id-0092/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 4.47
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 7.99
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.21
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 22.830000000000002
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 25.490000000000002
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 20.1
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 14.37
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 1.3299999999999998
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 3.2099999999999995
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.0
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 4.47  7.99  0.21 22.83 25.49 20.1  14.37  1.33  3.21  0.  ]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 347.2422561645508 seconds
+###############################
+
+Model Path: benchmark-100/id-0046/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 5.029999999999999
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 47.19
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 4.21
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 18.65
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 2.0500000000000003
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.0
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 1.92
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 4.5
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.06
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 16.39
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 5.03 47.19  4.21 18.65  2.05  0.    1.92  4.5   0.06 16.39]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 329.8680913448334 seconds
+###############################
+
+Model Path: benchmark-100/id-0079/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 5.6000000000000005
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 33.1
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.0
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 5.42
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.15
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 4.14
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 18.45
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.41000000000000003
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 5.82
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 26.91
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 5.6  33.1   0.    5.42  0.15  4.14 18.45  0.41  5.82 26.91]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 342.05935072898865 seconds
+###############################
+
+Model Path: benchmark-100/id-0091/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 1.52
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 1.28
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 1.38
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.05
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 13.11
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 29.409999999999997
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.12
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.03
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 51.67
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 1.43
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [1.520e+00 1.280e+00 1.380e+00 5.000e-02 1.311e+01 2.941e+01 1.200e-01
+ 3.000e-02 5.167e+01 1.430e+00]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 345.0261495113373 seconds
+###############################
+
+Model Path: benchmark-100/id-0007/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.74
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.48
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 1.7999999999999998
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 24.21
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.0
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 3.0700000000000003
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 26.119999999999997
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 25.35
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 7.31
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 10.92
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 0.74  0.48  1.8  24.21  0.    3.07 26.12 25.35  7.31 10.92]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 329.1216914653778 seconds
+###############################
+
+Model Path: benchmark-100/id-0003/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.02
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 12.25
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 26.790000000000003
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 5.92
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 18.14
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 8.81
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 11.83
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.0
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.0
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 16.24
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [2.000e-02 1.225e+01 2.679e+01 5.920e+00 1.814e+01 8.810e+00 1.183e+01
+ 0.000e+00 0.000e+00 1.624e+01]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 358.1796405315399 seconds
+###############################
+
+Model Path: benchmark-100/id-0000/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.0
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 24.959999999999997
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.0
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.0
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.01
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.38999999999999996
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.0
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 14.12
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 4.590000000000001
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 55.93
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [0.000e+00 2.496e+01 0.000e+00 0.000e+00 1.000e-02 3.900e-01 0.000e+00
+ 1.412e+01 4.590e+00 5.593e+01]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 325.74007534980774 seconds
+###############################
+
+Model Path: benchmark-100/id-0069/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 1.4200000000000002
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.16
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 46.04
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 13.91
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 6.05
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.35000000000000003
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.38
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 27.61
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 4.08
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.0
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 1.42  0.16 46.04 13.91  6.05  0.35  0.38 27.61  4.08  0.  ]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 318.73630452156067 seconds
+###############################
+
+Model Path: benchmark-100/id-0074/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 6.859999999999999
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 6.34
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 55.16
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 5.029999999999999
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.01
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 8.84
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.0
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 14.75
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 2.5700000000000003
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.44
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [6.860e+00 6.340e+00 5.516e+01 5.030e+00 1.000e-02 8.840e+00 0.000e+00
+ 1.475e+01 2.570e+00 4.400e-01]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 353.8160355091095 seconds
+###############################
+
+Model Path: benchmark-100/id-0042/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.12
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 7.8
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 30.470000000000002
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.73
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 27.46
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.26
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 13.52
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 9.629999999999999
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 10.01
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.0
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 0.12  7.8  30.47  0.73 27.46  0.26 13.52  9.63 10.01  0.  ]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 327.12597942352295 seconds
+###############################
+
+Model Path: benchmark-100/id-0063/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 3.2399999999999998
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 7.68
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 31.480000000000004
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 17.4
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 16.32
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.41000000000000003
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 18.47
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.0
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 5.0
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.0
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 3.24  7.68 31.48 17.4  16.32  0.41 18.47  0.    5.    0.  ]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 354.3780550956726 seconds
+###############################
+
+Model Path: benchmark-100/id-0029/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 19.07
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 4.97
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.0
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.0
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 2.26
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 9.4
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.44
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.0
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.11
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 63.74999999999999
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [19.07  4.97  0.    0.    2.26  9.4   0.44  0.    0.11 63.75]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 333.4187865257263 seconds
+###############################
+
+Model Path: benchmark-100/id-0011/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 6.909999999999999
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 7.31
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 3.39
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.61
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.0
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 14.790000000000001
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 7.7299999999999995
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.03
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 1.1900000000000002
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 58.040000000000006
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [6.910e+00 7.310e+00 3.390e+00 6.100e-01 0.000e+00 1.479e+01 7.730e+00
+ 3.000e-02 1.190e+00 5.804e+01]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 319.6447243690491 seconds
+###############################
+
+Model Path: benchmark-100/id-0010/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 8.02
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 4.54
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 6.59
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 1.2
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 27.68
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 10.45
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 2.32
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 15.690000000000001
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 23.150000000000002
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.36
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 8.02  4.54  6.59  1.2  27.68 10.45  2.32 15.69 23.15  0.36]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 354.7993252277374 seconds
+###############################
+
+Model Path: benchmark-100/id-0041/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.91
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.7799999999999999
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 29.360000000000003
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.02
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 8.16
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 4.93
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 4.65
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 24.91
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 1.05
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 25.230000000000004
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [9.100e-01 7.800e-01 2.936e+01 2.000e-02 8.160e+00 4.930e+00 4.650e+00
+ 2.491e+01 1.050e+00 2.523e+01]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 367.3118300437927 seconds
+###############################
+
+Model Path: benchmark-100/id-0030/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 6.7
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 1.8800000000000001
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.77
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.38999999999999996
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 19.12
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.03
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 4.64
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 9.19
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 45.5
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 11.78
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [6.700e+00 1.880e+00 7.700e-01 3.900e-01 1.912e+01 3.000e-02 4.640e+00
+ 9.190e+00 4.550e+01 1.178e+01]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 345.6324236392975 seconds
+###############################
+
+Model Path: benchmark-100/id-0023/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.0
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 1.16
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.05
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.0
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 2.83
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 1.47
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 10.77
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 72.57000000000001
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.0
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 11.15
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [0.000e+00 1.160e+00 5.000e-02 0.000e+00 2.830e+00 1.470e+00 1.077e+01
+ 7.257e+01 0.000e+00 1.115e+01]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 355.831591129303 seconds
+###############################
+
+Model Path: benchmark-100/id-0038/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 8.66
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.0
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.13
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 1.55
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 16.71
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 15.14
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 29.45
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.0
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 21.27
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 7.090000000000001
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 8.66  0.    0.13  1.55 16.71 15.14 29.45  0.   21.27  7.09]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 357.8203477859497 seconds
+###############################
+
+Model Path: benchmark-100/id-0081/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 31.480000000000004
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.22
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.8999999999999999
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 35.949999999999996
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 6.17
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.0
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 11.799999999999999
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 1.32
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.27999999999999997
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 11.88
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [31.48  0.22  0.9  35.95  6.17  0.   11.8   1.32  0.28 11.88]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 336.8512907028198 seconds
+###############################
+
+Model Path: benchmark-100/id-0044/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.0
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 13.07
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 19.72
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 7.42
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 22.259999999999998
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 13.3
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 11.76
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 7.53
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 1.95
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 2.9899999999999998
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 0.   13.07 19.72  7.42 22.26 13.3  11.76  7.53  1.95  2.99]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 353.02076172828674 seconds
+###############################
+
+Model Path: benchmark-100/id-0008/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.44999999999999996
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 11.09
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 10.79
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 2.2800000000000002
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 2.71
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 24.97
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.0
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 29.909999999999997
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 17.8
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.0
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 0.45 11.09 10.79  2.28  2.71 24.97  0.   29.91 17.8   0.  ]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 363.9083230495453 seconds
+###############################
+
+Model Path: benchmark-100/id-0075/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.1
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.0
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 29.349999999999998
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 2.64
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 1.91
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 36.03
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 5.63
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 7.870000000000001
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 16.470000000000002
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.0
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 0.1   0.   29.35  2.64  1.91 36.03  5.63  7.87 16.47  0.  ]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 327.5628089904785 seconds
+###############################
+
+Model Path: benchmark-100/id-0064/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 46.03
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 3.08
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 18.65
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.31
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 7.430000000000001
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.0
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.0
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 4.6
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 10.77
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 9.13
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [46.03  3.08 18.65  0.31  7.43  0.    0.    4.6  10.77  9.13]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 356.5514714717865 seconds
+###############################
+
+Model Path: benchmark-100/id-0052/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.0
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 3.92
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 1.02
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 28.910000000000004
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 1.09
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 3.65
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.0
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 8.469999999999999
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 41.11
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 11.83
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 0.    3.92  1.02 28.91  1.09  3.65  0.    8.47 41.11 11.83]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 326.0105550289154 seconds
+###############################
+
+Model Path: benchmark-100/id-0014/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 12.55
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 11.95
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 22.49
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 9.87
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 1.92
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 29.9
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 5.36
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.0
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.01
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 5.949999999999999
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [1.255e+01 1.195e+01 2.249e+01 9.870e+00 1.920e+00 2.990e+01 5.360e+00
+ 0.000e+00 1.000e-02 5.950e+00]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 347.9814672470093 seconds
+###############################
+
+Model Path: benchmark-100/id-0040/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.0
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.01
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.18
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 18.56
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 9.54
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 17.59
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 21.39
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.0
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.0
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 32.73
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [0.000e+00 1.000e-02 1.800e-01 1.856e+01 9.540e+00 1.759e+01 2.139e+01
+ 0.000e+00 0.000e+00 3.273e+01]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 337.3680317401886 seconds
+###############################
+
+Model Path: benchmark-100/id-0098/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 2.33
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.33999999999999997
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 8.02
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.97
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.02
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 1.1400000000000001
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 16.009999999999998
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 7.22
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.04
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 63.91
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [2.330e+00 3.400e-01 8.020e+00 9.700e-01 2.000e-02 1.140e+00 1.601e+01
+ 7.220e+00 4.000e-02 6.391e+01]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 328.17978858947754 seconds
+###############################
+
+Model Path: benchmark-100/id-0062/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.0
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 2.31
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.01
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 8.44
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.0
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 31.64
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.0
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.13
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 39.44
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 18.029999999999998
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [0.000e+00 2.310e+00 1.000e-02 8.440e+00 0.000e+00 3.164e+01 0.000e+00
+ 1.300e-01 3.944e+01 1.803e+01]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 379.9007158279419 seconds
+###############################
+
+Model Path: benchmark-100/id-0024/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 3.46
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.12
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 30.0
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.01
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 4.31
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.0
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 10.45
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 8.219999999999999
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 7.1
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 36.33
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [3.460e+00 1.200e-01 3.000e+01 1.000e-02 4.310e+00 0.000e+00 1.045e+01
+ 8.220e+00 7.100e+00 3.633e+01]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 339.98114681243896 seconds
+###############################
+
+Model Path: benchmark-100/id-0093/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 17.19
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 11.09
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 17.37
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 19.7
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 2.32
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 5.58
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.0
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 15.27
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 2.01
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 9.47
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [17.19 11.09 17.37 19.7   2.32  5.58  0.   15.27  2.01  9.47]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 325.91301560401917 seconds
+###############################
+
+Model Path: benchmark-100/id-0090/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 2.63
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 7.95
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 14.2
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.0
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 6.419999999999999
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.49
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.49
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.62
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 35.56
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 31.64
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 2.63  7.95 14.2   0.    6.42  0.49  0.49  0.62 35.56 31.64]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 325.6287307739258 seconds
+###############################
+
+Model Path: benchmark-100/id-0049/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 2.09
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.0
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 11.12
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 81.53
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.01
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.12
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.0
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 5.13
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.0
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.0
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [2.090e+00 0.000e+00 1.112e+01 8.153e+01 1.000e-02 1.200e-01 0.000e+00
+ 5.130e+00 0.000e+00 0.000e+00]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 350.7876555919647 seconds
+###############################
+
+Model Path: benchmark-100/id-0097/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 20.93
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.36
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 19.38
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 17.27
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.88
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 9.879999999999999
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 6.239999999999999
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 4.41
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 20.43
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.22
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [20.93  0.36 19.38 17.27  0.88  9.88  6.24  4.41 20.43  0.22]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 328.66027307510376 seconds
+###############################
+
+Model Path: benchmark-100/id-0080/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 7.109999999999999
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.26
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.0
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.13999999999999999
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 15.03
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 2.9899999999999998
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 64.75
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 2.97
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 6.569999999999999
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.18
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 7.11  0.26  0.    0.14 15.03  2.99 64.75  2.97  6.57  0.18]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 370.0007812976837 seconds
+###############################
+
+Model Path: benchmark-100/id-0053/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 53.39
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 3.8600000000000003
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 8.3
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.91
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.8
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 17.11
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 3.4000000000000004
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 3.92
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 7.3
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 1.01
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [53.39  3.86  8.3   0.91  0.8  17.11  3.4   3.92  7.3   1.01]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 329.5838716030121 seconds
+###############################
+
+Model Path: benchmark-100/id-0034/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 13.03
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 4.2700000000000005
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 14.32
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 34.04
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 12.1
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.4
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 8.68
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 5.4
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.36
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 7.3999999999999995
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [13.03  4.27 14.32 34.04 12.1   0.4   8.68  5.4   0.36  7.4 ]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 328.13925552368164 seconds
+###############################
+
+Model Path: benchmark-100/id-0077/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 5.11
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 29.79
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 1.95
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 19.509999999999998
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.0
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 10.63
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 15.49
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.0
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 3.7900000000000005
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 13.73
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 5.11 29.79  1.95 19.51  0.   10.63 15.49  0.    3.79 13.73]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 352.819721698761 seconds
+###############################
+
+Model Path: benchmark-100/id-0096/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 2.4
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 9.4
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 6.02
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.0
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 10.94
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 13.469999999999999
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 28.99
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 8.99
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 13.700000000000001
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 6.09
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 2.4   9.4   6.02  0.   10.94 13.47 28.99  8.99 13.7   6.09]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 327.66403460502625 seconds
+###############################
+
+Model Path: benchmark-100/id-0060/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.42
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 10.69
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 8.0
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 17.32
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 2.41
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.0
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.0
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.01
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 14.829999999999998
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 46.32
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [4.200e-01 1.069e+01 8.000e+00 1.732e+01 2.410e+00 0.000e+00 0.000e+00
+ 1.000e-02 1.483e+01 4.632e+01]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 346.19100189208984 seconds
+###############################
+
+Model Path: benchmark-100/id-0084/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 23.29
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.12
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.97
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.0
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 6.84
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 20.51
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 3.34
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 10.48
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.11
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 34.339999999999996
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [23.29  0.12  0.97  0.    6.84 20.51  3.34 10.48  0.11 34.34]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 351.70403480529785 seconds
+###############################
+
+Model Path: benchmark-100/id-0005/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.7100000000000001
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 8.780000000000001
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.0
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 2.07
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.0
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 2.4899999999999998
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 32.16
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 16.919999999999998
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 28.78
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 8.09
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 0.71  8.78  0.    2.07  0.    2.49 32.16 16.92 28.78  8.09]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 321.87671422958374 seconds
+###############################
+
+Model Path: benchmark-100/id-0082/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 8.85
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.0
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 7.199999999999999
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 28.82
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.0
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.96
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 11.600000000000001
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 1.5
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 9.73
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 31.34
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 8.85  0.    7.2  28.82  0.    0.96 11.6   1.5   9.73 31.34]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 337.87838530540466 seconds
+###############################
+
+Model Path: benchmark-100/id-0006/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 15.370000000000001
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 17.76
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.31
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 1.96
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.01
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 10.23
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.05
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 16.830000000000002
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.0
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 37.480000000000004
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [1.537e+01 1.776e+01 3.100e-01 1.960e+00 1.000e-02 1.023e+01 5.000e-02
+ 1.683e+01 0.000e+00 3.748e+01]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 378.3851752281189 seconds
+###############################
+
+Model Path: benchmark-100/id-0099/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 1.66
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 8.59
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.16
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 15.2
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 7.33
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.45999999999999996
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 1.02
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 4.49
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 49.9
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 11.19
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 1.66  8.59  0.16 15.2   7.33  0.46  1.02  4.49 49.9  11.19]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 348.0440957546234 seconds
+###############################
+
+Model Path: benchmark-100/id-0004/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 20.21
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 25.590000000000003
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 4.03
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 14.62
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 1.25
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.0
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 34.17
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.0
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.01
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.12
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [2.021e+01 2.559e+01 4.030e+00 1.462e+01 1.250e+00 0.000e+00 3.417e+01
+ 0.000e+00 1.000e-02 1.200e-01]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 338.83190155029297 seconds
+###############################
+
+Model Path: benchmark-100/id-0047/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 11.23
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 1.7000000000000002
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 26.47
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 12.559999999999999
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.01
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 1.34
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.0
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 4.04
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 14.649999999999999
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 28.000000000000004
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [1.123e+01 1.700e+00 2.647e+01 1.256e+01 1.000e-02 1.340e+00 0.000e+00
+ 4.040e+00 1.465e+01 2.800e+01]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 367.9104173183441 seconds
+###############################
+
+Model Path: benchmark-100/id-0054/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.0
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.32
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 8.32
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 5.65
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 11.06
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 62.6
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 8.16
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 3.8899999999999997
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.0
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.0
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 0.    0.32  8.32  5.65 11.06 62.6   8.16  3.89  0.    0.  ]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 315.01452589035034 seconds
+###############################
+
+Model Path: benchmark-100/id-0058/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 6.619999999999999
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 38.46
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.0
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.0
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 12.620000000000001
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 19.37
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 18.21
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 4.6
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.02
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.1
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [6.620e+00 3.846e+01 0.000e+00 0.000e+00 1.262e+01 1.937e+01 1.821e+01
+ 4.600e+00 2.000e-02 1.000e-01]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 347.84813952445984 seconds
+###############################
+
+Model Path: benchmark-100/id-0083/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 1.55
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.03
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 5.680000000000001
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 39.160000000000004
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.0
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 18.099999999999998
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 9.44
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 7.88
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.0
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 18.16
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [1.550e+00 3.000e-02 5.680e+00 3.916e+01 0.000e+00 1.810e+01 9.440e+00
+ 7.880e+00 0.000e+00 1.816e+01]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 337.53721261024475 seconds
+###############################
+
+Model Path: benchmark-100/id-0059/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.05
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 22.62
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 1.69
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 24.95
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.22
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.08
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 8.07
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 42.32
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.0
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.0
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 0.05 22.62  1.69 24.95  0.22  0.08  8.07 42.32  0.    0.  ]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 370.57521080970764 seconds
+###############################
+
+Model Path: benchmark-100/id-0020/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 69.28
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 4.65
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.0
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.0
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.0
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.64
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.0
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 15.0
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.0
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 10.43
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [69.28  4.65  0.    0.    0.    0.64  0.   15.    0.   10.43]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 346.06618666648865 seconds
+###############################
+
+Model Path: benchmark-100/id-0033/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.02
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.0
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.5499999999999999
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.0
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 1.3
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 15.65
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 13.51
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 10.38
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 25.180000000000003
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 33.410000000000004
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [2.000e-02 0.000e+00 5.500e-01 0.000e+00 1.300e+00 1.565e+01 1.351e+01
+ 1.038e+01 2.518e+01 3.341e+01]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 346.5012047290802 seconds
+###############################
+
+Model Path: benchmark-100/id-0016/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 8.17
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.0
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.0
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.6799999999999999
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 17.93
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 41.959999999999994
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.1
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.05
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.03
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 31.080000000000002
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [8.170e+00 0.000e+00 0.000e+00 6.800e-01 1.793e+01 4.196e+01 1.000e-01
+ 5.000e-02 3.000e-02 3.108e+01]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 342.1108512878418 seconds
+###############################
+
+Model Path: benchmark-100/id-0068/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 13.05
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.0
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 5.47
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 16.96
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 49.54
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.19
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 6.140000000000001
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.61
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.0
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 8.04
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [13.05  0.    5.47 16.96 49.54  0.19  6.14  0.61  0.    8.04]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 343.78871512413025 seconds
+###############################
+
+Model Path: benchmark-100/id-0019/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 1.0
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 7.85
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.0
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.0
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.75
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.8099999999999999
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 10.65
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 6.460000000000001
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 72.48
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.0
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 1.    7.85  0.    0.    0.75  0.81 10.65  6.46 72.48  0.  ]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 336.9224190711975 seconds
+###############################
+
+Model Path: benchmark-100/id-0087/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.0
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 19.15
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.0
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 35.24
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 20.09
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.0
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 17.64
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.06999999999999999
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.04
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 7.7700000000000005
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 0.   19.15  0.   35.24 20.09  0.   17.64  0.07  0.04  7.77]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 331.9292883872986 seconds
+###############################
+
+Model Path: benchmark-100/id-0027/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 1.5599999999999998
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 42.449999999999996
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.01
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 8.649999999999999
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 5.5
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 7.9399999999999995
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 23.69
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 6.98
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 3.2199999999999998
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.0
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [1.560e+00 4.245e+01 1.000e-02 8.650e+00 5.500e+00 7.940e+00 2.369e+01
+ 6.980e+00 3.220e+00 0.000e+00]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 347.83144879341125 seconds
+###############################
+
+Model Path: benchmark-100/id-0012/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.2
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 24.65
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 10.03
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 15.83
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 9.55
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.21
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 9.2
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 26.240000000000002
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.0
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 4.09
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 0.2  24.65 10.03 15.83  9.55  0.21  9.2  26.24  0.    4.09]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 336.7189667224884 seconds
+###############################
+
+Model Path: benchmark-100/id-0045/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 2.48
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.0
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 21.41
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 2.77
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 6.1899999999999995
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.0
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.51
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 65.44
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.9199999999999999
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.27999999999999997
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 2.48  0.   21.41  2.77  6.19  0.    0.51 65.44  0.92  0.28]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 384.47287225723267 seconds
+###############################
+
+Model Path: benchmark-100/id-0055/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 13.389999999999999
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 4.99
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 29.060000000000002
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.0
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.12
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.0
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.0
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.0
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 9.75
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 42.69
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [13.39  4.99 29.06  0.    0.12  0.    0.    0.    9.75 42.69]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 341.8909924030304 seconds
+###############################
+
+Model Path: benchmark-100/id-0018/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.9299999999999999
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.16
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.0
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 3.36
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 11.75
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 19.33
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 48.18
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.05
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 3.1
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 13.139999999999999
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 0.93  0.16  0.    3.36 11.75 19.33 48.18  0.05  3.1  13.14]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 339.0118296146393 seconds
+###############################
+
+Model Path: benchmark-100/id-0057/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 2.4
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.43
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 4.7
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 7.75
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 22.39
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.0
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.0
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 10.56
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 51.77
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.0
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 2.4   0.43  4.7   7.75 22.39  0.    0.   10.56 51.77  0.  ]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 330.4181990623474 seconds
+###############################
+
+Model Path: benchmark-100/id-0021/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 10.18
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 46.27
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.0
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.5700000000000001
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 2.86
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.67
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.38
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 2.03
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 6.23
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 30.81
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [10.18 46.27  0.    0.57  2.86  0.67  0.38  2.03  6.23 30.81]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 334.2336657047272 seconds
+###############################
+
+Model Path: benchmark-100/id-0072/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.69
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.0
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.69
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.0
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 10.4
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 65.74
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 5.74
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 4.26
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 6.04
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 6.4399999999999995
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 0.69  0.    0.69  0.   10.4  65.74  5.74  4.26  6.04  6.44]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 311.09297490119934 seconds
+###############################
+
+Model Path: benchmark-100/id-0002/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 8.94
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 15.36
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 13.23
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 8.25
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 18.78
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.0
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 32.37
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.0
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.0
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 3.0700000000000003
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 8.94 15.36 13.23  8.25 18.78  0.   32.37  0.    0.    3.07]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 347.3189437389374 seconds
+###############################
+
+Model Path: benchmark-100/id-0070/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.0
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.0
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.01
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 8.04
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.16999999999999998
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 8.23
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 3.4799999999999995
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.16
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 78.13
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 1.78
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [0.000e+00 0.000e+00 1.000e-02 8.040e+00 1.700e-01 8.230e+00 3.480e+00
+ 1.600e-01 7.813e+01 1.780e+00]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 321.4759941101074 seconds
+###############################
+
+Model Path: benchmark-100/id-0035/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 19.72
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 31.86
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.0
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.45999999999999996
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.72
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 21.240000000000002
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.2
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.01
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 3.5900000000000003
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 22.2
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [1.972e+01 3.186e+01 0.000e+00 4.600e-01 7.200e-01 2.124e+01 2.000e-01
+ 1.000e-02 3.590e+00 2.220e+01]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 329.8721013069153 seconds
+###############################
+
+Model Path: benchmark-100/id-0071/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 1.08
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.0
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 38.7
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 6.1899999999999995
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.06
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 8.88
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 2.11
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.01
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 42.970000000000006
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.0
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [1.080e+00 0.000e+00 3.870e+01 6.190e+00 6.000e-02 8.880e+00 2.110e+00
+ 1.000e-02 4.297e+01 0.000e+00]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 356.288779258728 seconds
+###############################
+
+Model Path: benchmark-100/id-0017/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 20.380000000000003
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.37
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.0
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 26.490000000000002
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.24
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 12.509999999999998
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 34.98
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 3.82
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.05
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 1.16
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [20.38  0.37  0.   26.49  0.24 12.51 34.98  3.82  0.05  1.16]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 335.99066519737244 seconds
+###############################
+
+Model Path: benchmark-100/id-0076/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.0
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 21.81
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.0
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.0
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 11.64
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 61.23
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.11
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 1.9900000000000002
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 2.9899999999999998
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.22999999999999998
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 0.   21.81  0.    0.   11.64 61.23  0.11  1.99  2.99  0.23]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 335.6320288181305 seconds
+###############################
+
+Model Path: benchmark-100/id-0050/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 22.67
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 35.66
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 21.88
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.0
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 2.06
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 3.34
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 1.94
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 6.329999999999999
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.4
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 5.72
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [22.67 35.66 21.88  0.    2.06  3.34  1.94  6.33  0.4   5.72]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 325.9838881492615 seconds
+###############################
+
+Model Path: benchmark-100/id-0061/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 10.38
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 6.069999999999999
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 1.3599999999999999
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 14.580000000000002
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 19.36
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.89
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 16.11
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 5.4399999999999995
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 10.39
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 15.42
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [10.38  6.07  1.36 14.58 19.36  0.89 16.11  5.44 10.39 15.42]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 328.44395208358765 seconds
+###############################
+
+Model Path: benchmark-100/id-0009/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 14.030000000000001
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 10.73
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 60.150000000000006
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.18
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 7.449999999999999
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.0
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.1
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.05
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.27
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 7.04
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [1.403e+01 1.073e+01 6.015e+01 1.800e-01 7.450e+00 0.000e+00 1.000e-01
+ 5.000e-02 2.700e-01 7.040e+00]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 339.9002876281738 seconds
+###############################
+
+Model Path: benchmark-100/id-0039/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 5.11
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.0
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 6.09
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 0.06
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 23.880000000000003
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 33.339999999999996
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.0
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 21.34
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 1.77
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 8.41
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 5.11  0.    6.09  0.06 23.88 33.34  0.   21.34  1.77  8.41]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 340.52353715896606 seconds
+###############################
+
+Model Path: benchmark-100/id-0066/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.53
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 27.51
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 9.83
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 10.0
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.8
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 1.09
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.0
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 1.09
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 47.339999999999996
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 1.81
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 0.53 27.51  9.83 10.    0.8   1.09  0.    1.09 47.34  1.81]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 326.2957012653351 seconds
+###############################
+
+Model Path: benchmark-100/id-0026/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 15.73
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 26.36
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 8.73
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 19.02
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.1
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.01
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 1.8599999999999999
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 23.27
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 4.92
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.0
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [1.573e+01 2.636e+01 8.730e+00 1.902e+01 1.000e-01 1.000e-02 1.860e+00
+ 2.327e+01 4.920e+00 0.000e+00]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 344.72101378440857 seconds
+###############################
+
+Model Path: benchmark-100/id-0056/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 4.81
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 8.540000000000001
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 5.220000000000001
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 17.97
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 42.47
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 4.8
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 4.43
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.38999999999999996
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 11.37
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.0
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 4.81  8.54  5.22 17.97 42.47  4.8   4.43  0.39 11.37  0.  ]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 322.5818853378296 seconds
+###############################
+
+Model Path: benchmark-100/id-0073/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.0
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.38999999999999996
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 17.89
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 5.0200000000000005
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 28.49
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.01
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 21.89
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.0
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 26.240000000000002
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.06999999999999999
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [0.000e+00 3.900e-01 1.789e+01 5.020e+00 2.849e+01 1.000e-02 2.189e+01
+ 0.000e+00 2.624e+01 7.000e-02]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 309.92721819877625 seconds
+###############################
+
+Model Path: benchmark-100/id-0015/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.0
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 6.1899999999999995
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 4.14
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 1.6500000000000001
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 3.02
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.01
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 40.83
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 23.02
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 15.67
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 5.47
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [0.000e+00 6.190e+00 4.140e+00 1.650e+00 3.020e+00 1.000e-02 4.083e+01
+ 2.302e+01 1.567e+01 5.470e+00]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 330.43374705314636 seconds
+###############################
+
+Model Path: benchmark-100/id-0043/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 23.66
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 2.23
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.0
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 21.73
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 10.59
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 7.95
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 10.02
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 3.44
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.0
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 20.380000000000003
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [23.66  2.23  0.   21.73 10.59  7.95 10.02  3.44  0.   20.38]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 330.17579674720764 seconds
+###############################
+
+Model Path: benchmark-100/id-0078/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 3.0
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 18.0
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.97
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 24.26
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.31
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 0.35000000000000003
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.0
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 43.95
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.02
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 9.139999999999999
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [3.000e+00 1.800e+01 9.700e-01 2.426e+01 3.100e-01 3.500e-01 0.000e+00
+ 4.395e+01 2.000e-02 9.140e+00]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 356.0888030529022 seconds
+###############################
+
+Model Path: benchmark-100/id-0065/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.0
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 0.0
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 0.18
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 7.7299999999999995
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 15.190000000000001
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 17.669999999999998
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 9.76
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 0.0
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 0.0
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 49.47
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [ 0.    0.    0.18  7.73 15.19 17.67  9.76  0.    0.   49.47]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 336.7108998298645 seconds
+###############################
+
+Model Path: benchmark-100/id-0095/model.pt
+dataset = CIFAR-10
+
+###############################
+
+target = 0, test accuracy = 0.0
+target = 0, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 1, test accuracy = 6.6000000000000005
+target = 1, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 2, test accuracy = 40.589999999999996
+target = 2, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 3, test accuracy = 1.01
+target = 3, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 4, test accuracy = 0.16999999999999998
+target = 4, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 5, test accuracy = 22.15
+target = 5, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 6, test accuracy = 0.16
+target = 6, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 7, test accuracy = 22.259999999999998
+target = 7, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 8, test accuracy = 7.04
+target = 8, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+target = 9, test accuracy = 0.02
+target = 9, delta = tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.]), dist = 0.0
+
+###############################
+
+acc_lst = [0.000e+00 6.600e+00 4.059e+01 1.010e+00 1.700e-01 2.215e+01 1.600e-01
+ 2.226e+01 7.040e+00 2.000e-02]
+dist_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+med = 0.0
+dev_lst = [0. 0. 0. 0. 0. 0. 0. 0. 0. 0.]
+mad = 0.0
+ano_lst = [nan nan nan nan nan nan nan nan nan nan]
+Elapsed time: 314.0240821838379 seconds
+###############################
+
