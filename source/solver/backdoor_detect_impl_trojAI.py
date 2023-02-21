@@ -64,17 +64,20 @@ class BackdoorDetectImpl():
     def __transfer_model(self, model, sub_model, dataset):
         params = model.named_parameters()
         sub_params = sub_model.named_parameters()
-
         dict_params = dict(sub_params)
-
         for name, param in params:
-            if dataset == 'mnist' and ('main[13].weight' in name or 'main[13].bias' in name):
-                dict_params[name].data.copy_(param.data)
-            elif dataset == 'CIFAR-10' and ('model.fc.weight' in name or 'model.fc.bias' in name):
-                dict_params[name].data.copy_(param.data)
+            if dataset == 'MNIST':
+                if 'main.13.weight' in name:
+                    dict_params['fc.weight'].data.copy_(param.data)
+                elif 'main.13.bias' in name:
+                    dict_params['fc.bias'].data.copy_(param.data)
+            elif dataset == 'CIFAR-10':
+                if 'fc.weight' in name:
+                    dict_params['fc.weight'].data.copy_(param.data)
+                elif 'fc.bias' in name:
+                    dict_params['fc.bias'].data.copy_(param.data)
         
         sub_model.load_state_dict(dict_params)
-
 
     def __generate_trigger(self, model, dataloader, num_of_epochs, size, target, norm, minx = None, maxx = None):
         delta, eps, lamb = torch.zeros(size), 0.001, 1

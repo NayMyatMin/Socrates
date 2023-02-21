@@ -3,3 +3,4 @@ clib/clib.so
 **/**/__pycache__/*
 trojan/*
 benchmark-100/
+benckmark-150/
