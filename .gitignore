@@ -4,5 +4,5 @@ clib/clib.so
 trojan/*
 benchmark-100/
 benckmark-150/
-benckmarking-cifar/
+benchmarking-cifar/
 benchmarking-mnist/
