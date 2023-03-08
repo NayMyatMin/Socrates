@@ -17,7 +17,6 @@ from nn_utils import *
 from solver.refinement_impl import Poly
 from utils import *
 
-from torchvision.utils import save_image
 
 class SubWideResNet(nn.Module):
     def __init__(self, depth=40, num_classes=10, widen_factor=2, dropRate=0.0):
@@ -30,6 +29,7 @@ class SubWideResNet(nn.Module):
     def forward(self, x):
         out = torch.flatten(x, 1)
         return self.fc(out)
+
 
 class SubMNISTNet(nn.Module):
     def __init__(self):
@@ -81,35 +81,35 @@ class BackdoorDetectImpl:
         clamp = (max_clamp - min_clamp) * 0.5 * (1 + np.cos(np.pi * t / T)) + min_clamp
         return clamp
 
-    def generate_trigger(self, model, dataloader, size, target, norm, minx = None, maxx = None):
-        delta, eps, lamb = torch.rand(size, device=next(model.parameters()).device) * 0.1, 0.001, 1 #0.5 #torch.zero(size) 
-        best_delta, best_loss = None, float('inf')
-        clamp_values, trigger_quality, trigger_size = [], [], []
+    def generate_trigger(self, model, dataloader, size, target, norm, minx, maxx=None):
+        delta = torch.zeros(size, requires_grad=True, device=next(model.parameters()).device)
+        eps = 0.001
+        lamb = 1
+        optimizer = torch.optim.Adam([delta], lr=0.01)
+
+        def adjust_learning_rate(optimizer, epoch, batch, num_batches):
+            """Sets the learning rate to the initial LR decayed by 10 every 30 epochs"""
+            lr = 0.01 * (0.1 ** (epoch // 30))
+            lr = lr * (1 - batch / num_batches)  # reduce learning rate linearly as we approach the end of the epoch
+            for param_group in optimizer.param_groups:
+                param_group['lr'] = lr
+
         for epoch in range(self.num_of_epochs):
             for batch, (x, y) in enumerate(dataloader):
-                delta.requires_grad = True
+                x = x.to(delta.device)
+                y = y.to(delta.device)
+                optimizer.zero_grad()
+                clamp = self.get_clamp(epoch, batch, max_clamp=10, min_clamp=1, num_batches=len(dataloader),
+                                    num_epochs=self.num_of_epochs)
                 x_adv = torch.clamp(torch.add(x, delta), minx, maxx)
-                target_tensor = torch.full(y.size(), target)
-
+                target_tensor = torch.full_like(y, target, device=next(model.parameters()).device, dtype=torch.long)
                 pred = model(x_adv)
-                trigger_success = (torch.argmax(pred, dim=1) == target).sum().item()
-                trigger_quality.append(trigger_success / x.size(0))
-                trigger = x_adv - x
-                trigger_size.append(torch.norm(trigger.view(trigger.size(0), -1), norm, dim=1).mean().item())
-
-                loss = F.cross_entropy(pred, target_tensor) + lamb * torch.norm(delta, norm)**2 # NOTE: try replace lamb * torch.norm(delta, norm) with torch.norm(delta, norm) ** 2 
+                loss = F.cross_entropy(pred, target_tensor) + lamb * torch.norm(delta, norm) # NOTE: try replace lamb * torch.norm(delta, norm) with torch.norm(delta, norm) ** 2 
                 loss.backward()
-                grad_data = delta.grad.data
-
-                clamp = self.get_clamp(epoch, batch, max_clamp=5, min_clamp=1, num_batches=len(dataloader),
-                        num_epochs=self.num_of_epochs)
-                delta = torch.clamp(delta - eps * grad_data.sign(), -clamp, clamp).detach()
-                clamp_values.append(clamp) 
-
-            if loss < best_loss:
-                best_delta, best_loss = delta.detach(), loss
-
-        return best_delta
+                optimizer.step()
+                delta.data = torch.clamp(delta.data, -clamp, clamp)
+                adjust_learning_rate(optimizer, epoch, batch, len(dataloader))
+        return delta.detach().cpu()
 
     def check(self, model, dataloader, delta, target):
         size = len(dataloader.dataset)
@@ -117,15 +117,14 @@ class BackdoorDetectImpl:
         for batch, (x, y) in enumerate(dataloader):
             x_adv = torch.clamp(torch.add(x, delta), 0.0)
             target_tensor = torch.full(y.size(), target)
-            with torch.no_grad():
-                pred = model(x_adv)
+            pred = model(x_adv)
             correct += (pred.argmax(1) == target_tensor).type(torch.int).sum().item()
         correct = correct / size * 100
         print('target = {}, test accuracy = {}'.format(target, correct))
         return correct
 
     def solve(self, model, assertion, display=None):
-        root_dir = "benchmark-100"
+        root_dir = "benchmarking-cifar"
         for subdir, dirs, files in os.walk(root_dir):
             start_time = time.time()
             dist0_lst, dist2_lst, acc_lst = [], [], []
@@ -179,8 +178,9 @@ class BackdoorDetectImpl:
                     print_line = '\n###############################\n'
                     
                     for target in range(10):
-                        delta = self.generate_trigger(sub_model, dataloader, self.size_last, target, self.norm, minx=0.0, maxx=None)
-                        delta = torch.where(abs(delta) < 0.1, delta - delta, delta)
+                        delta = self.generate_trigger(sub_model, dataloader, self.size_last, target, self.norm, minx=0.0)
+                        mask = abs(delta) < 0.1
+                        delta[mask] = 0
 
                         print(print_line)
                         acc = self.check(sub_model, dataloader, delta, target)
@@ -197,7 +197,11 @@ class BackdoorDetectImpl:
                     med = np.median(dist0_lst)
                     dev_lst = abs(dist0_lst - med)
                     mad = np.median(dev_lst)
-                    ano_lst = (dist0_lst - med) / mad
+                    if mad > 0:
+                        ano_lst = (dist0_lst - med) / mad
+                    else:
+                        ano_lst = dist0_lst - med
+
                     end_time = time.time()
 
                     print(print_line)
@@ -212,5 +216,20 @@ class BackdoorDetectImpl:
                     print(print_line)
 
                     for target in range(10):
-                        if acc_lst[target] >= self.acc_th and (ano_lst[target] <= self.ano_th or dist0_lst[target] <= self.d0_th or dist2_lst[target] <= self.d2_th):
+                        if acc_lst[target] >= self.acc_th and (ano_lst[target] <= self.ano_th or dist0_lst[target] <= self.d0_th or dist0_lst[target] <= self.d2_th):
                             print('Detect backdoor at target = {}'.format(target))
+
+
+# - Add two variables self.d0_th and self.d2_th (lines 54-55) and use them as the condition in line 219. 
+# Currently, we do not know which values we should use so just use 0.0. 
+# We will change after collecting some samples of d0 and d2.
+# - Change dist_lst to dist0_lst and add dist2_lst. 
+# Collect dist0 and dist2 in lines 187-188 and add them to according lists.
+# - Line 107, we will also try torch.norm(delta, norm) ** 2 besides lamb * torch.norm(delta, norm).
+
+# Some points I am not sure about:
+
+# - Previously, we already print dist_lst, which is the list of 0-norm delta, 
+# so I suppose you should have this data already?
+
+# Anyway, please check the code, feel free to refactor, and try to collect some data.
