@@ -41,15 +41,11 @@ class BackdoorDetectImpl:
         self.train_kwargs = {'batch_size': 100}
         self.test_kwargs = {'batch_size': 1000}
         self.transform = transforms.ToTensor()
-        self.acc_th = 40.0
-        self.ano_th = -1.5
-        self.d0_th = 0.0
-        self.d2_th = 0.0
+        # self.acc_th = 40.0; self.ano_th = -1.5
+        self.size_input = None; self.size_last = None
         self.num_of_epochs = 100
         self.norm = 2
-        self.size_input = None
-        self.size_last = None
-
+        
     def transfer_model(self, model, sub_model, dataset):
         params = model.named_parameters()
         sub_params = sub_model.named_parameters()
@@ -120,10 +116,10 @@ class BackdoorDetectImpl:
     def load_and_prepare_model(self, model_path):
         with open(os.path.join(os.path.dirname(model_path), "info.json")) as f:
             info = json.load(f)
-
+            print(f'Dataset = {info["dataset"]}\n')
             if info["dataset"] == "MNIST":
                 dataset = info["dataset"]
-                last_layer = 'main[11]'  # nn.BatchNorm1d(128)
+                last_layer = 'main[11]'  
                 model = load_model(MNIST_Network, model_path)
                 model.main[11].register_forward_hook(get_activation(last_layer))
                 sub_model = SubMNISTNet()
@@ -170,7 +166,8 @@ class BackdoorDetectImpl:
             acc_lst.append(acc)
             dist0_lst.append(dist0.detach().item())
             dist2_lst.append(dist2.detach().item())
-            print('target = {}, delta = {}, dist0 = {}, dist2 = {}'.format(target, delta[:10], dist0, dist2))
+            print('trigger_size = {}, trigger_distortion = {}'.format(trigger_size, trigger_distortion))
+            print('target = {}, delta = {}, dist0 = {}, dist2 = {}\n'.format(target, delta[:10], dist0, dist2))
         return acc_lst, dist0_lst, dist2_lst
 
     def detect_backdoors(self, acc_lst, dist0_lst, dist2_lst):
@@ -188,17 +185,25 @@ class BackdoorDetectImpl:
         print('mad = {}'.format(mad))                    
         print('ano_lst = {}'.format(ano_lst))                   
 
+        # Calculate the adaptive thresholds using the percentile-based approach
+        acc_th = np.percentile(acc_lst, 95)
+        mad = np.median(np.abs(dist0_lst - np.median(dist0_lst)))
+        if mad != 0:
+            ano_lst = np.abs(dist0_lst - np.median(dist0_lst)) / mad
+            ano_th = np.percentile(ano_lst, 5)
+        else:
+            ano_th = np.inf
+        d0_th = np.percentile(dist0_lst, 5)
+        d2_th = np.percentile(dist2_lst, 5)
+        print('acc_th = {}, ano_th = {}, d0_th = {}, d2_th = {}\n'.format(acc_th, ano_th, d0_th, d2_th))
         for target in range(10):
-            if acc_lst[target] >= self.acc_th and (ano_lst[target] <= self.ano_th or dist0_lst[target] <= self.d0_th or dist2_lst[target] <= self.d2_th):
+            if acc_lst[target] >= acc_th and (ano_th == np.inf or ano_lst[target] <= ano_th or dist0_lst[target] <= d0_th or dist2_lst[target] <= d2_th):
                 detected_backdoors.append(target)
-
         return detected_backdoors
 
     def solve(self, model, assertion, display=None):
         start_time = time.time()
-
-        root_dir = "benchmark-100"
-        separator = f"\n{'*' * 100}\n"
+        root_dir = "benchmark-b"
         for subdir, dirs, files in os.walk(root_dir):
             start_time = time.time()
             dist0_lst, dist2_lst, acc_lst = [], [], []
@@ -206,21 +211,14 @@ class BackdoorDetectImpl:
             for file in files:
                 if file == "model.pt":
                     model_path = os.path.join(subdir, file)
-                    print("Model Path:", model_path)
-
                     model, sub_model, dataset, train_dataset, test_dataset, last_layer = self.load_and_prepare_model(model_path)
                     dataloader = self.get_last_layer_activations(model, test_dataset, last_layer, dataset)
-                    
-                    print(separator)
                     acc_lst, dist0_lst, dist2_lst = self.evaluate_triggers(model, sub_model, dataloader)
-                    print(separator)
                     detected_backdoors = self.detect_backdoors(acc_lst, dist0_lst, dist2_lst)
-                    print(separator)
                     end_time = time.time()
-                    
                     if detected_backdoors:
                         print("Detected backdoors at targets:", detected_backdoors)
                     else:
                         print("No backdoors detected.")
                     print("Elapsed time:", end_time - start_time, "seconds")
-                    print(separator)
+                    print(f"\n{'*' * 100}\n")
