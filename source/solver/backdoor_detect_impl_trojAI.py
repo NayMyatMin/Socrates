@@ -7,14 +7,15 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader, TensorDataset
-from sklearn.metrics import auc
-from torch.cuda.amp import autocast
+
 from model.lib_models import *
 from model.lib_layers import *
 from wrn import WideResNet
 from nn_utils import *
-from solver.refinement_impl import Poly
 from utils import *
+
+import torch.optim as optim
+from torch.cuda.amp import GradScaler
 
 class SubWideResNet(nn.Module):
     def __init__(self, depth=40, num_classes=10, widen_factor=2, dropRate=0.0):
@@ -26,7 +27,7 @@ class SubWideResNet(nn.Module):
         out = torch.flatten(x, 1)
         return self.fc(out)
 
-class SubMNISTNet(nn.Module):
+class SubMNIST(nn.Module):
     def __init__(self):
         super().__init__()
         self.fc = nn.Linear(128, 10)
@@ -62,24 +63,47 @@ class BackdoorDetectImpl:
                 elif 'fc.bias' in name:
                     dict_params['fc.bias'].data.copy_(param.data)
         sub_model.load_state_dict(dict_params)
-
+    
     def get_clamp(self, epoch, batch, max_clamp, min_clamp, num_batches, num_epochs):
         t = epoch * num_batches + batch
         T = num_batches * num_epochs
         clamp = (max_clamp - min_clamp) * 0.5 * (1 + np.cos(np.pi * t / T)) + min_clamp
         return clamp
 
-    def generate_trigger(self, model, dataloader, size, target, norm, minx=0.0, maxx=1.0):
+    def generate_trigger(self, model, dataloader, size, target, norm, minx=0.0, maxx=1.0, patience=5, min_improvement=1e-4):
         device = next(model.parameters()).device
-        delta, eps, lamb = torch.rand(size, device=device) * 0.1, 0.001, 0.5
+        delta, lamb = torch.rand(size, device=device) * 0.1, 0.5
         best_delta, best_loss = None, float('inf')
-        clamp_values, trigger_quality_sum, trigger_size_sum, trigger_distortion_sum = [], 0, 0, 0
-        num_samples = 0
+        patience_counter = 0
+        
+        optimizer = optim.Adam([delta], lr=0.09)
+        scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, patience=2, verbose=False)
+        scaler = GradScaler()
+
         for epoch in range(self.num_of_epochs):
+            model.train()
             for batch, (x, y) in enumerate(dataloader):
                 x = x.to(device)
                 delta.requires_grad = True
-                with autocast():
+                with torch.cuda.amp.autocast():
+                    x_adv = torch.clamp(torch.add(x, delta), minx, maxx)
+                    target_tensor = torch.full(y.size(), target, device=device)
+
+                    pred = model(x_adv)
+                    loss = F.cross_entropy(pred, target_tensor) + lamb * torch.norm(delta, norm)
+
+                optimizer.zero_grad()
+                scaler.scale(loss).backward()
+                scaler.step(optimizer)
+                scaler.update()
+                clamp = self.get_clamp(epoch, batch, max_clamp=5, min_clamp=1, num_batches=len(dataloader), num_epochs=self.num_of_epochs)
+                delta.data = torch.clamp(delta.data, -clamp, clamp)
+
+            model.eval()
+            trigger_quality_sum, trigger_size_sum, trigger_distortion_sum, num_samples = 0, 0, 0, 0
+            with torch.no_grad():
+                for batch, (x, y) in enumerate(dataloader):
+                    x = x.to(device)
                     x_adv = torch.clamp(torch.add(x, delta), minx, maxx)
                     target_tensor = torch.full(y.size(), target, device=device)
 
@@ -91,17 +115,21 @@ class BackdoorDetectImpl:
                     trigger_distortion_sum += torch.norm(delta, 2).item() * x.size(0)
                     num_samples += x.size(0)
 
-                loss = F.cross_entropy(pred, target_tensor) + lamb * torch.norm(delta, norm)
-                loss.backward()
-                grad_data = delta.grad.data
+                current_loss = trigger_quality_sum / num_samples
+                scheduler.step(current_loss)
+            
+            # print(f'Epoch: {epoch}, Loss: {current_loss}')
+            
+            if best_loss - current_loss > min_improvement:
+                best_loss = current_loss
+                best_delta = delta.detach().clone()
+                patience_counter = 0
+            else:
+                patience_counter += 1
 
-                clamp = self.get_clamp(epoch, batch, max_clamp=5, min_clamp=1, num_batches=len(dataloader),
-                        num_epochs=self.num_of_epochs)
-                delta = torch.clamp(delta - eps * grad_data.sign(), -clamp, clamp).detach()
-                clamp_values.append(clamp)
-
-            if loss < best_loss:
-                best_delta, best_loss = delta.detach(), loss
+            if patience_counter >= patience:
+                # print(f'Early stopping at epoch {epoch}')
+                break
 
         return best_delta, trigger_size_sum / num_samples, trigger_distortion_sum / num_samples
 
@@ -118,6 +146,8 @@ class BackdoorDetectImpl:
                 pred = model(x_adv)
                 correct += (pred.argmax(1) == target_tensor).type(torch.int).sum().item()
                 total += y.size(0)
+            accuracy = correct / total * 100
+            print('target = {}, attack success rate = {}'.format(target, accuracy))
         return correct / total
     
     def load_info(self, model_path):
@@ -156,7 +186,7 @@ class BackdoorDetectImpl:
             last_layer = 'main[11]'
             model = load_model(MNIST_Network, model_path)
             model.main[11].register_forward_hook(get_activation(last_layer))
-            sub_model = SubMNISTNet()
+            sub_model = SubMNIST()
 
         elif dataset == "CIFAR-10":
             last_layer = 'avgpool'
@@ -196,7 +226,7 @@ class BackdoorDetectImpl:
 
         for target in range(10):
             delta, trigger_size, trigger_distortion = self.generate_trigger(sub_model, dataloader, self.size_last, target, self.norm, minx=0.0, maxx=None)
-            delta = torch.where(abs(delta) < 0.1, delta - delta, delta)
+            delta = torch.where(abs(delta) < 0.1, 0, delta)
             acc = self.check(sub_model, dataloader, delta, target)
             dist0 = torch.norm(delta, 0)
             dist2 = torch.norm(delta, 2)
@@ -224,7 +254,7 @@ class BackdoorDetectImpl:
         print('Anomaly scores: {}'.format(ano_lst))  
         
         # Calculate the adaptive thresholds using the percentile-based approach
-        acc_th = np.percentile(acc_lst, 95)
+        acc_th = np.percentile(acc_lst, 90)
         mad = np.median(np.abs(dist0_lst - np.median(dist0_lst)))
         if mad != 0.0:
             ano_lst = np.abs(dist0_lst - np.median(dist0_lst)) / mad
@@ -240,23 +270,23 @@ class BackdoorDetectImpl:
                 detected_backdoors.append(target)
         return detected_backdoors
     
-    def calculate_tpr_fpr(self, thresholds, TP, TN, FP, FN):
-        tpr_list = []
-        fpr_list = []
+    def calculate_true_positive_rate_false_positive_rate(self, thresholds, true_positives, true_negatives, false_positives, false_negatives):
+        true_positive_rate_list = []
+        false_positive_rate_list = []
 
         for threshold in thresholds:
-            tpr = TP / (TP + FN)
-            fpr = FP / (FP + TN)
-            tpr_list.append(tpr)
-            fpr_list.append(fpr)
+            true_positive_rate = true_positives / (true_positives + false_negatives)
+            false_positive_rate = false_positives / (false_positives + true_negatives)
+            true_positive_rate_list.append(true_positive_rate)
+            false_positive_rate_list.append(false_positive_rate)
 
-        return tpr_list, fpr_list
+        return true_positive_rate_list, false_positive_rate_list
 
     def solve(self, model, assertion, display=None):
-        clean_root_dir = "25C-Benign"
-        backdoor_root_dir = "25C-Backdoor"
-        total_TP, total_TN, total_FP, total_FN = 0, 0, 0, 0
-        
+        clean_root_dir = "benchmark-1"
+        backdoor_root_dir = "benchmark-b1"
+        total_true_positives, total_true_negatives, total_false_positives, total_false_negatives = 0, 0, 0, 0
+        print("Experiment Stats - acc_th=85, ano_th=3, d0_th=3, d2_th=3, lamb = 0.5, lr = 0.09")
         for clean_subdir, _, files in os.walk(clean_root_dir):
             start_time = time.time()
             for file in files:
@@ -270,10 +300,10 @@ class BackdoorDetectImpl:
 
                     if detected_backdoors:
                         print("(Wrong) Detected backdoors at targets:", detected_backdoors)
-                        total_FP += 1
+                        total_false_positives += 1
                     else:
                         print("No backdoors detected.")
-                        total_TN += 1
+                        total_true_negatives += 1
                     end_time = time.time()        
                     print("Elapsed time:", end_time - start_time, "seconds")
                     print(f"\n{'*' * 100}\n")
@@ -291,22 +321,22 @@ class BackdoorDetectImpl:
 
                     if detected_backdoors:
                         print("Detected backdoors at targets:", detected_backdoors)
-                        total_TP += 1
+                        total_true_positives += 1
                     else:
                         print("(Wrong) No backdoors detected.")
-                        total_FN += 1
+                        total_false_negatives += 1
                     end_time = time.time()    
                     print("Elapsed time:", end_time - start_time, "seconds")
                     print(f"\n{'*' * 100}\n")
 
         thresholds = [0.5] 
-        tpr_list, fpr_list = self.calculate_tpr_fpr(thresholds, total_TP, total_TN, total_FP, total_FN)
-        print(f'tpr_list: {tpr_list}, fpr_list: {fpr_list}')
+        true_positive_rate_list, false_positive_rate_list = self.calculate_true_positive_rate_false_positive_rate(thresholds, total_true_positives, total_true_negatives, total_false_positives, total_false_negatives)
+        print(f'true_positive_rate_list: {true_positive_rate_list}, false_positive_rate_list: {false_positive_rate_list}')
 
         end_time = time.time()
-        precision = total_TP / (total_TP + total_FP) if total_TP + total_FP > 0 else 0
-        recall = total_TP / (total_TP + total_FN) if total_TP + total_FN > 0 else 0
+        precision = total_true_positives / (total_true_positives + total_false_positives) if total_true_positives + total_false_positives > 0 else 0
+        recall = total_true_positives / (total_true_positives + total_false_negatives) if total_true_positives + total_false_negatives > 0 else 0
         f1_score = 2 * precision * recall / (precision + recall) if precision + recall > 0 else 0
-        accuracy = (total_TP + total_TN) / (total_TP + total_TN + total_FP + total_FN)
-        print(f"total_TP: {total_TP:.2f}, total_TN: {total_TN:.2f}, total_FP: {total_FN:.2f}, total_FN: {total_FN:.2f}")
+        accuracy = (total_true_positives + total_true_negatives) / (total_true_positives + total_true_negatives + total_false_positives + total_false_negatives)
+        print(f"total_true_positives: {total_true_positives:.2f}, total_true_negatives: {total_true_negatives:.2f}, total_false_positives: {total_false_negatives:.2f}, total_false_negatives: {total_false_negatives:.2f}")
         print(f"Precision: {precision:.2f}, Recall: {recall:.2f}, F1-score: {f1_score:.2f}, Accuracy: {accuracy:.2f}")
