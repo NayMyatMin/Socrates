@@ -17,6 +17,11 @@ from utils import *
 import torch.optim as optim
 from torch.cuda.amp import GradScaler
 
+alphabet = 'C'
+acc_percent, ano_percent, d0_percent, d2_percent = 85, 1, 1, 1; lamb, lr = 0.1, 0.09
+# clean_root_dir, backdoor_root_dir = f"dataset/benchmark-{alphabet}b", f"dataset/benchmark-{alphabet}"
+clean_root_dir = f"dataset/2{alphabet}-Benign"; backdoor_root_dir = f"dataset/2{alphabet}-Backdoor"
+
 class SubWideResNet(nn.Module):
     def __init__(self, depth=40, num_classes=10, widen_factor=2, dropRate=0.0):
         super(SubWideResNet, self).__init__()
@@ -40,9 +45,13 @@ class SubMNIST(nn.Module):
 class BackdoorDetectImpl:
     def __init__(self):
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
-        self.train_kwargs = {'batch_size': 100, 'num_workers': 6, 'pin_memory': True}
-        self.test_kwargs = {'batch_size': 1000, 'num_workers': 6, 'pin_memory': True}
-        self.transform = transforms.ToTensor()
+        self.train_kwargs = {'batch_size': 100, 'num_workers': 8, 'pin_memory': True}
+        self.test_kwargs = {'batch_size': 1000, 'num_workers': 8, 'pin_memory': True}
+        self.mnist_transform = transforms.Compose([transforms.ToTensor(),
+                                    transforms.Normalize((0.1307,), (0.3081,))
+                                    ])
+        self.cifar10_transform = transforms.Compose([transforms.ToTensor(),
+        transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))])
         self.size_input = None; self.size_last = None
         self.num_of_epochs = 100
         self.norm = 2
@@ -72,11 +81,11 @@ class BackdoorDetectImpl:
 
     def generate_trigger(self, model, dataloader, size, target, norm, minx=0.0, maxx=1.0, patience=5, min_improvement=1e-4):
         device = next(model.parameters()).device
-        delta, lamb = torch.rand(size, device=device) * 0.1, 0.5
+        delta = torch.rand(size, device=device) * 0.1
         best_delta, best_loss = None, float('inf')
         patience_counter = 0
         
-        optimizer = optim.Adam([delta], lr=0.09)
+        optimizer = optim.Adam([delta], lr)
         scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, patience=2, verbose=False)
         scaler = GradScaler()
 
@@ -162,14 +171,14 @@ class BackdoorDetectImpl:
     def get_dataset(self, dataset_name):
         dataset_configs = {
             "MNIST": {
-                "train_dataset": datasets.MNIST('./data', train=True, download=False, transform=self.transform),
-                "test_dataset": datasets.MNIST('./data', train=False, transform=self.transform),
+                "train_dataset": datasets.MNIST('./data', train=True, download=False, transform=self.mnist_transform),
+                "test_dataset": datasets.MNIST('./data', train=False, transform=self.mnist_transform),
                 "input_size": (28, 28),
                 "last_size": 128
             },
             "CIFAR-10": {
-                "train_dataset": datasets.CIFAR10('./data', train=True, download=False, transform=self.transform),
-                "test_dataset": datasets.CIFAR10('./data', train=False, transform=self.transform),
+                "train_dataset": datasets.CIFAR10('./data', train=True, download=False, transform=self.cifar10_transform),
+                "test_dataset": datasets.CIFAR10('./data', train=False, transform=self.cifar10_transform),
                 "input_size": (3, 32, 32),
                 "last_size": 128
             }
@@ -182,6 +191,7 @@ class BackdoorDetectImpl:
         dataset = info["dataset"]
         dataset_config = self.get_dataset(dataset)
         print(f'Dataset = {dataset}\n')
+
         if dataset == "MNIST":
             last_layer = 'main[11]'
             model = load_model(MNIST_Network, model_path)
@@ -225,7 +235,7 @@ class BackdoorDetectImpl:
         acc_lst, dist0_lst, dist2_lst = [], [], []
 
         for target in range(10):
-            delta, trigger_size, trigger_distortion = self.generate_trigger(sub_model, dataloader, self.size_last, target, self.norm, minx=0.0, maxx=None)
+            delta, trigger_size, trigger_distortion = self.generate_trigger(sub_model, dataloader, self.size_last, target, self.norm, minx=0.0, maxx=1.0)
             delta = torch.where(abs(delta) < 0.1, 0, delta)
             acc = self.check(sub_model, dataloader, delta, target)
             dist0 = torch.norm(delta, 0)
@@ -254,16 +264,16 @@ class BackdoorDetectImpl:
         print('Anomaly scores: {}'.format(ano_lst))  
         
         # Calculate the adaptive thresholds using the percentile-based approach
-        acc_th = np.percentile(acc_lst, 90)
+        acc_th = np.percentile(acc_lst, acc_percent)
         mad = np.median(np.abs(dist0_lst - np.median(dist0_lst)))
         if mad != 0.0:
             ano_lst = np.abs(dist0_lst - np.median(dist0_lst)) / mad
-            ano_th = np.percentile(ano_lst, 3)
+            ano_th = np.percentile(ano_lst, ano_percent)
         else:
             ano_th = np.inf
 
-        d0_th = np.percentile(dist0_lst, 3)
-        d2_th = np.percentile(dist2_lst, 3)
+        d0_th = np.percentile(dist0_lst, d0_percent)
+        d2_th = np.percentile(dist2_lst, d2_percent)
         print('acc_th = {}, ano_th = {}, d0_th = {}, d2_th = {}\n'.format(acc_th, ano_th, d0_th, d2_th))
         for target in range(10):
             if acc_lst[target] >= acc_th and (ano_th == np.inf or ano_lst[target] <= ano_th or dist0_lst[target] <= d0_th or dist2_lst[target] <= d2_th):
@@ -283,10 +293,9 @@ class BackdoorDetectImpl:
         return true_positive_rate_list, false_positive_rate_list
 
     def solve(self, model, assertion, display=None):
-        clean_root_dir = "benchmark-1"
-        backdoor_root_dir = "benchmark-b1"
         total_true_positives, total_true_negatives, total_false_positives, total_false_negatives = 0, 0, 0, 0
-        print("Experiment Stats - acc_th=85, ano_th=3, d0_th=3, d2_th=3, lamb = 0.5, lr = 0.09")
+        patch_true_positives, patch_false_negatives, blended_true_positives, blended_false_negatives = 0, 0, 0, 0
+        print(f"Experiment Stats - acc_th={acc_percent}, ano_th={ano_percent}, d0_th={d0_percent}, d2_th={d2_percent}, lamb = {lamb}, lr = {lr}")
         for clean_subdir, _, files in os.walk(clean_root_dir):
             start_time = time.time()
             for file in files:
@@ -314,20 +323,33 @@ class BackdoorDetectImpl:
                 if file == "model.pt":
                     print('Backdoor')
                     model_path = os.path.join(backdoor_subdir, file)
+                    info = self.load_info(model_path)
+                    trigger_type = info["trigger_type"]
                     model, sub_model, dataset, train_dataset, test_dataset, last_layer = self.load_and_prepare_model(model_path)
                     dataloader = self.get_last_layer_activations(model, test_dataset, last_layer, dataset)
                     acc_lst, dist0_lst, dist2_lst = self.evaluate_triggers(model, sub_model, dataloader)
                     detected_backdoors = self.detect_backdoors(acc_lst, dist0_lst, dist2_lst)
-
-                    if detected_backdoors:
-                        print("Detected backdoors at targets:", detected_backdoors)
-                        total_true_positives += 1
-                    else:
-                        print("(Wrong) No backdoors detected.")
-                        total_false_negatives += 1
-                    end_time = time.time()    
-                    print("Elapsed time:", end_time - start_time, "seconds")
-                    print(f"\n{'*' * 100}\n")
+                    if trigger_type == "patch":
+                        if detected_backdoors:
+                            print("Detected backdoors at targets:", detected_backdoors)
+                            patch_true_positives += 1
+                        else:
+                            print("(Wrong) No backdoors detected.")
+                            patch_false_negatives += 1
+                    elif trigger_type == "blended":
+                        if detected_backdoors:
+                            print("Detected backdoors at targets:", detected_backdoors)
+                            blended_true_positives += 1
+                        else:
+                            print("(Wrong) No backdoors detected.")
+                            blended_false_negatives += 1
+                        end_time = time.time()    
+                        print("Elapsed time:", end_time - start_time, "seconds")
+                        print(f"\n{'*' * 100}\n")
+        
+        print(f"Experiment Stats - acc_th={acc_percent}, ano_th={ano_percent}, d0_th={d0_percent}, d2_th={d2_percent}, lamb = {lamb}, lr = {lr}")
+        print(f"patch_true_positives: {patch_true_positives:.2f}, blended_true_positives: {blended_true_positives:.2f}, patch_false_negatives: {patch_false_negatives:.2f}, blended_false_negatives: {blended_false_negatives:.2f}")
+        total_true_positives = patch_true_positives + blended_true_positives; total_true_positives = patch_false_negatives + blended_false_negatives
 
         thresholds = [0.5] 
         true_positive_rate_list, false_positive_rate_list = self.calculate_true_positive_rate_false_positive_rate(thresholds, total_true_positives, total_true_negatives, total_false_positives, total_false_negatives)
@@ -338,5 +360,5 @@ class BackdoorDetectImpl:
         recall = total_true_positives / (total_true_positives + total_false_negatives) if total_true_positives + total_false_negatives > 0 else 0
         f1_score = 2 * precision * recall / (precision + recall) if precision + recall > 0 else 0
         accuracy = (total_true_positives + total_true_negatives) / (total_true_positives + total_true_negatives + total_false_positives + total_false_negatives)
-        print(f"total_true_positives: {total_true_positives:.2f}, total_true_negatives: {total_true_negatives:.2f}, total_false_positives: {total_false_negatives:.2f}, total_false_negatives: {total_false_negatives:.2f}")
+        print(f"total_true_positives: {total_true_positives:.2f}, total_true_negatives: {total_true_negatives:.2f}, total_false_positives: {total_false_positives:.2f}, total_false_negatives: {total_false_negatives:.2f}")
         print(f"Precision: {precision:.2f}, Recall: {recall:.2f}, F1-score: {f1_score:.2f}, Accuracy: {accuracy:.2f}")
