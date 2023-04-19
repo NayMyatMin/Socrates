@@ -17,10 +17,10 @@ from utils import *
 import torch.optim as optim
 from torch.cuda.amp import GradScaler
 
-alphabet = 'C'
-acc_percent, ano_percent, d0_percent, d2_percent = 85, 1, 1, 1; lamb, lr = 0.1, 0.09
+alphabet = 'M'
+acc_percent, ano_percent, d0_percent, d2_percent = 55, 1, 1, 1; lamb, lr = 0.1, 0.09
 # clean_root_dir, backdoor_root_dir = f"dataset/benchmark-{alphabet}b", f"dataset/benchmark-{alphabet}"
-clean_root_dir = f"dataset/2{alphabet}-Benign"; backdoor_root_dir = f"dataset/2{alphabet}-Backdoor"
+clean_root_dir = f"dataset/10{alphabet}-Benign"; backdoor_root_dir = f"dataset/10{alphabet}-Backdoor"
 
 class SubWideResNet(nn.Module):
     def __init__(self, depth=40, num_classes=10, widen_factor=2, dropRate=0.0):
@@ -45,8 +45,8 @@ class SubMNIST(nn.Module):
 class BackdoorDetectImpl:
     def __init__(self):
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
-        self.train_kwargs = {'batch_size': 100, 'num_workers': 8, 'pin_memory': True}
-        self.test_kwargs = {'batch_size': 1000, 'num_workers': 8, 'pin_memory': True}
+        self.train_kwargs = {'batch_size': 100, 'num_workers': 8, 'pin_memory': True, 'drop_last':False}
+        self.test_kwargs = {'batch_size': 128, 'num_workers': 8, 'pin_memory': True, 'drop_last':True}
         self.mnist_transform = transforms.Compose([transforms.ToTensor(),
                                     transforms.Normalize((0.1307,), (0.3081,))
                                     ])
@@ -79,7 +79,7 @@ class BackdoorDetectImpl:
         clamp = (max_clamp - min_clamp) * 0.5 * (1 + np.cos(np.pi * t / T)) + min_clamp
         return clamp
 
-    def generate_trigger(self, model, dataloader, size, target, norm, minx=0.0, maxx=1.0, patience=5, min_improvement=1e-4):
+    def generate_trigger(self, model, dataloader, size, target, norm, exp_vect, minx=0.0, maxx=1.0, patience=5, min_improvement=1e-4):
         device = next(model.parameters()).device
         delta = torch.rand(size, device=device) * 0.1
         best_delta, best_loss = None, float('inf')
@@ -92,6 +92,13 @@ class BackdoorDetectImpl:
         for epoch in range(self.num_of_epochs):
             model.train()
             for batch, (x, y) in enumerate(dataloader):
+                if exp_vect is None:
+                    # generate trigger in form of a concrete vector at the last layer
+                    # we do it by setting x to zero so delta will be the vector that we want
+                    x = torch.zeros(x.size())
+
+                # generate trigger in form of modification at the input layer
+                # use normal x
                 x = x.to(device)
                 delta.requires_grad = True
                 with torch.cuda.amp.autocast():
@@ -99,7 +106,21 @@ class BackdoorDetectImpl:
                     target_tensor = torch.full(y.size(), target, device=device)
 
                     pred = model(x_adv)
-                    loss = F.cross_entropy(pred, target_tensor) + lamb * torch.norm(delta, norm)
+                    # print(f'pred_shape = {pred.shape}')
+                    # print(f'pred = {pred}')
+                    # print(f'target_tensor_shape = {target_tensor.shape}')
+                    # print(f'target_tensor = {target_tensor}')
+
+                    if exp_vect is None:
+                        # compare with target tensor
+                        loss = F.cross_entropy(pred, target_tensor) + lamb * torch.norm(delta, norm)
+                    else:
+                        # compare with expected vector
+                        # exp_vect = exp_vect.to(torch.long)
+                        # print(f'exp_vet_shape = {exp_vect.shape}')
+                        # print(f'exp_vet = {exp_vect}')
+                        exp_vect_expanded = exp_vect.view(-1, 1).expand(-1, pred.shape[1])
+                        loss = F.mse_loss(pred, exp_vect_expanded) + lamb * torch.norm(delta, norm)
 
                 optimizer.zero_grad()
                 scaler.scale(loss).backward()
@@ -112,6 +133,13 @@ class BackdoorDetectImpl:
             trigger_quality_sum, trigger_size_sum, trigger_distortion_sum, num_samples = 0, 0, 0, 0
             with torch.no_grad():
                 for batch, (x, y) in enumerate(dataloader):
+                    if exp_vect is None:
+                        # generate trigger in form of a concrete vector at the last layer
+                        # we do it by setting x to zero so delta will be the vector that we want
+                        x = torch.zeros(x.size())
+
+                    # generate trigger in form of modification at the input layer
+                    # use normal x
                     x = x.to(device)
                     x_adv = torch.clamp(torch.add(x, delta), minx, maxx)
                     target_tensor = torch.full(y.size(), target, device=device)
@@ -142,13 +170,16 @@ class BackdoorDetectImpl:
 
         return best_delta, trigger_size_sum / num_samples, trigger_distortion_sum / num_samples
 
-    def check(self, model, dataloader, delta, target):
+    def check(self, model, dataloader, delta, target, exp_vect=None):
         model.eval() 
         device = next(model.parameters()).device
         correct = 0
         total = 0
         with torch.no_grad():  
             for x, y in dataloader:
+                if exp_vect is None:
+                    x = torch.zeros(x.size())
+
                 x = x.to(device)
                 x_adv = torch.add(x, delta)
                 target_tensor = torch.full(y.size(), target, device=device)
@@ -226,18 +257,19 @@ class BackdoorDetectImpl:
                     last_layer_test_dataset.extend(F.relu(activation[last_layer]).cpu().detach().numpy())
                 elif dataset == 'CIFAR-10':
                     last_layer_test_dataset.extend(torch.flatten(activation[last_layer], 1).cpu().detach().numpy())
+        truncated_targets = test_dataset.targets[:len(last_layer_test_dataset)]
         last_layer_test_dataset = TensorDataset(torch.Tensor(np.array(last_layer_test_dataset)),
-                                                torch.Tensor(np.array(test_dataset.targets)))
+                                                torch.Tensor(np.array(truncated_targets)))
         last_layer_test_dataloader = DataLoader(last_layer_test_dataset, **self.test_kwargs)
-        return last_layer_test_dataloader
+        return test_dataloader, last_layer_test_dataloader
 
-    def evaluate_triggers(self, model, sub_model, dataloader):
+    def evaluate_triggers(self, model, dataloader, target_lst, size, exp_vect=None):
         acc_lst, dist0_lst, dist2_lst = [], [], []
 
-        for target in range(10):
-            delta, trigger_size, trigger_distortion = self.generate_trigger(sub_model, dataloader, self.size_last, target, self.norm, minx=0.0, maxx=1.0)
+        for target in target_lst:
+            delta, trigger_size, trigger_distortion = self.generate_trigger(model, dataloader, size, target, self.norm, exp_vect, minx=0.0, maxx=1.0)
             delta = torch.where(abs(delta) < 0.1, 0, delta)
-            acc = self.check(sub_model, dataloader, delta, target)
+            acc = self.check(model, dataloader, delta, target, exp_vect)
             dist0 = torch.norm(delta, 0)
             dist2 = torch.norm(delta, 2)
             acc_lst.append(acc)
@@ -245,7 +277,7 @@ class BackdoorDetectImpl:
             dist2_lst.append(dist2.detach().item())
             print('trigger_size = {}, trigger_distortion = {}'.format(trigger_size, trigger_distortion))
             print('target = {}, delta = {}, dist0 = {}, dist2 = {}\n'.format(target, delta[:10], dist0, dist2))
-        return acc_lst, dist0_lst, dist2_lst
+        return delta, acc_lst, dist0_lst, dist2_lst
 
     def detect_backdoors(self, acc_lst, dist0_lst, dist2_lst):
         detected_backdoors = []
@@ -275,7 +307,7 @@ class BackdoorDetectImpl:
         d0_th = np.percentile(dist0_lst, d0_percent)
         d2_th = np.percentile(dist2_lst, d2_percent)
         print('acc_th = {}, ano_th = {}, d0_th = {}, d2_th = {}\n'.format(acc_th, ano_th, d0_th, d2_th))
-        for target in range(10):
+        for target, (acc, ano, d0, d2) in enumerate(zip(acc_lst, ano_lst, dist0_lst, dist2_lst)):
             if acc_lst[target] >= acc_th and (ano_th == np.inf or ano_lst[target] <= ano_th or dist0_lst[target] <= d0_th or dist2_lst[target] <= d2_th):
                 detected_backdoors.append(target)
         return detected_backdoors
@@ -291,65 +323,97 @@ class BackdoorDetectImpl:
             false_positive_rate_list.append(false_positive_rate)
 
         return true_positive_rate_list, false_positive_rate_list
+    
+    @staticmethod
+    def model_generator(clean_root_dir, backdoor_root_dir):
+        for clean_subdir, _, files in os.walk(clean_root_dir):
+            for file in files:
+                if file == "model.pt":
+                    model_path = os.path.join(clean_subdir, file)
+                    yield model_path, "clean"
+
+        for backdoor_subdir, _, files in os.walk(backdoor_root_dir):
+            for file in files:
+                if file == "model.pt":
+                    model_path = os.path.join(backdoor_subdir, file)
+                    yield model_path, "backdoor"
 
     def solve(self, model, assertion, display=None):
         total_true_positives, total_true_negatives, total_false_positives, total_false_negatives = 0, 0, 0, 0
         patch_true_positives, patch_false_negatives, blended_true_positives, blended_false_negatives = 0, 0, 0, 0
         print(f"Experiment Stats - acc_th={acc_percent}, ano_th={ano_percent}, d0_th={d0_percent}, d2_th={d2_percent}, lamb = {lamb}, lr = {lr}")
-        for clean_subdir, _, files in os.walk(clean_root_dir):
+        
+        for model_path, model_type in self.model_generator(clean_root_dir, backdoor_root_dir):
             start_time = time.time()
-            for file in files:
-                if file == "model.pt":
-                    print('Clean')
-                    model_path = os.path.join(clean_subdir, file)
-                    model, sub_model, dataset, train_dataset, test_dataset, last_layer = self.load_and_prepare_model(model_path)
-                    dataloader = self.get_last_layer_activations(model, test_dataset, last_layer, dataset)
-                    acc_lst, dist0_lst, dist2_lst = self.evaluate_triggers(model, sub_model, dataloader)
-                    detected_backdoors = self.detect_backdoors(acc_lst, dist0_lst, dist2_lst)
+            print(model_type.capitalize())
+            
+            model, sub_model, dataset, train_dataset, test_dataset, last_layer = self.load_and_prepare_model(model_path)
+            test_dataloader, last_layer_test_dataloader = self.get_last_layer_activations(model, test_dataset, last_layer, dataset)
+            target_lst = range(10)
+            delta, acc_lst, dist0_lst, dist2_lst = self.evaluate_triggers(sub_model, last_layer_test_dataloader, target_lst, self.size_last)
+            detected_backdoors = self.detect_backdoors(acc_lst, dist0_lst, dist2_lst)
 
+            if model_type == "clean":
+                if detected_backdoors:
+                    _, acc_lst, dist0_lst, dist2_lst = self.evaluate_triggers(model, test_dataloader, detected_backdoors, self.size_input, delta)
+                    detected_backdoors = self.detect_backdoors(acc_lst, dist0_lst, dist2_lst)
                     if detected_backdoors:
                         print("(Wrong) Detected backdoors at targets:", detected_backdoors)
                         total_false_positives += 1
                     else:
                         print("No backdoors detected.")
                         total_true_negatives += 1
-                    end_time = time.time()        
-                    print("Elapsed time:", end_time - start_time, "seconds")
-                    print(f"\n{'*' * 100}\n")
+                else:
+                    print("No backdoors detected.")
+                    total_true_negatives += 1
 
-        for backdoor_subdir, _, files in os.walk(backdoor_root_dir):
-            start_time = time.time()
-            for file in files:
-                if file == "model.pt":
-                    print('Backdoor')
-                    model_path = os.path.join(backdoor_subdir, file)
-                    info = self.load_info(model_path)
-                    trigger_type = info["trigger_type"]
-                    model, sub_model, dataset, train_dataset, test_dataset, last_layer = self.load_and_prepare_model(model_path)
-                    dataloader = self.get_last_layer_activations(model, test_dataset, last_layer, dataset)
-                    acc_lst, dist0_lst, dist2_lst = self.evaluate_triggers(model, sub_model, dataloader)
+            elif model_type == "backdoor":
+                trigger_type = self.load_info(model_path)["trigger_type"]
+                if detected_backdoors:
+                    _, acc_lst, dist0_lst, dist2_lst = self.evaluate_triggers(model, test_dataloader, detected_backdoors, self.size_input, delta)
                     detected_backdoors = self.detect_backdoors(acc_lst, dist0_lst, dist2_lst)
-                    if trigger_type == "patch":
-                        if detected_backdoors:
-                            print("Detected backdoors at targets:", detected_backdoors)
+                    if detected_backdoors:
+                        print("Detected backdoors at targets:", detected_backdoors)
+                        if trigger_type == "patch":
                             patch_true_positives += 1
-                        else:
-                            print("(Wrong) No backdoors detected.")
-                            patch_false_negatives += 1
-                    elif trigger_type == "blended":
-                        if detected_backdoors:
-                            print("Detected backdoors at targets:", detected_backdoors)
+                        elif trigger_type == "blended":
                             blended_true_positives += 1
-                        else:
-                            print("(Wrong) No backdoors detected.")
+                    else:
+                        print("(Wrong) No backdoors detected.")
+                        if trigger_type == "patch":
+                            patch_false_negatives += 1
+                        elif trigger_type == "blended":
                             blended_false_negatives += 1
-                        end_time = time.time()    
-                        print("Elapsed time:", end_time - start_time, "seconds")
-                        print(f"\n{'*' * 100}\n")
+                else:
+                    print("(Wrong) No backdoors detected.")
+                    if trigger_type == "patch":
+                        patch_false_negatives += 1
+                    elif trigger_type == "blended":
+                        blended_false_negatives += 1
+            
+            end_time = time.time()
+            print("Elapsed time:", end_time - start_time, "seconds")
+            print(f"\n{'*' * 100}\n")
         
         print(f"Experiment Stats - acc_th={acc_percent}, ano_th={ano_percent}, d0_th={d0_percent}, d2_th={d2_percent}, lamb = {lamb}, lr = {lr}")
-        print(f"patch_true_positives: {patch_true_positives:.2f}, blended_true_positives: {blended_true_positives:.2f}, patch_false_negatives: {patch_false_negatives:.2f}, blended_false_negatives: {blended_false_negatives:.2f}")
-        total_true_positives = patch_true_positives + blended_true_positives; total_true_positives = patch_false_negatives + blended_false_negatives
+
+        # Calculate metrics for patch backdoors
+        patch_precision = patch_true_positives / (patch_true_positives + total_false_positives) if patch_true_positives + total_false_positives > 0 else 0
+        patch_recall = patch_true_positives / (patch_true_positives + patch_false_negatives) if patch_true_positives + patch_false_negatives > 0 else 0
+        patch_f1_score = 2 * patch_precision * patch_recall / (patch_precision + patch_recall) if patch_precision + patch_recall > 0 else 0
+
+        # Calculate metrics for blended backdoors
+        blended_precision = blended_true_positives / (blended_true_positives + total_false_positives) if blended_true_positives + total_false_positives > 0 else 0
+        blended_recall = blended_true_positives / (blended_true_positives + blended_false_negatives) if blended_true_positives + blended_false_negatives > 0 else 0
+        blended_f1_score = 2 * blended_precision * blended_recall / (blended_precision + blended_recall) if blended_precision + blended_recall > 0 else 0
+
+        # Print the calculated metrics
+        print(f"Patch backdoors - Precision: {patch_precision:.2f}, Recall: {patch_recall:.2f}, F1-score: {patch_f1_score:.2f}")
+        print(f"Blended backdoors - Precision: {blended_precision:.2f}, Recall: {blended_recall:.2f}, F1-score: {blended_f1_score:.2f}")
+        print(f"Patch_true_positives: {patch_true_positives:.2f}, Blended_true_positives: {blended_true_positives:.2f}, Patch_false_negatives: {patch_false_negatives:.2f}, Blended_false_negatives: {blended_false_negatives:.2f}")
+        
+        total_true_positives = patch_true_positives + blended_true_positives
+        total_false_negatives = patch_false_negatives + blended_false_negatives
 
         thresholds = [0.5] 
         true_positive_rate_list, false_positive_rate_list = self.calculate_true_positive_rate_false_positive_rate(thresholds, total_true_positives, total_true_negatives, total_false_positives, total_false_negatives)
