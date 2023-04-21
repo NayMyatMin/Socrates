@@ -326,7 +326,7 @@ class BackdoorDetectImpl:
     def model_generator(clean_root_dir, backdoor_root_dir):
         for clean_subdir, _, files in os.walk(clean_root_dir):
             for file in files:
-                if file == "model.pt1":
+                if file == "model.pt":
                     model_path = os.path.join(clean_subdir, file)
                     yield model_path, "clean", None
 
