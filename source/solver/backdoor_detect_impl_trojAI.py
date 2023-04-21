@@ -20,7 +20,7 @@ from torch.cuda.amp import GradScaler
 alphabet = 'M'
 acc_percent, ano_percent, d0_percent, d2_percent = 55, 1, 1, 1; lamb, lr = 0.1, 0.09
 # clean_root_dir, backdoor_root_dir = f"dataset/benchmark-{alphabet}b", f"dataset/benchmark-{alphabet}"
-clean_root_dir = f"dataset/10{alphabet}-Benign"; backdoor_root_dir = f"dataset/10{alphabet}-Backdoor"
+clean_root_dir = f"dataset/2{alphabet}-Benign"; backdoor_root_dir = f"dataset/2{alphabet}-Backdoor"
 
 class SubWideResNet(nn.Module):
     def __init__(self, depth=40, num_classes=10, widen_factor=2, dropRate=0.0):
@@ -106,19 +106,12 @@ class BackdoorDetectImpl:
                     target_tensor = torch.full(y.size(), target, device=device)
 
                     pred = model(x_adv)
-                    # print(f'pred_shape = {pred.shape}')
-                    # print(f'pred = {pred}')
-                    # print(f'target_tensor_shape = {target_tensor.shape}')
-                    # print(f'target_tensor = {target_tensor}')
 
                     if exp_vect is None:
                         # compare with target tensor
                         loss = F.cross_entropy(pred, target_tensor) + lamb * torch.norm(delta, norm)
                     else:
                         # compare with expected vector
-                        # exp_vect = exp_vect.to(torch.long)
-                        # print(f'exp_vet_shape = {exp_vect.shape}')
-                        # print(f'exp_vet = {exp_vect}')
                         exp_vect_expanded = exp_vect.view(-1, 1).expand(-1, pred.shape[1])
                         loss = F.mse_loss(pred, exp_vect_expanded) + lamb * torch.norm(delta, norm)
 
@@ -165,7 +158,6 @@ class BackdoorDetectImpl:
                 patience_counter += 1
 
             if patience_counter >= patience:
-                # print(f'Early stopping at epoch {epoch}')
                 break
 
         return best_delta, trigger_size_sum / num_samples, trigger_distortion_sum / num_samples
@@ -324,26 +316,33 @@ class BackdoorDetectImpl:
 
         return true_positive_rate_list, false_positive_rate_list
     
+    def load_and_display_attack_specification(self, file_path):
+        attack_specification = torch.load(file_path)
+        for key, value in attack_specification.items():
+            if key == 'target_label':
+               print(f"true_{key}: {value}\n")
+
     @staticmethod
     def model_generator(clean_root_dir, backdoor_root_dir):
         for clean_subdir, _, files in os.walk(clean_root_dir):
             for file in files:
-                if file == "model.pt":
+                if file == "model.pt1":
                     model_path = os.path.join(clean_subdir, file)
-                    yield model_path, "clean"
+                    yield model_path, "clean", None
 
         for backdoor_subdir, _, files in os.walk(backdoor_root_dir):
             for file in files:
                 if file == "model.pt":
                     model_path = os.path.join(backdoor_subdir, file)
-                    yield model_path, "backdoor"
+                    attack_spec_path = os.path.join(backdoor_subdir, "attack_specification.pt")
+                    yield model_path, "backdoor", attack_spec_path
 
     def solve(self, model, assertion, display=None):
         total_true_positives, total_true_negatives, total_false_positives, total_false_negatives = 0, 0, 0, 0
         patch_true_positives, patch_false_negatives, blended_true_positives, blended_false_negatives = 0, 0, 0, 0
         print(f"Experiment Stats - acc_th={acc_percent}, ano_th={ano_percent}, d0_th={d0_percent}, d2_th={d2_percent}, lamb = {lamb}, lr = {lr}")
         
-        for model_path, model_type in self.model_generator(clean_root_dir, backdoor_root_dir):
+        for model_path, model_type, attack_spec_path in self.model_generator(clean_root_dir, backdoor_root_dir):
             start_time = time.time()
             print(model_type.capitalize())
             
@@ -368,6 +367,7 @@ class BackdoorDetectImpl:
                     total_true_negatives += 1
 
             elif model_type == "backdoor":
+                self.load_and_display_attack_specification(attack_spec_path)
                 trigger_type = self.load_info(model_path)["trigger_type"]
                 if detected_backdoors:
                     _, acc_lst, dist0_lst, dist2_lst = self.evaluate_triggers(model, test_dataloader, detected_backdoors, self.size_input, delta)
