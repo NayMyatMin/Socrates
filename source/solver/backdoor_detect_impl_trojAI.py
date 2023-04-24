@@ -1,21 +1,20 @@
+import json
 import os
 import time
-import json
+
 import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from torchvision import datasets, transforms
-from torch.utils.data import DataLoader, TensorDataset
-
-from model.lib_models import *
-from model.lib_layers import *
-from wrn import WideResNet
-from nn_utils import *
-from utils import *
-
 import torch.optim as optim
+from model.lib_layers import *
+from model.lib_models import *
+from nn_utils import *
 from torch.cuda.amp import GradScaler
+from torch.utils.data import DataLoader, TensorDataset
+from torchvision import datasets, transforms
+from utils import *
+from wrn import WideResNet
 
 alphabet = 'M'
 acc_percent, ano_percent, d0_percent, d2_percent = 55, 1, 1, 1; lamb, lr = 0.1, 0.09
@@ -267,43 +266,43 @@ class BackdoorDetectImpl:
             acc_lst.append(acc)
             dist0_lst.append(dist0.detach().item())
             dist2_lst.append(dist2.detach().item())
-            print('trigger_size = {}, trigger_distortion = {}'.format(trigger_size, trigger_distortion))
+            # print('trigger_size = {}, trigger_distortion = {}'.format(trigger_size, trigger_distortion))
             print('target = {}, delta = {}, dist0 = {}, dist2 = {}\n'.format(target, delta[:10], dist0, dist2))
-        return delta, acc_lst, dist0_lst, dist2_lst
-
-    def detect_backdoors(self, acc_lst, dist0_lst, dist2_lst):
+        return delta, target_lst, acc_lst, dist0_lst, dist2_lst
+    
+    def detect_backdoors(self, acc_lst, dist_lst, target_lst, detection_type):
         detected_backdoors = []
-        med = np.median(dist0_lst)
-        dev_lst = abs(np.array(dist0_lst) - med)
+        med = np.median(dist_lst)
+        dev_lst = np.abs(dist_lst - med)
         mad = np.median(dev_lst)
-        epsilon = 1e-9
-        ano_lst = (np.array(dist0_lst) - med) / (mad + epsilon)
 
-        print('Accuracy list for all targets: {}'.format(acc_lst))
-        print('Distance list (dist0_lst): {}'.format(dist0_lst))
-        print('Distance list (dist2_lst): {}'.format(dist2_lst))
-        print('Median of the distance list (dist0_lst): {}'.format(med))
-        print('Absolute deviations from the median: {}'.format(dev_lst))
-        print('Median absolute deviation (MAD): {}'.format(mad))
-        print('Anomaly scores: {}'.format(ano_lst))  
-        
         # Calculate the adaptive thresholds using the percentile-based approach
         acc_th = np.percentile(acc_lst, acc_percent)
-        mad = np.median(np.abs(dist0_lst - np.median(dist0_lst)))
         if mad != 0.0:
-            ano_lst = np.abs(dist0_lst - np.median(dist0_lst)) / mad
+            ano_lst = np.abs(dist_lst - np.median(dist_lst)) / mad
             ano_th = np.percentile(ano_lst, ano_percent)
         else:
             ano_th = np.inf
 
-        d0_th = np.percentile(dist0_lst, d0_percent)
-        d2_th = np.percentile(dist2_lst, d2_percent)
-        print('acc_th = {}, ano_th = {}, d0_th = {}, d2_th = {}\n'.format(acc_th, ano_th, d0_th, d2_th))
-        for target, (acc, ano, d0, d2) in enumerate(zip(acc_lst, ano_lst, dist0_lst, dist2_lst)):
-            if acc_lst[target] >= acc_th and (ano_th == np.inf or ano_lst[target] <= ano_th or dist0_lst[target] <= d0_th or dist2_lst[target] <= d2_th):
-                detected_backdoors.append(target)
+        print(f"Accuracy list for all targets_{detection_type}: {acc_lst}")
+        print(f"Distance list (dist_lst)_{detection_type}: {dist_lst}")
+        print(f"Median of the distance list (dist_lst)_{detection_type}: {med}")
+        print(f"Absolute deviations from the median_{detection_type}: {dev_lst}")
+        print(f"Median absolute deviation (MAD)_{detection_type}: {mad}")
+        print(f"Anomaly scores_{detection_type}: {ano_lst}")  
+
+        if detection_type == "hidden":
+            d_th = np.percentile(dist_lst, d0_percent)
+        elif detection_type == "input":
+            d_th = np.percentile(dist_lst, d2_percent)
+
+        print(f"acc_th_{detection_type} = {acc_th}, ano_th_{detection_type} = {ano_th}, d_th_{detection_type} = {d_th}\n")
+        
+        for acc, ano, d, tgt in zip(acc_lst, ano_lst, dist_lst, target_lst):
+            if acc >= acc_th and (ano_th == np.inf or ano <= ano_th or d <= d_th):
+                detected_backdoors.append(tgt)
         return detected_backdoors
-    
+
     def calculate_true_positive_rate_false_positive_rate(self, thresholds, true_positives, true_negatives, false_positives, false_negatives):
         true_positive_rate_list = []
         false_positive_rate_list = []
@@ -349,15 +348,15 @@ class BackdoorDetectImpl:
             model, sub_model, dataset, train_dataset, test_dataset, last_layer = self.load_and_prepare_model(model_path)
             test_dataloader, last_layer_test_dataloader = self.get_last_layer_activations(model, test_dataset, last_layer, dataset)
             target_lst = range(10)
-            delta, acc_lst, dist0_lst, dist2_lst = self.evaluate_triggers(sub_model, last_layer_test_dataloader, target_lst, self.size_last)
-            detected_backdoors = self.detect_backdoors(acc_lst, dist0_lst, dist2_lst)
+            delta, target_lst, acc_lst, dist0_lst, dist2_lst = self.evaluate_triggers(sub_model, last_layer_test_dataloader, target_lst, self.size_last)
+            detected_backdoors_hidden = self.detect_backdoors(acc_lst, dist0_lst, target_lst, "hidden")
 
             if model_type == "clean":
-                if detected_backdoors:
-                    _, acc_lst, dist0_lst, dist2_lst = self.evaluate_triggers(model, test_dataloader, detected_backdoors, self.size_input, delta)
-                    detected_backdoors = self.detect_backdoors(acc_lst, dist0_lst, dist2_lst)
-                    if detected_backdoors:
-                        print("(Wrong) Detected backdoors at targets:", detected_backdoors)
+                if detected_backdoors_hidden:
+                    _, target_lst, acc_lst, dist0_lst, dist2_lst = self.evaluate_triggers(model, test_dataloader, detected_backdoors_hidden, self.size_input, delta)
+                    detected_backdoors_input = self.detect_backdoors(acc_lst, dist2_lst, target_lst, "input")
+                    if detected_backdoors_input:
+                        print("(Wrong) Detected backdoors at targets:", detected_backdoors_input)
                         total_false_positives += 1
                     else:
                         print("No backdoors detected.")
@@ -369,11 +368,11 @@ class BackdoorDetectImpl:
             elif model_type == "backdoor":
                 self.load_and_display_attack_specification(attack_spec_path)
                 trigger_type = self.load_info(model_path)["trigger_type"]
-                if detected_backdoors:
-                    _, acc_lst, dist0_lst, dist2_lst = self.evaluate_triggers(model, test_dataloader, detected_backdoors, self.size_input, delta)
-                    detected_backdoors = self.detect_backdoors(acc_lst, dist0_lst, dist2_lst)
-                    if detected_backdoors:
-                        print("Detected backdoors at targets:", detected_backdoors)
+                if detected_backdoors_hidden:
+                    _, target_lst, acc_lst, dist0_lst, dist2_lst = self.evaluate_triggers(model, test_dataloader, detected_backdoors_hidden, self.size_input, delta)
+                    detected_backdoors_input = self.detect_backdoors(acc_lst, dist2_lst, target_lst, "input")
+                    if detected_backdoors_input:
+                        print("Detected backdoors at targets:", detected_backdoors_input)
                         if trigger_type == "patch":
                             patch_true_positives += 1
                         elif trigger_type == "blended":
