@@ -17,7 +17,7 @@ from utils import *
 from wrn import WideResNet
 
 alphabet = 'M'
-acc_percent, ano_percent, d0_percent, d2_percent = 55, 1, 1, 1; lamb, lr = 0.1, 0.09
+ano_th, acc_percent, d0_percent, d2_percent = 2, 50, 1, 1; lamb, lr = 0.1, 0.09
 # clean_root_dir, backdoor_root_dir = f"dataset/benchmark-{alphabet}b", f"dataset/benchmark-{alphabet}"
 clean_root_dir = f"dataset/2{alphabet}-Benign"; backdoor_root_dir = f"dataset/2{alphabet}-Backdoor"
 
@@ -272,18 +272,13 @@ class BackdoorDetectImpl:
     
     def detect_backdoors(self, acc_lst, dist_lst, target_lst, detection_type):
         detected_backdoors = []
+        epsilon = 1e-9
         med = np.median(dist_lst)
         dev_lst = np.abs(dist_lst - med)
         mad = np.median(dev_lst)
-
-        # Calculate the adaptive thresholds using the percentile-based approach
+        ano_lst = (dist_lst - med) / (mad + epsilon)
         acc_th = np.percentile(acc_lst, acc_percent)
-        if mad != 0.0:
-            ano_lst = np.abs(dist_lst - np.median(dist_lst)) / mad
-            ano_th = np.percentile(ano_lst, ano_percent)
-        else:
-            ano_th = np.inf
-
+        
         print(f"Accuracy list for all targets_{detection_type}: {acc_lst}")
         print(f"Distance list (dist_lst)_{detection_type}: {dist_lst}")
         print(f"Median of the distance list (dist_lst)_{detection_type}: {med}")
@@ -339,7 +334,7 @@ class BackdoorDetectImpl:
     def solve(self, model, assertion, display=None):
         total_true_positives, total_true_negatives, total_false_positives, total_false_negatives = 0, 0, 0, 0
         patch_true_positives, patch_false_negatives, blended_true_positives, blended_false_negatives = 0, 0, 0, 0
-        print(f"Experiment Stats - acc_th={acc_percent}, ano_th={ano_percent}, d0_th={d0_percent}, d2_th={d2_percent}, lamb = {lamb}, lr = {lr}")
+        print(f"Experiment Stats - acc_th_percent={acc_percent}, ano_th={ano_th}, d0_th_percent={d0_percent}, d2_th_percent={d2_percent}, lamb = {lamb}, lr = {lr}")
         
         for model_path, model_type, attack_spec_path in self.model_generator(clean_root_dir, backdoor_root_dir):
             start_time = time.time()
@@ -394,7 +389,7 @@ class BackdoorDetectImpl:
             print("Elapsed time:", end_time - start_time, "seconds")
             print(f"\n{'*' * 100}\n")
         
-        print(f"Experiment Stats - acc_th={acc_percent}, ano_th={ano_percent}, d0_th={d0_percent}, d2_th={d2_percent}, lamb = {lamb}, lr = {lr}")
+        print(f"Experiment Stats - acc_th_percent={acc_percent}, ano_th={ano_th}, d0_th_percent={d0_percent}, d2_th_percent={d2_percent}, lamb = {lamb}, lr = {lr}")
 
         # Calculate metrics for patch backdoors
         patch_precision = patch_true_positives / (patch_true_positives + total_false_positives) if patch_true_positives + total_false_positives > 0 else 0
