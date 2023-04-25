@@ -17,7 +17,7 @@ from utils import *
 from wrn import WideResNet
 
 alphabet = 'M'
-ano_th, acc_percent, d0_percent, d2_percent = 2, 50, 1, 1; lamb, lr = 0.1, 0.09
+ano_th, acc_percent, d0_percent, d2_percent = -2, 50, 1, 1; lamb, lr = 0.1, 0.09
 # clean_root_dir, backdoor_root_dir = f"dataset/benchmark-{alphabet}b", f"dataset/benchmark-{alphabet}"
 clean_root_dir = f"dataset/2{alphabet}-Benign"; backdoor_root_dir = f"dataset/2{alphabet}-Backdoor"
 
@@ -54,6 +54,16 @@ class BackdoorDetectImpl:
         self.size_input = None; self.size_last = None
         self.num_of_epochs = 100
         self.norm = 2
+
+    def second_submodel(self, model):
+        if isinstance(model, MNIST_Network):
+            sub_model_layers = list(model.main.children())[:-1]
+        elif isinstance(model, WideResNet):
+            sub_model_layers = list(model.children())[:-1]
+        else:
+            raise ValueError("Unsupported model type.")
+        sub_model = nn.Sequential(*sub_model_layers)
+        return sub_model
         
     def transfer_model(self, model, sub_model, dataset):
         params = model.named_parameters()
@@ -278,7 +288,7 @@ class BackdoorDetectImpl:
         mad = np.median(dev_lst)
         ano_lst = (dist_lst - med) / (mad + epsilon)
         acc_th = np.percentile(acc_lst, acc_percent)
-        
+
         print(f"Accuracy list for all targets_{detection_type}: {acc_lst}")
         print(f"Distance list (dist_lst)_{detection_type}: {dist_lst}")
         print(f"Median of the distance list (dist_lst)_{detection_type}: {med}")
@@ -338,17 +348,18 @@ class BackdoorDetectImpl:
         
         for model_path, model_type, attack_spec_path in self.model_generator(clean_root_dir, backdoor_root_dir):
             start_time = time.time()
-            print(model_type.capitalize())
             
+            print(model_type.capitalize())
             model, sub_model, dataset, train_dataset, test_dataset, last_layer = self.load_and_prepare_model(model_path)
+            second_submodel = self.second_submodel(model)
+
             test_dataloader, last_layer_test_dataloader = self.get_last_layer_activations(model, test_dataset, last_layer, dataset)
             target_lst = range(10)
             delta, target_lst, acc_lst, dist0_lst, dist2_lst = self.evaluate_triggers(sub_model, last_layer_test_dataloader, target_lst, self.size_last)
             detected_backdoors_hidden = self.detect_backdoors(acc_lst, dist0_lst, target_lst, "hidden")
-
             if model_type == "clean":
                 if detected_backdoors_hidden:
-                    _, target_lst, acc_lst, dist0_lst, dist2_lst = self.evaluate_triggers(model, test_dataloader, detected_backdoors_hidden, self.size_input, delta)
+                    _, target_lst, acc_lst, dist0_lst, dist2_lst = self.evaluate_triggers(second_submodel, test_dataloader, detected_backdoors_hidden, self.size_input, delta)
                     detected_backdoors_input = self.detect_backdoors(acc_lst, dist2_lst, target_lst, "input")
                     if detected_backdoors_input:
                         print("(Wrong) Detected backdoors at targets:", detected_backdoors_input)
@@ -364,7 +375,7 @@ class BackdoorDetectImpl:
                 self.load_and_display_attack_specification(attack_spec_path)
                 trigger_type = self.load_info(model_path)["trigger_type"]
                 if detected_backdoors_hidden:
-                    _, target_lst, acc_lst, dist0_lst, dist2_lst = self.evaluate_triggers(model, test_dataloader, detected_backdoors_hidden, self.size_input, delta)
+                    _, target_lst, acc_lst, dist0_lst, dist2_lst = self.evaluate_triggers(second_submodel, test_dataloader, detected_backdoors_hidden, self.size_input, delta)
                     detected_backdoors_input = self.detect_backdoors(acc_lst, dist2_lst, target_lst, "input")
                     if detected_backdoors_input:
                         print("Detected backdoors at targets:", detected_backdoors_input)
