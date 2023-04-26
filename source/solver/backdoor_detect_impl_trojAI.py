@@ -88,7 +88,7 @@ class BackdoorDetectImpl:
         clamp = (max_clamp - min_clamp) * 0.5 * (1 + np.cos(np.pi * t / T)) + min_clamp
         return clamp
 
-    def generate_last_layer_trigger(self, model, x, target):
+    def generate_last_layer_trigger(self, x):
         # Generate trigger in form of a concrete vector at the last layer; We do it by setting x to zero so delta will be the vector that we want
         x = torch.zeros(x.size())
         return x
@@ -107,7 +107,7 @@ class BackdoorDetectImpl:
             model.train()
             for batch, (x, y) in enumerate(dataloader):
                 if exp_vect is None:
-                    x = self.generate_last_layer_trigger(model, x, target)
+                    x = self.generate_last_layer_trigger(x)
                 # Generate trigger in form of modification at the input layer; Use normal x
                 x = x.to(device)
                 delta.requires_grad = True
@@ -141,7 +141,7 @@ class BackdoorDetectImpl:
             with torch.no_grad():
                 for batch, (x, y) in enumerate(dataloader):
                     if exp_vect is None:
-                        x = self.generate_last_layer_trigger(model, x, target)
+                        x = self.generate_last_layer_trigger(x)
 
                     # Generate trigger in form of modification at the input layer; Use normal x
                     x = x.to(device)
