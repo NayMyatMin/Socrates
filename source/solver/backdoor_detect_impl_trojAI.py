@@ -16,10 +16,10 @@ from torchvision import datasets, transforms
 from utils import *
 from wrn import WideResNet
 
-alphabet = 'M'
+alphabet = 'C'
 ano_th, acc_th, d0_percent, d2_percent = -2, 50, 0.1, 0.1; lamb, lr = 0.1, 0.09
 # clean_root_dir, backdoor_root_dir = f"dataset/benchmark-{alphabet}b", f"dataset/benchmark-{alphabet}"
-clean_root_dir = f"dataset/2{alphabet}-Benign"; backdoor_root_dir = f"dataset/2{alphabet}-Backdoor"
+clean_root_dir = f"dataset/10{alphabet}-Benign"; backdoor_root_dir = f"dataset/10{alphabet}-Backdoor"
 
 class SubWideResNet(nn.Module):
     def __init__(self, depth=40, num_classes=10, widen_factor=2, dropRate=0.0):
@@ -88,30 +88,60 @@ class BackdoorDetectImpl:
         clamp = (max_clamp - min_clamp) * 0.5 * (1 + np.cos(np.pi * t / T)) + min_clamp
         return clamp
 
-    def generate_hidden_layer_exp_vector(self, model, size, target_lst, lamb, tolerance=1e-4, max_iterations=1000):
-        exp_vect_lst = []
-        device = next(model.parameters()).device
-        base_exp_vect = torch.randn(size, device=device) * 0.01
-        for target in target_lst:
-            exp_vect = base_exp_vect.clone().detach().requires_grad_(True)
-            optimizer = optim.Adam([exp_vect], lr)
-            loss_diff = float('inf')
-            prev_loss = float('inf')
-            iteration = 0
+    def check_class(self, model, exp_vect):
+        pred = model(exp_vect.unsqueeze(0))
+        _, predicted_class = torch.max(pred, 1)
+        return predicted_class.item()
 
-            while loss_diff > tolerance and iteration < max_iterations:
+    def optimize_exp_vector(self, model, exp_vect, target, device, lr, lamb, patience, tolerance, max_iterations):
+        optimizer = optim.Adam([exp_vect], lr)
+        scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', factor=0.1, patience=patience, eps=tolerance)
+        iteration = 0
+        best_loss = float('inf')
+        no_improvement_count = 0
+        while iteration < max_iterations:
+            with torch.cuda.amp.autocast():
                 pred = model(exp_vect.unsqueeze(0))
-                target_tensor = torch.full(pred.size(), target, device=device).float()
-                loss = F.cross_entropy(pred, target_tensor) + lamb * torch.count_nonzero(exp_vect)
-                optimizer.zero_grad()
-                loss.backward()
-                optimizer.step()
-                loss_diff = prev_loss - loss.item()
-                prev_loss = loss.item()
-                iteration += 1
-            # print(f"target: {target}\n exp_vect: {torch.relu(exp_vect)}, dist0: {torch.count_nonzero(torch.relu(exp_vect))}, iteration: {iteration}")
-            exp_vect_lst.append(torch.relu(exp_vect))
-        return exp_vect_lst
+                target_tensor = torch.tensor([target], device=device, dtype=torch.long)
+                loss = F.cross_entropy(pred, target_tensor) + lamb * torch.norm(exp_vect, 0)
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+
+            with torch.no_grad():
+                exp_vect.data = torch.relu(exp_vect.data)
+
+            scheduler.step(loss.item())
+            if loss.item() < best_loss - tolerance:
+                best_loss = loss.item()
+                no_improvement_count = 0
+            else:
+                no_improvement_count += 1
+            if no_improvement_count >= patience:
+                break
+            predicted_class = self.check_class(model, exp_vect)
+            if predicted_class == target:
+                break
+            iteration += 1
+        return exp_vect, predicted_class
+
+    def generate_hidden_layer_exp_vector(self, model, size, target_lst, max_iterations=10000, patience=100, tolerance=1e-4):
+        torch.manual_seed(7)
+        exp_vect_lst, result = [], []
+        device = next(model.parameters()).device
+        exp_vect = torch.randn(size, device=device) * 0.1
+        for target in target_lst:
+            exp_vect = exp_vect.clone().detach().requires_grad_(True)
+            optimized_exp_vect, predicted_class = self.optimize_exp_vector(
+                model, exp_vect, target, device, lr=0.1, lamb=1, patience=patience, tolerance=tolerance, max_iterations=max_iterations)
+            print(f"target: {target} | exp_vect: \n{exp_vect}, dist0: {torch.count_nonzero(optimized_exp_vect)}")
+            
+            exp_vect_lst.append(optimized_exp_vect)
+            if predicted_class == target:
+                result.append(f'Target: {target}, Predicted Class: {predicted_class}, Match: True')
+            else:
+                result.append(f'Target: {target}, Predicted Class: {predicted_class}, Match: False')
+        return exp_vect_lst, result
 
     def check(self, model, dataloader, delta, target, exp_vect=None):
         model.eval() 
@@ -334,7 +364,7 @@ class BackdoorDetectImpl:
         for key, value in attack_specification.items():
             if key == 'target_label':
                print(f"true_{key}: {value}\n")
-
+    
     @staticmethod
     def model_generator(clean_root_dir, backdoor_root_dir):
         for clean_subdir, _, files in os.walk(clean_root_dir):
@@ -353,7 +383,7 @@ class BackdoorDetectImpl:
     def solve(self, model, assertion, display=None):
         total_true_positives, total_true_negatives, total_false_positives, total_false_negatives = 0, 0, 0, 0
         patch_true_positives, patch_false_negatives, blended_true_positives, blended_false_negatives = 0, 0, 0, 0
-        print(f"Experiment Stats - acc_th_percent={acc_th}, ano_th={ano_th}, d0_th_percent={d0_percent}, d2_th_percent={d2_percent}, lamb = {lamb}, lr = {lr}")
+        # print(f"Experiment Stats - acc_th_percent={acc_th}, ano_th={ano_th}, d0_th_percent={d0_percent}, d2_th_percent={d2_percent}, lamb = {lamb}, lr = {lr}")
         
         for model_path, model_type, attack_spec_path in self.model_generator(clean_root_dir, backdoor_root_dir):
             start_time = time.time()
@@ -364,7 +394,9 @@ class BackdoorDetectImpl:
 
             test_dataloader, last_layer_test_dataloader = self.get_last_layer_activations(model, test_dataset, last_layer, dataset)
             target_lst = range(10)
-            exp_vect_lst = self.generate_hidden_layer_exp_vector(sub_model, self.size_last, target_lst, lamb)
+            exp_vect_lst, result = self.generate_hidden_layer_exp_vector(sub_model, self.size_last, target_lst)
+            print(*result, sep="\n")
+
             delta, target_lst, acc_lst, dist0_lst, dist2_lst = self.evaluate_triggers(sub_model, last_layer_test_dataloader, target_lst, self.size_last, exp_vect_lst)
             detected_backdoors_hidden = self.detect_backdoors(acc_lst, dist0_lst, target_lst, "hidden")
             if model_type == "clean":
