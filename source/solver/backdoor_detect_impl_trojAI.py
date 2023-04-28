@@ -123,7 +123,7 @@ class Metrics:
         true_positive_rate = true_positives / (true_positives + false_negatives)
         false_positive_rate = false_positives / (false_positives + true_negatives)
         print(f'True_positive_rate: {true_positive_rate}, False_positive_rate: {false_positive_rate}')
-    
+
     @staticmethod
     def calculate_patch_blended_metrics(true_positives, false_positives, false_negatives):
         precision = true_positives / (true_positives + false_positives) if true_positives + false_positives > 0 else 0
@@ -140,14 +140,17 @@ class Metrics:
         print(f"Patch_true_positives: {patch_true_positives:.2f}, Blended_true_positives: {blended_true_positives:.2f}, Patch_false_negatives: {patch_false_negatives:.2f}, Blended_false_negatives: {blended_false_negatives:.2f}")
 
     @staticmethod
-    def calculate_metrics(patch_true_positives, total_false_positives, patch_false_negatives, blended_true_positives, blended_false_negatives):
+    def calculate_metrics(patch_true_positives, patch_false_negatives, blended_true_positives, blended_false_negatives, total_false_positives, total_true_negatives):
         patch_metrics = Metrics.calculate_patch_blended_metrics(patch_true_positives, total_false_positives, patch_false_negatives)
         blended_metrics = Metrics.calculate_patch_blended_metrics(blended_true_positives, total_false_positives, blended_false_negatives)
         patch_counts = (patch_true_positives, patch_false_negatives)
         blended_counts = (blended_true_positives, blended_false_negatives)
         total_true_positives = patch_true_positives + blended_true_positives
         total_false_negatives = patch_false_negatives + blended_false_negatives
-        return patch_metrics, blended_metrics, patch_counts, blended_counts, total_true_positives, total_false_negatives
+        Metrics.calculate_true_positive_rate_false_positive_rate(total_true_positives, total_true_negatives, total_false_positives, total_false_negatives)
+        Metrics.print_backdoor_metrics(patch_metrics, blended_metrics, patch_counts, blended_counts)
+        precision, recall, f1_score, accuracy = Metrics.calculate_overall_metrics(total_true_positives, total_false_positives, total_false_negatives, total_true_negatives)
+        Metrics.print_overall_metrics(total_true_positives, total_true_negatives, total_false_positives, total_false_negatives, precision, recall, f1_score, accuracy)
 
     @staticmethod
     def calculate_precision_recall_f1_score(true_positives, false_positives, false_negatives):
@@ -178,31 +181,7 @@ class AttackSpecification:
 alphabet = 'M'; ano_th, acc_th = -2, 50; lamb, lr = 1, 0.1
 clean_root_dir = f"dataset/2{alphabet}-Benign"; backdoor_root_dir = f"dataset/2{alphabet}-Backdoor"
 
-class BackdoorDetectImpl:
-    def __init__(self):
-        # self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
-        self.device = 'cpu'
-        self.train_kwargs = {'batch_size': 100, 'num_workers': 8, 'pin_memory': False, 'drop_last':False}
-        self.test_kwargs = {'batch_size': 128, 'num_workers': 8, 'pin_memory': False, 'drop_last':True}
-        self.size_input = None; self.size_last = None
-        self.num_of_epochs = 100
-        self.norm = 2
-
-    def second_submodel(self, model):
-        if isinstance(model, MNIST_Network):
-            sub_model_layers = list(model.main.children())[:-1]
-        elif isinstance(model, WideResNet):
-            sub_model_layers = list(model.children())[:-1]
-        else:
-            raise ValueError("Unsupported model type.")
-        sub_model = nn.Sequential(*sub_model_layers)
-        return sub_model
- 
-    def get_clamp(self, epoch, batch, max_clamp, min_clamp, num_batches, num_epochs):
-        t = epoch * num_batches + batch
-        T = num_batches * num_epochs
-        clamp = (max_clamp - min_clamp) * 0.5 * (1 + np.cos(np.pi * t / T)) + min_clamp
-        return clamp
+class BackdoorDetectHiddenImpl:
 
     def check_class(self, model, exp_vect):
         pred = model(exp_vect.unsqueeze(0))
@@ -272,6 +251,32 @@ class BackdoorDetectImpl:
             dist0_lst.append(dist0)
 
         return dist0_lst
+
+class BackdoorDetectImpl:
+    def __init__(self):
+        # self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
+        self.device = 'cpu'
+        self.train_kwargs = {'batch_size': 100, 'num_workers': 8, 'pin_memory': False, 'drop_last':False}
+        self.test_kwargs = {'batch_size': 128, 'num_workers': 8, 'pin_memory': False, 'drop_last':True}
+        self.size_input = None; self.size_last = None
+        self.num_of_epochs = 100
+        self.norm = 2
+
+    def second_submodel(self, model):
+        if isinstance(model, MNIST_Network):
+            sub_model_layers = list(model.main.children())[:-1]
+        elif isinstance(model, WideResNet):
+            sub_model_layers = list(model.children())[:-1]
+        else:
+            raise ValueError("Unsupported model type.")
+        sub_model = nn.Sequential(*sub_model_layers)
+        return sub_model
+ 
+    def get_clamp(self, epoch, batch, max_clamp, min_clamp, num_batches, num_epochs):
+        t = epoch * num_batches + batch
+        T = num_batches * num_epochs
+        clamp = (max_clamp - min_clamp) * 0.5 * (1 + np.cos(np.pi * t / T)) + min_clamp
+        return clamp
 
     def check(self, model, dataloader, delta, target, exp_vect=None):
         model.eval() 
@@ -394,8 +399,7 @@ class BackdoorDetectImpl:
                     detected_backdoors.append(tgt)
         return detected_backdoors
 
-    @staticmethod
-    def model_generator(clean_root_dir, backdoor_root_dir):
+    def model_generator(self, clean_root_dir, backdoor_root_dir):
         for clean_subdir, _, files in os.walk(clean_root_dir):
             for file in files:
                 if file == "model.pt":
@@ -413,7 +417,7 @@ class BackdoorDetectImpl:
         total_true_positives, total_true_negatives, total_false_positives, total_false_negatives = 0, 0, 0, 0
         patch_true_positives, patch_false_negatives, blended_true_positives, blended_false_negatives = 0, 0, 0, 0
         # print(f"Experiment Stats - acc_th_percent={acc_th}, ano_th={ano_th}, lamb = {lamb}, lr = {lr}")
-        model_loader = ModelLoader(self.device); metrics = Metrics(); attack_specification = AttackSpecification()
+        model_loader = ModelLoader(self.device); metrics = Metrics(); attack_specification = AttackSpecification(); hidden = BackdoorDetectHiddenImpl()
 
         for model_path, model_type, attack_spec_path in self.model_generator(clean_root_dir, backdoor_root_dir):
             start_time = time.time()
@@ -422,9 +426,9 @@ class BackdoorDetectImpl:
             second_submodel = self.second_submodel(model)
             test_dataloader = torch.utils.data.DataLoader(test_dataset, **self.test_kwargs)
             target_lst = range(10)
-            exp_vect_lst, result = self.generate_hidden_layer_exp_vector(sub_model, model_loader.size_last, target_lst)
+            exp_vect_lst, result = hidden.generate_hidden_layer_exp_vector(sub_model, model_loader.size_last, target_lst)
             # print(*result, sep="\n")
-            dist0_lst = self.evaluate_triggers_with_exp_vect_lst(model, exp_vect_lst, len(target_lst))
+            dist0_lst = hidden.evaluate_triggers_with_exp_vect_lst(model, exp_vect_lst, len(target_lst))
             detected_backdoors_hidden = self.detect_backdoors(dist0_lst, target_lst, "hidden")
             if model_type == "clean":
                 if detected_backdoors_hidden:
@@ -469,9 +473,5 @@ class BackdoorDetectImpl:
             print("Elapsed time:", end_time - start_time, "seconds")
             print(f"\n{'*' * 100}\n")
         
-        print(f"Experiment Stats - acc_th_percent={acc_th}, ano_th={ano_th}, lamb = {lamb}, lr = {lr}")        
-        patch_metrics, blended_metrics, patch_counts, blended_counts, total_true_positives, total_false_negatives = metrics.calculate_metrics(patch_true_positives, total_false_positives, patch_false_negatives, blended_true_positives, blended_false_negatives)
-        metrics.calculate_true_positive_rate_false_positive_rate(total_true_positives, total_true_negatives, total_false_positives, total_false_negatives)
-        metrics.print_backdoor_metrics(patch_metrics, blended_metrics, patch_counts, blended_counts)
-        precision, recall, f1_score, accuracy = metrics.calculate_overall_metrics(total_true_positives, total_false_positives, total_false_negatives, total_true_negatives)
-        metrics.print_overall_metrics(total_true_positives, total_true_negatives, total_false_positives, total_false_negatives, precision, recall, f1_score, accuracy)
+        print(f"Experiment Stats - acc_th_percent={acc_th}, ano_th={ano_th}, lamb = {lamb}, lr = {lr}")
+        metrics.calculate_metrics(patch_true_positives, patch_false_negatives, blended_true_positives, blended_false_negatives, total_false_positives, total_true_negatives)
