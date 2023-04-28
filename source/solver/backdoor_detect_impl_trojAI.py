@@ -142,6 +142,20 @@ class BackdoorDetectImpl:
             else:
                 result.append(f'Target: {target}, Predicted Class: {predicted_class}, Match: False')
         return exp_vect_lst, result
+    
+    def evaluate_triggers_with_exp_vect_lst(self, model, exp_vect_lst, num_classes):
+        dist0_lst = []
+        device = next(model.parameters()).device
+
+        for exp_vect in exp_vect_lst:
+            exp_vect = exp_vect.to(device)
+            dist0 = torch.count_nonzero(exp_vect).item()
+
+            # Compute and store the L0 distance for each exp_vect
+            dist0_lst.append(dist0)
+
+        return dist0_lst
+
 
     def check(self, model, dataloader, delta, target, exp_vect=None):
         model.eval() 
@@ -245,33 +259,31 @@ class BackdoorDetectImpl:
 
         return best_delta, trigger_size_sum / num_samples, trigger_distortion_sum / num_samples
 
-    def detect_backdoors(self, acc_lst, dist_lst, target_lst, detection_type):
+    def detect_backdoors(self, acc_lst, dist0_lst, target_lst, detection_type):
         detected_backdoors = []
         epsilon = 1e-9
-        med = np.median(dist_lst)
-        dev_lst = np.abs(dist_lst - med)
+        med = np.median(dist0_lst)
+        dev_lst = np.abs(dist0_lst - med)
         mad = np.median(dev_lst)
-        ano_lst = (dist_lst - med) / (mad + epsilon)
+        ano_lst = (dist0_lst - med) / (mad + epsilon)
         ano_th, acc_th = -2, 0.1
-        # acc_th = np.percentile(acc_lst, 50)
 
         print(f"Accuracy list for all targets_{detection_type}: {acc_lst}")
-        print(f"Distance list (dist_lst)_{detection_type}: {dist_lst}")
-        print(f"Median of the distance list (dist_lst)_{detection_type}: {med}")
+        print(f"Distance list (dist0_lst)_{detection_type}: {dist0_lst}")
+        print(f"Median of the distance list (dist0_lst)_{detection_type}: {med}")
         print(f"Absolute deviations from the median_{detection_type}: {dev_lst}")
         print(f"Median absolute deviation (MAD)_{detection_type}: {mad}")
         print(f"Anomaly scores_{detection_type}: {ano_lst}")  
 
-        if detection_type == "hidden":
-            num_neurons = 128
-            d_th = 0.1 * num_neurons
-        elif detection_type == "input":
-            num_inputs = 10000
-            d_th = 0.1 * num_inputs
-
-        for acc, ano, d, tgt in zip(acc_lst, ano_lst, dist_lst, target_lst):
-            if acc >= acc_th and (ano <= ano_th or d <= d_th):
-                detected_backdoors.append(tgt)
+        for acc, ano, d, tgt in zip(acc_lst, ano_lst, dist0_lst, target_lst):
+            if detection_type == "hidden":
+                d_th = 0.1 * 128 # num_neurons
+                if ano <= ano_th or d <= d_th:
+                    detected_backdoors.append(tgt)
+            elif detection_type == "input":
+                d_th = 0.1 * 10000 # num_inputs
+                if acc >= acc_th and (ano <= ano_th or d <= d_th):
+                    detected_backdoors.append(tgt)
         return detected_backdoors
     
     def load_info(self, model_path):
@@ -396,9 +408,8 @@ class BackdoorDetectImpl:
             target_lst = range(10)
             exp_vect_lst, result = self.generate_hidden_layer_exp_vector(sub_model, self.size_last, target_lst)
             print(*result, sep="\n")
-
-            delta, target_lst, acc_lst, dist0_lst, dist2_lst = self.evaluate_triggers(sub_model, last_layer_test_dataloader, target_lst, self.size_last, exp_vect_lst)
-            detected_backdoors_hidden = self.detect_backdoors(acc_lst, dist0_lst, target_lst, "hidden")
+            dist0_lst = self.evaluate_triggers_with_exp_vect_lst(model, exp_vect_lst, len(target_lst))
+            detected_backdoors_hidden = self.detect_backdoors(dist0_lst, target_lst, "hidden")
             if model_type == "clean":
                 if detected_backdoors_hidden:
                     _, target_lst, acc_lst, dist0_lst, dist2_lst = self.evaluate_triggers(second_submodel, test_dataloader, detected_backdoors_hidden, self.size_input, delta)
