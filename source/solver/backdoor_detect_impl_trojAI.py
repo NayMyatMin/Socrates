@@ -182,7 +182,6 @@ alphabet = 'M'; ano_th, acc_th = -2, 50; lamb, lr = 1, 0.1
 clean_root_dir = f"dataset/2{alphabet}-Benign"; backdoor_root_dir = f"dataset/2{alphabet}-Backdoor"
 
 class BackdoorDetectHiddenImpl:
-
     def check_class(self, model, exp_vect):
         pred = model(exp_vect.unsqueeze(0))
         _, predicted_class = torch.max(pred, 1)
@@ -252,15 +251,7 @@ class BackdoorDetectHiddenImpl:
 
         return dist0_lst
 
-class BackdoorDetectImpl:
-    def __init__(self):
-        # self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
-        self.device = 'cpu'
-        self.train_kwargs = {'batch_size': 100, 'num_workers': 8, 'pin_memory': False, 'drop_last':False}
-        self.test_kwargs = {'batch_size': 128, 'num_workers': 8, 'pin_memory': False, 'drop_last':True}
-        self.size_input = None; self.size_last = None
-        self.num_of_epochs = 100
-        self.norm = 2
+class BackdoorDetectInputImpl:
 
     def second_submodel(self, model):
         if isinstance(model, MNIST_Network):
@@ -297,7 +288,6 @@ class BackdoorDetectImpl:
 
     def evaluate_triggers(self, model, dataloader, target_lst, size, exp_vect_lst):
         acc_lst, dist0_lst, dist2_lst = [], [], []
-        print(f'Suspected Target List: {target_lst}')
         for target in target_lst:
             exp_vect = exp_vect_lst[target_lst.index(target)]
             delta, trigger_size, trigger_distortion = self.generate_trigger(model, dataloader, size, target, exp_vect)
@@ -313,7 +303,7 @@ class BackdoorDetectImpl:
             print('delta = {}, dist0 = {}, dist2 = {}\n'.format(delta[:10], dist0, dist2))
         return target_lst, acc_lst, dist0_lst, dist2_lst
 
-    def generate_trigger(self, model, dataloader, size, target, exp_vect, minx=0.0, maxx=1.0, patience=5, min_improvement=1e-4):
+    def generate_trigger(self, model, dataloader, size, target, exp_vect, minx=0.0, maxx=1.0, patience=5, min_improvement=1e-4, num_of_epochs=100):
         device = next(model.parameters()).device
         exp_vect = exp_vect.clone().detach().requires_grad_(True)
         delta = torch.rand(size, device=device) * 0.1
@@ -322,7 +312,7 @@ class BackdoorDetectImpl:
         scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, patience=2, verbose=False)
         scaler = GradScaler()
 
-        for epoch in range(self.num_of_epochs):
+        for epoch in range(num_of_epochs):
             model.train()
             for batch, (x, y) in enumerate(dataloader):
                 # Generate trigger in form of modification at the input layer; Use normal x
@@ -351,7 +341,7 @@ class BackdoorDetectImpl:
                     trigger_success = (torch.argmax(pred, dim=1) == target).sum().item()
                     trigger_quality_sum += trigger_success
                     trigger = x_adv - x
-                    trigger_size_sum += torch.norm(trigger.view(trigger.size(0), -1), self.norm, dim=1).sum().item()
+                    trigger_size_sum += torch.norm(trigger.view(trigger.size(0), -1), 2, dim=1).sum().item()
                     trigger_distortion_sum += torch.norm(delta, 2).item() * x.size(0)
                     num_samples += x.size(0)
 
@@ -399,6 +389,15 @@ class BackdoorDetectImpl:
                     detected_backdoors.append(tgt)
         return detected_backdoors
 
+class BackdoorDetectImpl:
+
+    def __init__(self):
+        # self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
+        self.device = 'cpu'
+        self.train_kwargs = {'batch_size': 100, 'num_workers': 8, 'pin_memory': False, 'drop_last':False}
+        self.test_kwargs = {'batch_size': 128, 'num_workers': 8, 'pin_memory': False, 'drop_last':True}
+        self.size_input = None; self.size_last = None
+
     def model_generator(self, clean_root_dir, backdoor_root_dir):
         for clean_subdir, _, files in os.walk(clean_root_dir):
             for file in files:
@@ -413,62 +412,74 @@ class BackdoorDetectImpl:
                     attack_spec_path = os.path.join(backdoor_subdir, "attack_specification.pt")
                     yield model_path, "backdoor", attack_spec_path
     
+    def process_clean_model(self, detected_backdoors_hidden, second_submodel, test_dataloader, exp_vect_lst, model_loader, total_true_negatives, total_false_positives):
+        input = BackdoorDetectInputImpl()
+        if detected_backdoors_hidden:
+            target_lst, acc_lst, dist0_lst, dist2_lst = input.evaluate_triggers(second_submodel, test_dataloader, detected_backdoors_hidden, model_loader.size_input, exp_vect_lst)
+            detected_backdoors_input = input.detect_backdoors(dist2_lst, target_lst, "input", acc_lst)
+            if detected_backdoors_input:
+                print("(Wrong) Detected backdoors at targets:", detected_backdoors_input)
+                total_false_positives += 1
+            else:
+                print("No backdoors detected.")
+                total_true_negatives += 1
+        else:
+            print("No backdoors detected.")
+            total_true_negatives += 1
+        return total_true_negatives, total_false_positives
+
+    def process_backdoor_model(self, detected_backdoors_hidden, second_submodel, test_dataloader, exp_vect_lst, model_loader, attack_spec_path, trigger_type, 
+    patch_true_positives, blended_true_positives, patch_false_negatives, blended_false_negatives):
+        attack_specification = AttackSpecification(); input = BackdoorDetectInputImpl()
+        attack_specification.load_and_display_attack_specification(attack_spec_path)
+
+        if detected_backdoors_hidden:
+            target_lst, acc_lst, dist0_lst, dist2_lst = input.evaluate_triggers(second_submodel, test_dataloader, detected_backdoors_hidden, model_loader.size_input, exp_vect_lst)
+            detected_backdoors_input = input.detect_backdoors(dist2_lst, target_lst, "input", acc_lst)
+            if detected_backdoors_input:
+                print("Detected backdoors at targets:", detected_backdoors_input)
+                if trigger_type == "patch":
+                    patch_true_positives += 1
+                elif trigger_type == "blended":
+                    blended_true_positives += 1
+            else:
+                print("(Wrong) No backdoors detected.")
+                if trigger_type == "patch":
+                    patch_false_negatives += 1
+                elif trigger_type == "blended":
+                    blended_false_negatives += 1
+        else:
+            print("(Wrong) No backdoors detected.")
+            if trigger_type == "patch":
+                patch_false_negatives += 1
+            elif trigger_type == "blended":
+                blended_false_negatives += 1
+        return patch_true_positives, blended_true_positives, patch_false_negatives, blended_false_negatives
+
     def solve(self, model, assertion, display=None):
         total_true_positives, total_true_negatives, total_false_positives, total_false_negatives = 0, 0, 0, 0
         patch_true_positives, patch_false_negatives, blended_true_positives, blended_false_negatives = 0, 0, 0, 0
-        # print(f"Experiment Stats - acc_th_percent={acc_th}, ano_th={ano_th}, lamb = {lamb}, lr = {lr}")
-        model_loader = ModelLoader(self.device); metrics = Metrics(); attack_specification = AttackSpecification(); hidden = BackdoorDetectHiddenImpl()
+        model_loader = ModelLoader(self.device); metrics = Metrics(); hidden = BackdoorDetectHiddenImpl(); input = BackdoorDetectInputImpl()
 
         for model_path, model_type, attack_spec_path in self.model_generator(clean_root_dir, backdoor_root_dir):
             start_time = time.time()
             print(model_type.capitalize())
             model, sub_model, dataset, train_dataset, test_dataset, last_layer = model_loader.load_and_prepare_model(model_path)
-            second_submodel = self.second_submodel(model)
+            second_submodel = input.second_submodel(model)
             test_dataloader = torch.utils.data.DataLoader(test_dataset, **self.test_kwargs)
             target_lst = range(10)
             exp_vect_lst, result = hidden.generate_hidden_layer_exp_vector(sub_model, model_loader.size_last, target_lst)
-            # print(*result, sep="\n")
             dist0_lst = hidden.evaluate_triggers_with_exp_vect_lst(model, exp_vect_lst, len(target_lst))
-            detected_backdoors_hidden = self.detect_backdoors(dist0_lst, target_lst, "hidden")
+            detected_backdoors_hidden = input.detect_backdoors(dist0_lst, target_lst, "hidden")
+            print("Suspected Target List:", detected_backdoors_hidden)
+            # print(*result, sep="\n")
+        
             if model_type == "clean":
-                if detected_backdoors_hidden:
-                    target_lst, acc_lst, dist0_lst, dist2_lst = self.evaluate_triggers(second_submodel, test_dataloader, detected_backdoors_hidden, model_loader.size_input, exp_vect_lst)
-                    detected_backdoors_input = self.detect_backdoors(dist2_lst, target_lst, "input", acc_lst)
-                    if detected_backdoors_input:
-                        print("(Wrong) Detected backdoors at targets:", detected_backdoors_input)
-                        total_false_positives += 1
-                    else:
-                        print("No backdoors detected.")
-                        total_true_negatives += 1
-                else:
-                    print("No backdoors detected.")
-                    total_true_negatives += 1
-
+                total_true_negatives, total_false_positives = self.process_clean_model(detected_backdoors_hidden, second_submodel, test_dataloader, exp_vect_lst, model_loader, total_true_negatives, total_false_positives)
             elif model_type == "backdoor":
-                attack_specification.load_and_display_attack_specification(attack_spec_path)
                 trigger_type = model_loader.load_info(model_path)["trigger_type"]
-                if detected_backdoors_hidden:
-                    target_lst, acc_lst, dist0_lst, dist2_lst = self.evaluate_triggers(second_submodel, test_dataloader, detected_backdoors_hidden, model_loader.size_input, exp_vect_lst)
-                    detected_backdoors_input = self.detect_backdoors(dist2_lst, target_lst, "input", acc_lst)
-                    if detected_backdoors_input:
-                        print("Detected backdoors at targets:", detected_backdoors_input)
-                        if trigger_type == "patch":
-                            patch_true_positives += 1
-                        elif trigger_type == "blended":
-                            blended_true_positives += 1
-                    else:
-                        print("(Wrong) No backdoors detected.")
-                        if trigger_type == "patch":
-                            patch_false_negatives += 1
-                        elif trigger_type == "blended":
-                            blended_false_negatives += 1
-                else:
-                    print("(Wrong) No backdoors detected.")
-                    if trigger_type == "patch":
-                        patch_false_negatives += 1
-                    elif trigger_type == "blended":
-                        blended_false_negatives += 1
-            
+                patch_true_positives, blended_true_positives, patch_false_negatives, blended_false_negatives = self.process_backdoor_model(detected_backdoors_hidden, second_submodel, test_dataloader, exp_vect_lst, model_loader, attack_spec_path, trigger_type, patch_true_positives, blended_true_positives, patch_false_negatives, blended_false_negatives)
+
             end_time = time.time()
             print("Elapsed time:", end_time - start_time, "seconds")
             print(f"\n{'*' * 100}\n")
