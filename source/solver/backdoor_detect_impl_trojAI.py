@@ -186,13 +186,16 @@ class BackdoorDetectHiddenImpl:
         pred = model(exp_vect.unsqueeze(0))
         _, predicted_class = torch.max(pred, 1)
         return predicted_class.item()
-
+    
     def optimize_exp_vector(self, model, exp_vect, target, device, lr, lamb, patience, tolerance, max_iterations):
         optimizer = optim.Adam([exp_vect], lr)
         scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', factor=0.1, patience=patience, eps=tolerance)
         iteration = 0
         best_loss = float('inf')
         no_improvement_count = 0
+        best_exp_vect = exp_vect.clone().detach().requires_grad_(True)
+        best_d0 = float('inf')
+
         while iteration < max_iterations:
             with torch.cuda.amp.autocast():
                 pred = model(exp_vect.unsqueeze(0))
@@ -214,10 +217,15 @@ class BackdoorDetectHiddenImpl:
             if no_improvement_count >= patience:
                 break
             predicted_class = self.check_class(model, exp_vect)
+
             if predicted_class == target:
-                break
+                curr_d0 = torch.count_nonzero(exp_vect).item()
+                if curr_d0 < best_d0:
+                    best_d0 = curr_d0
+                    best_exp_vect = exp_vect.clone().detach().requires_grad_(True)
+
             iteration += 1
-        return exp_vect, predicted_class
+        return best_exp_vect, self.check_class(model, best_exp_vect)
 
     def generate_hidden_layer_exp_vector(self, model, size, target_lst, max_iterations=10000, patience=100, tolerance=1e-4):
         torch.manual_seed(7)
@@ -269,6 +277,20 @@ class BackdoorDetectInputImpl:
         clamp = (max_clamp - min_clamp) * 0.5 * (1 + np.cos(np.pi * t / T)) + min_clamp
         return clamp
 
+    def get_min_max_values(dataset, device):
+        if dataset == 'M':
+            mean = torch.tensor([0.1307], device=device)
+            std = torch.tensor([0.3081], device=device)
+        elif dataset == 'C':
+            mean = torch.tensor([0.4914, 0.4822, 0.4465], device=device)
+            std = torch.tensor([0.2023, 0.1994, 0.2010], device=device)
+        else:
+            raise ValueError("Unsupported dataset type.")
+
+        minx = (-mean / std).to(device)
+        maxx = ((1 - mean) / std).to(device)
+        return minx, maxx
+
     def check(self, model, dataloader, delta, target, exp_vect=None):
         model.eval() 
         device = next(model.parameters()).device
@@ -285,12 +307,12 @@ class BackdoorDetectInputImpl:
             accuracy = correct / total * 100
             print('target = {}, attack success rate = {}'.format(target, accuracy))
         return correct / total
-
-    def evaluate_triggers(self, model, dataloader, target_lst, size, exp_vect_lst):
+    
+    def evaluate_triggers(self, model, second_submodel, dataloader, target_lst, size, exp_vect_lst):
         acc_lst, dist0_lst, dist2_lst = [], [], []
         for target in target_lst:
             exp_vect = exp_vect_lst[target_lst.index(target)]
-            delta, trigger_size, trigger_distortion = self.generate_trigger(model, dataloader, size, target, exp_vect)
+            delta, trigger_size, trigger_distortion = self.generate_trigger(second_submodel, dataloader, size, target, exp_vect)
             delta = torch.where(abs(delta) < 0.1, 0, delta)
 
             acc = self.check(model, dataloader, delta, target, exp_vect)
@@ -303,7 +325,7 @@ class BackdoorDetectInputImpl:
             print('delta = {}, dist0 = {}, dist2 = {}\n'.format(delta[:10], dist0, dist2))
         return target_lst, acc_lst, dist0_lst, dist2_lst
 
-    def generate_trigger(self, model, dataloader, size, target, exp_vect, minx=0.0, maxx=1.0, patience=5, min_improvement=1e-4, num_of_epochs=100):
+    def generate_trigger(self, model, dataloader, size, target, exp_vect, minx=None, maxx=None, patience=5, min_improvement=1e-4, num_of_epochs=100):
         device = next(model.parameters()).device
         exp_vect = exp_vect.clone().detach().requires_grad_(True)
         delta = torch.rand(size, device=device) * 0.1
@@ -311,6 +333,9 @@ class BackdoorDetectInputImpl:
         optimizer = optim.Adam([exp_vect], lr)
         scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, patience=2, verbose=False)
         scaler = GradScaler()
+
+        if minx is None or maxx is None:
+            minx, maxx = BackdoorDetectInputImpl.get_min_max_values(alphabet, device)
 
         for epoch in range(num_of_epochs):
             model.train()
@@ -324,7 +349,7 @@ class BackdoorDetectInputImpl:
 
                     # Create a mask based on the threshold to filter out large neurons
                     large_neurons_threshold = 0.5
-                    large_neurons_mask = (pred > large_neurons_threshold).float()
+                    large_neurons_mask = (exp_vect.view(-1, 1).expand(-1, pred.shape[1]) > large_neurons_threshold).float()
 
                     # Compare with the expected vector and add L2-norm regularization
                     exp_vect_expanded = exp_vect.view(-1, 1).expand(-1, pred.shape[1])
@@ -338,12 +363,12 @@ class BackdoorDetectInputImpl:
                     x = x.to(device)
                     x_adv = torch.clamp(torch.add(x, delta), minx, maxx)
                     pred = model(x_adv)
-                    trigger_success = (torch.argmax(pred, dim=1) == target).sum().item()
-                    trigger_quality_sum += trigger_success
-                    trigger = x_adv - x
-                    trigger_size_sum += torch.norm(trigger.view(trigger.size(0), -1), 2, dim=1).sum().item()
-                    trigger_distortion_sum += torch.norm(delta, 2).item() * x.size(0)
                     num_samples += x.size(0)
+                    misclassified_samples = (torch.argmax(pred, dim=1) != y).sum().item()
+                    trigger_success = misclassified_samples / num_samples
+                    trigger_quality_sum += trigger_success
+                    trigger_size_sum += torch.norm(delta.view(delta.size(0), -1), 2, dim=1).sum().item()
+                    trigger_distortion_sum += torch.norm(delta, 2).item() * x.size(0)
 
                 current_loss = trigger_quality_sum / num_samples
                 scheduler.step(current_loss)
@@ -412,10 +437,10 @@ class BackdoorDetectImpl:
                     attack_spec_path = os.path.join(backdoor_subdir, "attack_specification.pt")
                     yield model_path, "backdoor", attack_spec_path
     
-    def process_clean_model(self, detected_backdoors_hidden, second_submodel, test_dataloader, exp_vect_lst, model_loader, total_true_negatives, total_false_positives):
+    def process_clean_model(self, detected_backdoors_hidden, model, second_submodel, test_dataloader, exp_vect_lst, model_loader, total_true_negatives, total_false_positives):
         input = BackdoorDetectInputImpl()
         if detected_backdoors_hidden:
-            target_lst, acc_lst, dist0_lst, dist2_lst = input.evaluate_triggers(second_submodel, test_dataloader, detected_backdoors_hidden, model_loader.size_input, exp_vect_lst)
+            target_lst, acc_lst, dist0_lst, dist2_lst = input.evaluate_triggers(model, second_submodel, test_dataloader, detected_backdoors_hidden, model_loader.size_input, exp_vect_lst)
             detected_backdoors_input = input.detect_backdoors(dist2_lst, target_lst, "input", acc_lst)
             if detected_backdoors_input:
                 print("(Wrong) Detected backdoors at targets:", detected_backdoors_input)
@@ -428,13 +453,13 @@ class BackdoorDetectImpl:
             total_true_negatives += 1
         return total_true_negatives, total_false_positives
 
-    def process_backdoor_model(self, detected_backdoors_hidden, second_submodel, test_dataloader, exp_vect_lst, model_loader, attack_spec_path, trigger_type, 
+    def process_backdoor_model(self, detected_backdoors_hidden, model, second_submodel, test_dataloader, exp_vect_lst, model_loader, attack_spec_path, trigger_type, 
     patch_true_positives, blended_true_positives, patch_false_negatives, blended_false_negatives):
         attack_specification = AttackSpecification(); input = BackdoorDetectInputImpl()
         attack_specification.load_and_display_attack_specification(attack_spec_path)
 
         if detected_backdoors_hidden:
-            target_lst, acc_lst, dist0_lst, dist2_lst = input.evaluate_triggers(second_submodel, test_dataloader, detected_backdoors_hidden, model_loader.size_input, exp_vect_lst)
+            target_lst, acc_lst, dist0_lst, dist2_lst = input.evaluate_triggers(model, second_submodel, test_dataloader, detected_backdoors_hidden, model_loader.size_input, exp_vect_lst)
             detected_backdoors_input = input.detect_backdoors(dist2_lst, target_lst, "input", acc_lst)
             if detected_backdoors_input:
                 print("Detected backdoors at targets:", detected_backdoors_input)
@@ -472,13 +497,13 @@ class BackdoorDetectImpl:
             dist0_lst = hidden.evaluate_triggers_with_exp_vect_lst(model, exp_vect_lst, len(target_lst))
             detected_backdoors_hidden = input.detect_backdoors(dist0_lst, target_lst, "hidden")
             print("Suspected Target List:", detected_backdoors_hidden)
-            # print(*result, sep="\n")
+            #print(*result, sep="\n")
         
             if model_type == "clean":
-                total_true_negatives, total_false_positives = self.process_clean_model(detected_backdoors_hidden, second_submodel, test_dataloader, exp_vect_lst, model_loader, total_true_negatives, total_false_positives)
+                total_true_negatives, total_false_positives = self.process_clean_model(detected_backdoors_hidden, model, second_submodel, test_dataloader, exp_vect_lst, model_loader, total_true_negatives, total_false_positives)
             elif model_type == "backdoor":
                 trigger_type = model_loader.load_info(model_path)["trigger_type"]
-                patch_true_positives, blended_true_positives, patch_false_negatives, blended_false_negatives = self.process_backdoor_model(detected_backdoors_hidden, second_submodel, test_dataloader, exp_vect_lst, model_loader, attack_spec_path, trigger_type, patch_true_positives, blended_true_positives, patch_false_negatives, blended_false_negatives)
+                patch_true_positives, blended_true_positives, patch_false_negatives, blended_false_negatives = self.process_backdoor_model(detected_backdoors_hidden, model, second_submodel, test_dataloader, exp_vect_lst, model_loader, attack_spec_path, trigger_type, patch_true_positives, blended_true_positives, patch_false_negatives, blended_false_negatives)
 
             end_time = time.time()
             print("Elapsed time:", end_time - start_time, "seconds")
