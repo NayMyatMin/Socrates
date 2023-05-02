@@ -312,7 +312,7 @@ class BackdoorDetectInputImpl:
         acc_lst, dist0_lst, dist2_lst = [], [], []
         for target in target_lst:
             exp_vect = exp_vect_lst[target_lst.index(target)]
-            delta, trigger_size, trigger_distortion = self.generate_trigger(second_submodel, dataloader, size, target, exp_vect)
+            delta, trigger_size, trigger_distortion = self.generate_trigger(model, second_submodel, dataloader, size, target, exp_vect)
             delta = torch.where(abs(delta) < 0.1, 0, delta)
 
             acc = self.check(model, dataloader, delta, target, exp_vect)
@@ -325,7 +325,7 @@ class BackdoorDetectInputImpl:
             print('delta = {}, dist0 = {}, dist2 = {}\n'.format(delta[:10], dist0, dist2))
         return target_lst, acc_lst, dist0_lst, dist2_lst
 
-    def generate_trigger(self, model, dataloader, size, target, exp_vect, minx=None, maxx=None, patience=5, min_improvement=1e-4, num_of_epochs=100):
+    def generate_trigger(self, model, second_submodel, dataloader, size, target, exp_vect, minx=None, maxx=None, patience=5, min_improvement=1e-4, num_of_epochs=100):
         device = next(model.parameters()).device
         exp_vect = exp_vect.clone().detach().requires_grad_(True)
         delta = torch.rand(size, device=device) * 0.1
@@ -338,14 +338,14 @@ class BackdoorDetectInputImpl:
             minx, maxx = BackdoorDetectInputImpl.get_min_max_values(alphabet, device)
 
         for epoch in range(num_of_epochs):
-            model.train()
+            second_submodel.train()
             for batch, (x, y) in enumerate(dataloader):
                 # Generate trigger in form of modification at the input layer; Use normal x
                 x = x.to(device)
                 delta.requires_grad = True
                 with torch.cuda.amp.autocast():
                     x_adv = torch.clamp(torch.add(x, delta), minx, maxx)
-                    pred = model(x_adv)
+                    pred = second_submodel(x_adv)
 
                     # Create a mask based on the threshold to filter out large neurons
                     large_neurons_threshold = 0.5
