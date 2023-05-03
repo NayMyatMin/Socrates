@@ -232,12 +232,13 @@ class BackdoorDetectHiddenImpl:
         model.eval()
         exp_vect_lst, result = [], []
         device = next(model.parameters()).device
-        exp_vect = torch.randn(size, device=device) * 0.1
+        # exp_vect = torch.randn(size, device=device) * 0.1
+        exp_vect = torch.zeros(size, device=device)
         for target in target_lst:
             exp_vect = exp_vect.clone().detach().requires_grad_(True)
             optimized_exp_vect, predicted_class = self.optimize_exp_vector(
                 model, exp_vect, target, device, lr=0.1, lamb=1, patience=patience, tolerance=tolerance, max_iterations=max_iterations)
-            print(f"target: {target} | exp_vect: \n{exp_vect}, dist0: {torch.count_nonzero(optimized_exp_vect)}")
+            print(f"target: {target} | exp_vect: \n{exp_vect[:10]}, dist0: {torch.count_nonzero(optimized_exp_vect)}")
             
             exp_vect_lst.append(optimized_exp_vect)
             if predicted_class == target:
@@ -309,71 +310,77 @@ class BackdoorDetectInputImpl:
         return correct / total
     
     def evaluate_triggers(self, model, second_submodel, dataloader, target_lst, size, exp_vect_lst):
-        acc_lst, dist0_lst, dist2_lst = [], [], []
+        acc_lst, dist2_lst = [], []
         for target in target_lst:
             exp_vect = exp_vect_lst[target_lst.index(target)]
-            delta, trigger_size, trigger_distortion = self.generate_trigger(model, second_submodel, dataloader, size, target, exp_vect)
-            delta = torch.where(abs(delta) < 0.1, 0, delta)
-
+            delta = self.generate_trigger(model, second_submodel, dataloader, size, target, exp_vect)
+            delta = torch.where(abs(delta) < 0.01, 0, delta)
             acc = self.check(model, dataloader, delta, target, exp_vect)
-            dist0 = torch.norm(delta, 0)
-            dist2 = torch.norm(delta, 2)
-
             acc_lst.append(acc)
-            dist0_lst.append(dist0.detach().item())
+            
+            dist2 = torch.norm(delta, 2)
             dist2_lst.append(dist2.detach().item())
-            print('delta = {}, dist0 = {}, dist2 = {}\n'.format(delta[:10], dist0, dist2))
-        return target_lst, acc_lst, dist0_lst, dist2_lst
+            print('delta = {}, dist2 = {}\n'.format(delta[:10], dist2))
+
+        return target_lst, acc_lst, dist2_lst
 
     def generate_trigger(self, model, second_submodel, dataloader, size, target, exp_vect, minx=None, maxx=None, patience=5, min_improvement=1e-4, num_of_epochs=100):
         device = next(model.parameters()).device
-        exp_vect = exp_vect.clone().detach().requires_grad_(True)
-        delta = torch.rand(size, device=device) * 0.1
+        delta = torch.randn(size, device=device) * 0.1
+        delta.requires_grad = True
         best_delta, best_loss = None, float('inf')
-        optimizer = optim.Adam([exp_vect], lr)
-        scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, patience=2, verbose=False)
+        optimizer = optim.Adam([delta], lr=1)
+        scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, patience=patience, verbose=True)
         scaler = GradScaler()
 
         if minx is None or maxx is None:
             minx, maxx = BackdoorDetectInputImpl.get_min_max_values(alphabet, device)
 
         for epoch in range(num_of_epochs):
+            # Train the second_submodel
             second_submodel.train()
             for batch, (x, y) in enumerate(dataloader):
-                # Generate trigger in form of modification at the input layer; Use normal x
                 x = x.to(device)
                 delta.requires_grad = True
                 with torch.cuda.amp.autocast():
+                    # Generate adversarial examples by adding delta to the input
                     x_adv = torch.clamp(torch.add(x, delta), minx, maxx)
                     pred = second_submodel(x_adv)
 
-                    # Create a mask based on the threshold to filter out large neurons
+                    # Filter out large neurons using a mask based on the threshold
                     large_neurons_threshold = 0.5
                     large_neurons_mask = (exp_vect.view(-1, 1).expand(-1, pred.shape[1]) > large_neurons_threshold).float()
-
-                    # Compare with the expected vector and add L2-norm regularization
+                    lamb = 0.01
+                    # Calculate the MSE loss for large neurons and add L2-norm regularization
                     exp_vect_expanded = exp_vect.view(-1, 1).expand(-1, pred.shape[1])
                     mse_large_neurons = F.mse_loss(pred * large_neurons_mask, exp_vect_expanded * large_neurons_mask)
                     loss = mse_large_neurons + lamb * torch.norm(delta, 2)
 
+                optimizer.zero_grad()
+                scaler.scale(loss).backward()
+                scaler.step(optimizer)
+                scaler.update()
+
+            # Evaluate the trigger on the main model
             model.eval()
-            trigger_quality_sum, trigger_size_sum, trigger_distortion_sum, num_samples = 0, 0, 0, 0
+            trigger_quality, trigger_size, trigger_distortion, num_samples = 0, 0, 0, 0
             with torch.no_grad():
                 for batch, (x, y) in enumerate(dataloader):
-                    x = x.to(device)
+                    x = x.to(device); y = y.to(device)
                     x_adv = torch.clamp(torch.add(x, delta), minx, maxx)
                     pred = model(x_adv)
                     num_samples += x.size(0)
-                    misclassified_samples = (torch.argmax(pred, dim=1) != y).sum().item()
-                    trigger_success = misclassified_samples / num_samples
-                    trigger_quality_sum += trigger_success
-                    trigger_size_sum += torch.norm(delta.view(delta.size(0), -1), 2, dim=1).sum().item()
-                    trigger_distortion_sum += torch.norm(delta, 2).item() * x.size(0)
 
-                current_loss = trigger_quality_sum / num_samples
+                    # Calculate trigger success, size, and distortion
+                    misclassified_samples = (torch.argmax(pred, dim=1) != y).sum().item()
+                    trigger_quality += misclassified_samples
+                    trigger_size += torch.norm(delta.view(delta.size(0), -1), 2, dim=1).sum().item()
+                    trigger_distortion += torch.norm(delta, 2).item() * x.size(0)
+
+                current_loss = trigger_quality / num_samples
                 scheduler.step(current_loss)
-              
-            # print(f'Epoch: {epoch}, Loss: {current_loss}')
+
+            # Update best_delta and best_loss if there is significant improvement
             if best_loss - current_loss > min_improvement:
                 best_loss = current_loss
                 best_delta = delta.detach().clone()
@@ -384,43 +391,48 @@ class BackdoorDetectInputImpl:
             if patience_counter >= patience:
                 break
 
-        return best_delta, trigger_size_sum / num_samples, trigger_distortion_sum / num_samples
+        return best_delta
     
-    def detect_backdoors(self, dist0_lst, target_lst, detection_type, acc_lst=None):
+    def detect_backdoors(self, dist_lst, target_lst, detection_type, acc_lst=None):
         detected_backdoors = []
         epsilon = 1e-9
-        med = np.median(dist0_lst)
-        dev_lst = np.abs(dist0_lst - med)
+        med = np.median(dist_lst)
+        dev_lst = np.abs(dist_lst - med)
         mad = np.median(dev_lst)
-        ano_lst = (dist0_lst - med) / (mad + epsilon)
+        ano_lst = (dist_lst - med) / (mad + epsilon)
         ano_th, acc_th = -2, 50
 
         print(f"Accuracy list for all targets_{detection_type}: {acc_lst}")
-        print(f"Distance list (dist0_lst)_{detection_type}: {dist0_lst}")
-        print(f"Median of the distance list (dist0_lst)_{detection_type}: {med}")
-        print(f"Absolute deviations from the median_{detection_type}: {dev_lst}")
-        print(f"Median absolute deviation (MAD)_{detection_type}: {mad}")
-        print(f"Anomaly scores_{detection_type}: {ano_lst}")  
 
         if detection_type == "hidden":
             d_th = 0.1 * 128 # num_neurons
-            for ano, d, tgt in zip(ano_lst, dist0_lst, target_lst):
-                if ano <= ano_th or d <= d_th:
-                    detected_backdoors.append(tgt)
         elif detection_type == "input":
             d_th = 0.1 * 10000 # num_inputs
-            for acc, ano, d, tgt in zip(acc_lst, ano_lst, dist0_lst, target_lst):
-                if acc >= acc_th and (ano <= ano_th or d <= d_th):
+        else:
+            raise ValueError(f"Invalid detection_type: {detection_type}")
+
+        print(f"Distance list_{detection_type}: {dist_lst}")
+        print(f"Median of the distance list_{detection_type}: {med}")
+
+        for i, (ano, d, tgt) in enumerate(zip(ano_lst, dist_lst, target_lst)):
+            if acc_lst is not None:
+                acc = acc_lst[i]
+            if detection_type == "hidden" or (detection_type == "input" and acc >= acc_th):
+                if ano <= ano_th or d <= d_th:
                     detected_backdoors.append(tgt)
+
+        print(f"Absolute deviations from the median_{detection_type}: {dev_lst}")
+        print(f"Median absolute deviation (MAD)_{detection_type}: {mad}")
+        print(f"Anomaly scores_{detection_type}: {ano_lst}")  
         return detected_backdoors
 
 class BackdoorDetectImpl:
 
     def __init__(self):
-        # self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
-        self.device = 'cpu'
-        self.train_kwargs = {'batch_size': 100, 'num_workers': 8, 'pin_memory': False, 'drop_last':False}
-        self.test_kwargs = {'batch_size': 128, 'num_workers': 8, 'pin_memory': False, 'drop_last':True}
+        self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
+        # self.device = 'cpu'
+        self.train_kwargs = {'batch_size': 100, 'num_workers': 8, 'pin_memory': True, 'drop_last':False}
+        self.test_kwargs = {'batch_size': 128, 'num_workers': 8, 'pin_memory': True, 'drop_last':True}
         self.size_input = None; self.size_last = None
 
     def model_generator(self, clean_root_dir, backdoor_root_dir):
@@ -440,7 +452,7 @@ class BackdoorDetectImpl:
     def process_clean_model(self, detected_backdoors_hidden, model, second_submodel, test_dataloader, exp_vect_lst, model_loader, total_true_negatives, total_false_positives):
         input = BackdoorDetectInputImpl()
         if detected_backdoors_hidden:
-            target_lst, acc_lst, dist0_lst, dist2_lst = input.evaluate_triggers(model, second_submodel, test_dataloader, detected_backdoors_hidden, model_loader.size_input, exp_vect_lst)
+            target_lst, acc_lst, dist2_lst = input.evaluate_triggers(model, second_submodel, test_dataloader, detected_backdoors_hidden, model_loader.size_input, exp_vect_lst)
             detected_backdoors_input = input.detect_backdoors(dist2_lst, target_lst, "input", acc_lst)
             if detected_backdoors_input:
                 print("(Wrong) Detected backdoors at targets:", detected_backdoors_input)
@@ -459,7 +471,7 @@ class BackdoorDetectImpl:
         attack_specification.load_and_display_attack_specification(attack_spec_path)
 
         if detected_backdoors_hidden:
-            target_lst, acc_lst, dist0_lst, dist2_lst = input.evaluate_triggers(model, second_submodel, test_dataloader, detected_backdoors_hidden, model_loader.size_input, exp_vect_lst)
+            target_lst, acc_lst, dist2_lst = input.evaluate_triggers(model, second_submodel, test_dataloader, detected_backdoors_hidden, model_loader.size_input, exp_vect_lst)
             detected_backdoors_input = input.detect_backdoors(dist2_lst, target_lst, "input", acc_lst)
             if detected_backdoors_input:
                 print("Detected backdoors at targets:", detected_backdoors_input)
