@@ -85,7 +85,7 @@ class ModelLoader:
         info = self.load_info(model_path)
         dataset = info["dataset"]
         dataset_config = self.get_dataset(dataset)
-        print(f'Dataset = {dataset}\n')
+        # print(f'Dataset = {dataset}\n')
 
         if dataset == "MNIST":
             last_layer = 'main[11]'
@@ -175,9 +175,6 @@ class AttackSpecification:
     @staticmethod
     def load_and_display_attack_specification(file_path):
         attack_specification = torch.load(file_path)
-        for key, value in attack_specification.items():
-            if key == 'target_label':
-               print(f"true_{key}: {value}\n")
         return attack_specification
 
 alphabet = 'M'; ano_th, acc_th = -2, 50; lamb, lr = 1, 0.1
@@ -202,24 +199,24 @@ class BackdoorDetectHiddenImpl:
             with torch.cuda.amp.autocast():
                 pred = model(exp_vect.unsqueeze(0))
                 target_tensor = torch.tensor([target], device=device, dtype=torch.long)
-                loss = F.cross_entropy(pred, target_tensor) + lamb * torch.norm(exp_vect, 0)
+                loss = F.cross_entropy(pred, target_tensor) + lamb * torch.norm(exp_vect, 2)
+            
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
-
-            with torch.no_grad():
-                exp_vect.data = torch.relu(exp_vect.data)
-
+            exp_vect.data = torch.relu(exp_vect.data)  # Ensuring the exp_vect values remain non-negative
             scheduler.step(loss.item())
+
             if loss.item() < best_loss - tolerance:
                 best_loss = loss.item()
                 no_improvement_count = 0
             else:
                 no_improvement_count += 1
+
             if no_improvement_count >= patience:
                 break
-            predicted_class = self.check_class(model, exp_vect)
 
+            predicted_class = self.check_class(model, exp_vect)
             if predicted_class == target:
                 curr_d0 = torch.count_nonzero(exp_vect).item()
                 if curr_d0 < best_d0:
@@ -227,27 +224,38 @@ class BackdoorDetectHiddenImpl:
                     best_exp_vect = exp_vect.clone().detach().requires_grad_(True)
 
             iteration += 1
-        return best_exp_vect, self.check_class(model, best_exp_vect)
 
-    def generate_hidden_layer_exp_vector(self, model, size, target_lst, max_iterations=10000, patience=100, tolerance=1e-4):
+        return best_exp_vect, self.check_class(model, best_exp_vect), best_loss
+
+    def generate_hidden_layer_exp_vector(self, model, size, target_lst, num_init_vectors=5, max_iterations=1000, patience=100, tolerance=1e-4):
         torch.manual_seed(7)
         model.eval()
         exp_vect_lst, result = [], []
         device = next(model.parameters()).device
-        exp_vect = torch.randn(size, device=device) * 0.1
-        # exp_vect = torch.zeros(size, device=device)
+
         with open('trigger_activation.txt', 'w') as f:
             for target in target_lst:
-                exp_vect = exp_vect.clone().detach().requires_grad_(True)
-                optimized_exp_vect, predicted_class = self.optimize_exp_vector(
-                    model, exp_vect, target, device, lr=0.1, lamb=1, patience=patience, tolerance=tolerance, max_iterations=max_iterations)
-                # print(f"target: {target} | exp_vect: \n{optimized_exp_vect[:10]}, dist0: {torch.count_nonzero(optimized_exp_vect)}")
-                exp_vect_lst.append(optimized_exp_vect)
-                if predicted_class == target:
-                    result.append(f'Target: {target}, Predicted Class: {predicted_class}, Match: True')
-                else:
-                    result.append(f'Target: {target}, Predicted Class: {predicted_class}, Match: False')
-                    # f.write(f"target: {target} | exp_vect: \n{optimized_exp_vect}, dist0: {torch.count_nonzero(optimized_exp_vect)}\n")    
+                best_exp_vect = None
+                best_predicted_class = None
+                best_loss = float("inf")
+
+                for _ in range(num_init_vectors):
+                    exp_vect = torch.randn(size, device=device) * 0.1
+                    exp_vect = exp_vect.clone().detach().requires_grad_(True)
+                    optimized_exp_vect, predicted_class, loss = self.optimize_exp_vector(
+                        model, exp_vect, target, device, lr=1, lamb=5, patience=patience, tolerance=tolerance, max_iterations=max_iterations)
+                    # print(f"target: {target} | exp_vect: \n{optimized_exp_vect[:10]}, dist0: {torch.count_nonzero(optimized_exp_vect)}")
+                    if loss < best_loss:
+                        best_exp_vect = optimized_exp_vect
+                        best_predicted_class = predicted_class
+                        best_loss = loss
+
+                exp_vect_lst.append(best_exp_vect)
+                match = best_predicted_class == target
+                result_str = f'Target: {target}, Predicted Class: {best_predicted_class}, Match: {match}'
+                result.append(result_str)
+                f.write(f"{result_str}\n")
+                # f.write(f"target: {target} | exp_vect: \n{optimized_exp_vect}, dist0: {torch.count_nonzero(optimized_exp_vect)}\n")    
         return exp_vect_lst, result
     
     def evaluate_triggers_with_exp_vect_lst(self, model, exp_vect_lst, num_classes):
@@ -262,6 +270,35 @@ class BackdoorDetectHiddenImpl:
             dist0_lst.append(dist0)
 
         return dist0_lst
+
+    def evaluate_backdoor_detection_hidden(self, models, true_target_labels, size_last, list_length_penalty=0.1):
+        true_positives, true_negatives, false_positives, false_negatives = 0, 0, 0, 0
+        input = BackdoorDetectInputImpl()
+        
+        for model, true_target_label in zip(models, true_target_labels):
+            target_lst = range(10)
+            exp_vect_lst, result = self.generate_hidden_layer_exp_vector(model, size_last, target_lst)
+            dist0_lst = self.evaluate_triggers_with_exp_vect_lst(model, exp_vect_lst, len(target_lst))
+            detected_backdoors_hidden = input.detect_backdoors(dist0_lst, target_lst, "hidden")
+            print("True Target Label:", true_target_label)
+            print("Suspected Target List:", detected_backdoors_hidden)
+            print(*result, sep="\n"); print("\n")
+
+            if true_target_label in detected_backdoors_hidden:
+                true_positives += 1
+            else:
+                false_negatives += 1
+
+            # Apply the penalty for list length
+            num_targets = len(detected_backdoors_hidden)
+            if num_targets > 1:
+                false_positives += int(list_length_penalty * (num_targets - 1))
+
+        precision = true_positives / (true_positives + false_positives)
+        recall = true_positives / (true_positives + false_negatives)
+        f1_score = 2 * (precision * recall) / (precision + recall)
+
+        return f1_score
 
 class BackdoorDetectInputImpl:
 
@@ -323,7 +360,7 @@ class BackdoorDetectInputImpl:
             
             dist2 = torch.norm(delta, 2)
             dist2_lst.append(dist2.detach().item())
-            print('delta = {}, dist2 = {}\n'.format(delta[:10], dist2))
+            # print('delta = {}, dist2 = {}\n'.format(delta[:10], dist2))
 
         return target_lst, acc_lst, dist2_lst
 
@@ -408,6 +445,7 @@ class BackdoorDetectInputImpl:
 
         if detection_type == "hidden":
             d_th = 0.1 * 128 # num_neurons
+
         elif detection_type == "input":
             input_neuron = 784 if alphabet == 'M' else 3072 if alphabet == 'C' else None
             d_th = 0.1 * input_neuron # 28 * 28 = 784, 32 * 32 * 3 = 3072
@@ -420,6 +458,7 @@ class BackdoorDetectInputImpl:
         for i, (ano, d, tgt) in enumerate(zip(ano_lst, dist_lst, target_lst)):
             if acc_lst is not None:
                 acc = acc_lst[i]
+                print(acc)
             if detection_type == "hidden" or (detection_type == "input" and acc >= acc_th):
                 if ano <= ano_th or d <= d_th:
                     detected_backdoors.append(tgt)
@@ -573,41 +612,66 @@ class BackdoorDetectImpl:
                 blended_false_negatives += 1
         return patch_true_positives, blended_true_positives, patch_false_negatives, blended_false_negatives
 
+    def search_hyperparameters(self, models, true_target_labels, size_last):
+        hidden = BackdoorDetectHiddenImpl()
+        lr_values = [0.001, 0.01, 0.1, 1]
+        lamb_values = [0.1, 1, 10, 100]
+        best_f1_score = -1
+        best_lr, best_lamb = None, None
+
+        for lr in lr_values:
+            for lamb in lamb_values:
+                print(f"Trying lr={lr}, lamb={lamb}")
+                best_lr = lr; best_lambda = lamb
+                f1_score = hidden.evaluate_backdoor_detection_hidden(models, true_target_labels, size_last)
+
+                # Update the best combination if the current F1 score is higher
+                if f1_score > best_f1_score:
+                    best_f1_score = f1_score
+                    best_lr = lr
+                    best_lamb = lamb
+
+        print(f"Best combination: lr={best_lr}, lamb={best_lamb}, F1 score={best_f1_score}")
+
     def solve(self, model, assertion, display=None):
         total_true_positives, total_true_negatives, total_false_positives, total_false_negatives = 0, 0, 0, 0
         patch_true_positives, patch_false_negatives, blended_true_positives, blended_false_negatives = 0, 0, 0, 0
         model_loader = ModelLoader(self.device); metrics = Metrics(); attack_specification = AttackSpecification()
         hidden = BackdoorDetectHiddenImpl(); input = BackdoorDetectInputImpl()
+        sub_models = []; true_target_labels = []
 
         for model_path, model_type, attack_spec_path in self.model_generator(clean_root_dir, backdoor_root_dir):
             start_time = time.time()
-            print(model_type.capitalize())
+            # print(model_type.capitalize())
             model, sub_model, dataset, train_dataset, test_dataset, last_layer = model_loader.load_and_prepare_model(model_path)
             second_submodel = input.second_submodel(model)
 
-            # attack_spec = attack_specification.load_and_display_attack_specification(attack_spec_path)
+            attack_spec = attack_specification.load_and_display_attack_specification(attack_spec_path)
+            sub_models.append(sub_model); true_target_labels.append(attack_spec["target_label"])
+
             # test_dataloader, last_layer_test_dataloader = self.get_last_layer_activations(model, test_dataset, last_layer, dataset, attack_spec)
             # self.analyze_hidden_layer_activations(sub_model, test_dataloader, last_layer,last_layer_test_dataloader, attack_spec)
 
-            target_lst = range(10)
-            exp_vect_lst, result = hidden.generate_hidden_layer_exp_vector(sub_model, model_loader.size_last, target_lst)
-            dist0_lst = hidden.evaluate_triggers_with_exp_vect_lst(model, exp_vect_lst, len(target_lst))
-            detected_backdoors_hidden = input.detect_backdoors(dist0_lst, target_lst, "hidden")
-            print("Suspected Target List:", detected_backdoors_hidden)
-            #print(*result, sep="\n")
-        
-            if model_type == "clean":
-                total_true_negatives, total_false_positives = self.process_clean_model(detected_backdoors_hidden, model, second_submodel, test_dataloader, exp_vect_lst, model_loader, total_true_negatives, total_false_positives)
-            elif model_type == "backdoor":
-                attack_spec = attack_specification.load_and_display_attack_specification(attack_spec_path)
-                test_dataloader, last_layer_test_dataloader = self.get_last_layer_activations(model, test_dataset, last_layer, dataset, attack_spec)
-                self.analyze_hidden_layer_activations(sub_model, test_dataloader, last_layer,last_layer_test_dataloader, attack_spec)
-                trigger_type = model_loader.load_info(model_path)["trigger_type"]
-                patch_true_positives, blended_true_positives, patch_false_negatives, blended_false_negatives = self.process_backdoor_model(detected_backdoors_hidden, model, second_submodel, test_dataloader, exp_vect_lst, model_loader, attack_spec_path, trigger_type, patch_true_positives, blended_true_positives, patch_false_negatives, blended_false_negatives)
+            # target_lst = range(10)
+            # exp_vect_lst, result = hidden.generate_hidden_layer_exp_vector(sub_model, model_loader.size_last, target_lst)
+            # dist0_lst = hidden.evaluate_triggers_with_exp_vect_lst(model, exp_vect_lst, len(target_lst))
+            # detected_backdoors_hidden = input.detect_backdoors(dist0_lst, target_lst, "hidden")
+            # print("Suspected Target List:", detected_backdoors_hidden)
+            # print(*result, sep="\n")
 
-            end_time = time.time()
-            print("Elapsed time:", end_time - start_time, "seconds")
-            print(f"\n{'*' * 100}\n")
+        #     if model_type == "clean":
+        #         total_true_negatives, total_false_positives = self.process_clean_model(detected_backdoors_hidden, model, second_submodel, test_dataloader, exp_vect_lst, model_loader, total_true_negatives, total_false_positives)
+        #     elif model_type == "backdoor":
+        #         attack_spec = attack_specification.load_and_display_attack_specification(attack_spec_path)
+        #         test_dataloader, last_layer_test_dataloader = self.get_last_layer_activations(model, test_dataset, last_layer, dataset, attack_spec)
+        #         self.analyze_hidden_layer_activations(sub_model, test_dataloader, last_layer,last_layer_test_dataloader, attack_spec)
+        #         trigger_type = model_loader.load_info(model_path)["trigger_type"]
+        #         patch_true_positives, blended_true_positives, patch_false_negatives, blended_false_negatives = self.process_backdoor_model(detected_backdoors_hidden, model, second_submodel, test_dataloader, exp_vect_lst, model_loader, attack_spec_path, trigger_type, patch_true_positives, blended_true_positives, patch_false_negatives, blended_false_negatives)
+
+        #     end_time = time.time()
+        #     print("Elapsed time:", end_time - start_time, "seconds")
+        #     print(f"\n{'*' * 100}\n")
         
-        print(f"Experiment Stats - acc_th_percent={acc_th}, ano_th={ano_th}, lamb = {lamb}, lr = {lr}")
-        metrics.calculate_metrics(patch_true_positives, patch_false_negatives, blended_true_positives, blended_false_negatives, total_false_positives, total_true_negatives)
+        # print(f"Experiment Stats - acc_th_percent={acc_th}, ano_th={ano_th}, lamb = {lamb}, lr = {lr}")
+        # metrics.calculate_metrics(patch_true_positives, patch_false_negatives, blended_true_positives, blended_false_negatives, total_false_positives, total_true_negatives)
+        self.search_hyperparameters(sub_models, true_target_labels, model_loader.size_last)
