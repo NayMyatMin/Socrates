@@ -227,7 +227,7 @@ class BackdoorDetectHiddenImpl:
 
         return best_exp_vect, self.check_class(model, best_exp_vect), best_loss
 
-    def generate_hidden_layer_exp_vector(self, model, size, target_lst, num_init_vectors=5, max_iterations=1000, patience=100, tolerance=1e-4):
+    def generate_hidden_layer_exp_vector(self, model, size, target_lst, lr, lamb, num_init_vectors=5, max_iterations=1000, patience=100, tolerance=1e-4):
         torch.manual_seed(7)
         model.eval()
         exp_vect_lst, result = [], []
@@ -243,7 +243,7 @@ class BackdoorDetectHiddenImpl:
                     exp_vect = torch.randn(size, device=device) * 0.1
                     exp_vect = exp_vect.clone().detach().requires_grad_(True)
                     optimized_exp_vect, predicted_class, loss = self.optimize_exp_vector(
-                        model, exp_vect, target, device, lr=1, lamb=5, patience=patience, tolerance=tolerance, max_iterations=max_iterations)
+                        model, exp_vect, target, device, lr=lr, lamb=lamb, patience=patience, tolerance=tolerance, max_iterations=max_iterations)
                     # print(f"target: {target} | exp_vect: \n{optimized_exp_vect[:10]}, dist0: {torch.count_nonzero(optimized_exp_vect)}")
                     if loss < best_loss:
                         best_exp_vect = optimized_exp_vect
@@ -271,13 +271,13 @@ class BackdoorDetectHiddenImpl:
 
         return dist0_lst
 
-    def evaluate_backdoor_detection_hidden(self, models, true_target_labels, size_last, list_length_penalty=0.1):
+    def evaluate_backdoor_detection_hidden(self, models, true_target_labels, size_last, lr, lamb, list_length_penalty=0.1):
         true_positives, true_negatives, false_positives, false_negatives = 0, 0, 0, 0
         input = BackdoorDetectInputImpl()
         
         for model, true_target_label in zip(models, true_target_labels):
             target_lst = range(10)
-            exp_vect_lst, result = self.generate_hidden_layer_exp_vector(model, size_last, target_lst)
+            exp_vect_lst, result = self.generate_hidden_layer_exp_vector(model, size_last, target_lst, lr, lamb)
             dist0_lst = self.evaluate_triggers_with_exp_vect_lst(model, exp_vect_lst, len(target_lst))
             detected_backdoors_hidden = input.detect_backdoors(dist0_lst, target_lst, "hidden")
             print("True Target Label:", true_target_label)
@@ -299,6 +299,25 @@ class BackdoorDetectHiddenImpl:
         f1_score = 2 * (precision * recall) / (precision + recall)
 
         return f1_score
+
+    def search_hyperparameters(self, models, true_target_labels, size_last):
+        hidden = BackdoorDetectHiddenImpl()
+        lr_values = [0.001, 0.01, 0.1, 1]
+        lamb_values = [0.1, 1, 10, 100]
+        best_f1_score = -1
+
+        for lr in lr_values:
+            for lamb in lamb_values:
+                print(f"Trying lr={lr}, lamb={lamb}")
+                f1_score = hidden.evaluate_backdoor_detection_hidden(models, true_target_labels, size_last, lr, lamb)
+
+                # Update the best combination if the current F1 score is higher
+                if f1_score > best_f1_score:
+                    best_f1_score = f1_score
+                    best_lr = lr
+                    best_lamb = lamb
+
+        print(f"Best combination: lr={best_lr}, lamb={best_lamb}, F1 score={best_f1_score}")
 
 class BackdoorDetectInputImpl:
 
@@ -468,6 +487,7 @@ class BackdoorDetectInputImpl:
         print(f"Anomaly scores_{detection_type}: {ano_lst}")  
         return detected_backdoors
 
+
 class BackdoorDetectImpl:
 
     def __init__(self):
@@ -612,27 +632,6 @@ class BackdoorDetectImpl:
                 blended_false_negatives += 1
         return patch_true_positives, blended_true_positives, patch_false_negatives, blended_false_negatives
 
-    def search_hyperparameters(self, models, true_target_labels, size_last):
-        hidden = BackdoorDetectHiddenImpl()
-        lr_values = [0.001, 0.01, 0.1, 1]
-        lamb_values = [0.1, 1, 10, 100]
-        best_f1_score = -1
-        best_lr, best_lamb = None, None
-
-        for lr in lr_values:
-            for lamb in lamb_values:
-                print(f"Trying lr={lr}, lamb={lamb}")
-                best_lr = lr; best_lambda = lamb
-                f1_score = hidden.evaluate_backdoor_detection_hidden(models, true_target_labels, size_last)
-
-                # Update the best combination if the current F1 score is higher
-                if f1_score > best_f1_score:
-                    best_f1_score = f1_score
-                    best_lr = lr
-                    best_lamb = lamb
-
-        print(f"Best combination: lr={best_lr}, lamb={best_lamb}, F1 score={best_f1_score}")
-
     def solve(self, model, assertion, display=None):
         total_true_positives, total_true_negatives, total_false_positives, total_false_negatives = 0, 0, 0, 0
         patch_true_positives, patch_false_negatives, blended_true_positives, blended_false_negatives = 0, 0, 0, 0
@@ -674,4 +673,4 @@ class BackdoorDetectImpl:
         
         # print(f"Experiment Stats - acc_th_percent={acc_th}, ano_th={ano_th}, lamb = {lamb}, lr = {lr}")
         # metrics.calculate_metrics(patch_true_positives, patch_false_negatives, blended_true_positives, blended_false_negatives, total_false_positives, total_true_negatives)
-        self.search_hyperparameters(sub_models, true_target_labels, model_loader.size_last)
+        hidden.search_hyperparameters(sub_models, true_target_labels, model_loader.size_last)
