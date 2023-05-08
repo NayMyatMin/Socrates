@@ -236,7 +236,7 @@ class BackdoorDetectHiddenImpl:
         device = next(model.parameters()).device
         exp_vect = torch.randn(size, device=device) * 0.1
         # exp_vect = torch.zeros(size, device=device)
-        with open('trigger_activation.txt', 'a') as f:
+        with open('trigger_activation.txt', 'w') as f:
             for target in target_lst:
                 exp_vect = exp_vect.clone().detach().requires_grad_(True)
                 optimized_exp_vect, predicted_class = self.optimize_exp_vector(
@@ -247,7 +247,7 @@ class BackdoorDetectHiddenImpl:
                     result.append(f'Target: {target}, Predicted Class: {predicted_class}, Match: True')
                 else:
                     result.append(f'Target: {target}, Predicted Class: {predicted_class}, Match: False')
-                    f.write(f"target: {target} | exp_vect: \n{optimized_exp_vect}, dist0: {torch.count_nonzero(optimized_exp_vect)}\n")    
+                    # f.write(f"target: {target} | exp_vect: \n{optimized_exp_vect}, dist0: {torch.count_nonzero(optimized_exp_vect)}\n")    
         return exp_vect_lst, result
     
     def evaluate_triggers_with_exp_vect_lst(self, model, exp_vect_lst, num_classes):
@@ -463,19 +463,44 @@ class BackdoorDetectImpl:
     def analyze_hidden_layer_activations(self, sub_model, test_dataloader, last_layer, last_layer_test_dataloader, attack_specification):
         sub_model.eval()
         device = 'cuda' if torch.cuda.is_available() else 'cpu'
-        # Collect trigger-embedded input activations
+        
+        common_neurons_indices = None
+        misclassified_trigger_activations_list = []
+
         with open('trigger_activation.txt', 'a') as f:
             with torch.no_grad():
-                for _, (x, y) in enumerate(last_layer_test_dataloader):
-                    x = x.to(device)
+                for batch_idx, (x, y) in enumerate(last_layer_test_dataloader):
+                    x = x.to(device); y = y.to(device)
                     sub_model(x)
+                    logits = sub_model(x)
+                    predictions = torch.argmax(logits, dim=1)
                     trigger_activation = torch.flatten(activation[last_layer], 1).cpu().detach().numpy()
-                    
-                    # Write trigger activation for current input to file
-                    f.write(f"Attack specification\n")
-                    f.write(f'{attack_specification}\n')
-                    f.write(f"Trigger activation\n")
-                    np.savetxt(f, trigger_activation, fmt='%.6f', delimiter=',')
+
+                    # Check if predictions match the target class
+                    misclassified_indices = torch.nonzero(predictions == attack_specification['target_label']).squeeze()
+                    threshold = 0.0  # Find common neurons with large values
+                    misclassified_trigger_activations = trigger_activation[misclassified_indices.cpu()]
+                    large_neurons = misclassified_trigger_activations > threshold
+
+                    if common_neurons_indices is None:
+                        common_neurons_indices = np.all(large_neurons, axis=0)
+                    else:
+                        common_neurons_indices = np.logical_and(common_neurons_indices, np.all(large_neurons, axis=0))
+
+                    misclassified_trigger_activations_list.append(misclassified_trigger_activations)
+
+                common_neurons_indices = np.nonzero(common_neurons_indices)[0]
+
+                if common_neurons_indices.size != 0:
+                    f.write(f"True Target Label: {attack_specification['target_label']}, ")
+                    f.write(f"Common neurons with values greater than {threshold}: {common_neurons_indices}\n")
+                    misclassified_trigger_activations = np.concatenate(misclassified_trigger_activations_list, axis=0)
+                    for index in common_neurons_indices:
+                        common_neurons_values = misclassified_trigger_activations[:, index]
+                        common_neurons_values_str = np.array2string(common_neurons_values, separator=',', threshold=np.inf)
+                        common_neurons_values_str = common_neurons_values_str.replace('\n', ' ')                        
+                        f.write(f'index:  {index}\n')
+                        f.write(f'{common_neurons_values_str}\n')
 
     def get_last_layer_activations(self, model, test_dataset, last_layer, dataset, attack_specification, apply_trigger_ratio=0.1):
         model.eval()
@@ -559,6 +584,10 @@ class BackdoorDetectImpl:
             print(model_type.capitalize())
             model, sub_model, dataset, train_dataset, test_dataset, last_layer = model_loader.load_and_prepare_model(model_path)
             second_submodel = input.second_submodel(model)
+
+            # attack_spec = attack_specification.load_and_display_attack_specification(attack_spec_path)
+            # test_dataloader, last_layer_test_dataloader = self.get_last_layer_activations(model, test_dataset, last_layer, dataset, attack_spec)
+            # self.analyze_hidden_layer_activations(sub_model, test_dataloader, last_layer,last_layer_test_dataloader, attack_spec)
 
             target_lst = range(10)
             exp_vect_lst, result = hidden.generate_hidden_layer_exp_vector(sub_model, model_loader.size_last, target_lst)
