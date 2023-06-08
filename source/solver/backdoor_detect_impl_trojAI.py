@@ -213,7 +213,24 @@ class BackdoorDetectHiddenImpl:
 
     #     # print('iteration = {}'.format(iteration))
     #     return best_exp_vect, torch.argmax(model(best_exp_vect)).item()
+    
+    def print_active_weights(self, model, exp_vect):
+        # Check that model is a Sequential type
+        if not isinstance(model, nn.Sequential):
+            raise Exception("Expected the model to be of type 'Sequential'.")
 
+        # Get the first (and in this case, only) module from the Sequential model
+        linear_layer = next(iter(model.named_children()))[1]
+
+        # Check that the module is a Linear layer
+        if not isinstance(linear_layer, nn.Linear):
+            raise Exception("Expected the module to be of type 'nn.Linear'.")
+
+        weight_matrix = linear_layer.weight.detach().cpu().numpy()
+        active_indices = torch.nonzero(exp_vect, as_tuple=True)[0].cpu().numpy()
+
+        for idx in active_indices:
+            print(f"Active Neuron: {idx}, Weights: {weight_matrix[:, idx]}\n")
 
     def optimize_exp_vector(self, model, exp_vect, size, target, device, lr, lamb, patience, tolerance, max_iterations):
         optimizer = optim.Adam([exp_vect], lr)
@@ -272,6 +289,7 @@ class BackdoorDetectHiddenImpl:
 
             optimized_exp_vect, predicted_class = self.optimize_exp_vector(
                 model, exp_vect, size, target, device, lr=0.1, lamb=1e1, patience=patience, tolerance=tolerance, max_iterations=max_iterations)
+            self.print_active_weights(model, optimized_exp_vect)
             exp_vect_lst.append(optimized_exp_vect)
 
             if predicted_class == target:
@@ -777,19 +795,19 @@ class BackdoorDetectImpl:
             detected_backdoors_hidden = self.detect_backdoors(dist0_lst, target_lst, "hidden")
             print("Suspected Target List:", detected_backdoors_hidden)
 
-            if model_type == "clean":
-                total_true_negatives, total_false_positives = self.process_clean_model(detected_backdoors_hidden, model, input_submodel, test_dataloader, exp_vect_lst, model_loader, total_true_negatives, total_false_positives)
-            elif model_type == "backdoor":
-                attack_spec = attack_specification.load_attack_specification(attack_spec_path)
-                print('\nTrue target label = {}\n'.format(attack_spec['target_label']))
+        #     if model_type == "clean":
+        #         total_true_negatives, total_false_positives = self.process_clean_model(detected_backdoors_hidden, model, input_submodel, test_dataloader, exp_vect_lst, model_loader, total_true_negatives, total_false_positives)
+        #     elif model_type == "backdoor":
+        #         attack_spec = attack_specification.load_attack_specification(attack_spec_path)
+        #         print('\nTrue target label = {}\n'.format(attack_spec['target_label']))
 
-                trigger_type = model_loader.load_info(model_path)["trigger_type"]
-                print(f'trigger_type = {trigger_type}')
-                patch_true_positives, blended_true_positives, patch_false_negatives, blended_false_negatives = self.process_backdoor_model(detected_backdoors_hidden, model, input_submodel, test_dataloader, exp_vect_lst, model_loader, attack_spec_path, trigger_type, patch_true_positives, blended_true_positives, patch_false_negatives, blended_false_negatives)
+        #         trigger_type = model_loader.load_info(model_path)["trigger_type"]
+        #         print(f'trigger_type = {trigger_type}')
+        #         patch_true_positives, blended_true_positives, patch_false_negatives, blended_false_negatives = self.process_backdoor_model(detected_backdoors_hidden, model, input_submodel, test_dataloader, exp_vect_lst, model_loader, attack_spec_path, trigger_type, patch_true_positives, blended_true_positives, patch_false_negatives, blended_false_negatives)
 
-            end_time = time.time()
-            print("Elapsed time:", end_time - start_time, "seconds")
-            print(f"\n{'*' * 100}\n")
+        #     end_time = time.time()
+        #     print("Elapsed time:", end_time - start_time, "seconds")
+        #     print(f"\n{'*' * 100}\n")
         
-        print(f"Experiment Stats - acc_th_percent={acc_th}, ano_th={ano_th}, lamb = {lamb}, lr = {lr}")
-        metrics.calculate_metrics(patch_true_positives, patch_false_negatives, blended_true_positives, blended_false_negatives, total_false_positives, total_true_negatives)
+        # print(f"Experiment Stats - acc_th_percent={acc_th}, ano_th={ano_th}, lamb = {lamb}, lr = {lr}")
+        # metrics.calculate_metrics(patch_true_positives, patch_false_negatives, blended_true_positives, blended_false_negatives, total_false_positives, total_true_negatives)
