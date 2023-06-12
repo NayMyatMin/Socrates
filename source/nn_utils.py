@@ -1,46 +1,28 @@
+from collections import OrderedDict
 import torch
-import random
 import numpy as np
 
 from model.lib_models import *
 from model.lib_layers import *
-
 from poly_utils import *
-from solver.refinement_impl import Poly
-
 from utils import *
-from torch import nn
-from torch.utils.data import TensorDataset, DataLoader
-
-from torch.utils.data import DataLoader
-from torchvision import datasets
-from torchvision.transforms import ToTensor
-
-import torch.nn.functional as F
-import torch.optim as optim
-from torchvision import datasets, transforms
-from torch.optim.lr_scheduler import StepLR
 
 import gurobipy as gp
 from gurobipy import GRB
 
-import math
-import ast
-
-
-
 def save_model(model, name):
     torch.save(model.state_dict(), name)
-
+    
 
 def load_model(model_class, name, *args):
-    trojAI = True
     model = model_class(*args)
     
-    if trojAI and torch.cuda.is_available():
-        model.load_state_dict(torch.load(name).state_dict())
-    elif torch.cuda.is_available():
-        model.load_state_dict(torch.load(name))
+    if torch.cuda.is_available():
+        if isinstance(torch.load(name), OrderedDict):
+            model.load_state_dict(torch.load(name))
+        else:
+            model.load_state_dict(torch.load(name).state_dict())
+
     else:
         model.load_state_dict(torch.load(name, map_location=torch.device('cpu')))
 
@@ -264,3 +246,4 @@ def verify_milp(model, lst_poly, output_constr, input_len):
     else:
         print('Unknown')
         return False
+
