@@ -5,7 +5,7 @@ from torch.utils.data import TensorDataset, DataLoader
 import torchvision.transforms as transforms
 import torchvision
 import numpy as np
-from utils import MNIST_Network
+from utils import New_MNIST_Network
 from collections import OrderedDict
 import random
 
@@ -21,7 +21,7 @@ class SWM:
             'beta': 1e-3,
             'gamma': 1e-2,
         }
-
+        
     def load_state_dict(self, net, orig_state_dict):
         if 'state_dict' in orig_state_dict.keys():
             orig_state_dict = orig_state_dict['state_dict']
@@ -104,10 +104,6 @@ class SWM:
         return loss, acc
 
     def swm(self):
-        random.seed(123)
-        np.random.seed(123)
-        torch.manual_seed(123)
-
         transform = transforms.Compose([transforms.ToTensor()])
         trainset = torchvision.datasets.MNIST(root='./data', train=True, download=True, transform=transform)
         testset = torchvision.datasets.MNIST(root='./data', train=False, download=True, transform=transform)
@@ -115,12 +111,12 @@ class SWM:
         testloader = DataLoader(testset, batch_size=self.args['batch_size'], shuffle=False)
 
         state_dict = torch.load(self.model_path, map_location=self.device)
-        net = MNIST_Network().to(self.device)
+        net = New_MNIST_Network().to(self.device)
         self.load_state_dict(net, orig_state_dict=state_dict.state_dict())
         model = net.to(self.device)
 
         criterion = nn.CrossEntropyLoss()
-        optimizer = torch.optim.Adam(model.parameters(), lr=0.9)
+        optimizer = torch.optim.Adam(model.parameters(), lr=0.1)
 
         best_test_acc = 0.0
         best_model_path = os.path.dirname(self.model_path) + "/swm_model.pt"
@@ -130,8 +126,8 @@ class SWM:
             running_loss = 0.0
             for i, (images, labels) in enumerate(trainloader):
                 images, labels = images.to(self.device), labels.to(self.device)
-                loss, acc = self.mask_train(model, criterion, optimizer, trainloader)
-
+                loss, _ = self.mask_train(model, criterion, optimizer, trainloader)
+                
                 running_loss += loss
                 if (i + 1) % 100 == 0:
                     print(f"Epoch [{epoch + 1}/{1}], Step [{i + 1}/{len(trainloader)}], Loss: {running_loss / 100}")
@@ -151,6 +147,6 @@ class SWM:
         print(f"Best Model saved at: {best_model_path}")
 
 if __name__ == '__main__':
-    model_path = "dataset/2M-Backdoor/id-0499/model.pt"
+    model_path = "dataset/2M-Benign/id-0499/model.pt"
     swm = SWM(model_path)
     swm.swm()

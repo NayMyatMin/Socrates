@@ -55,12 +55,10 @@ class ModelLoader:
         dataset_config = self.get_dataset(dataset)
         print(f'Dataset = {dataset}\n')
 
-        if dataset == "MNIST":
-            if SWM == None:
-                model = load_model(MNIST_Network, model_path)
-            else:
+        if SWM != None:
                 model = load_model(New_MNIST_Network, model_path)
-
+        elif dataset == "MNIST":
+                model = load_model(MNIST_Network, model_path)
         elif dataset == "CIFAR-10":
             model = load_model(WideResNet, model_path)
 
@@ -395,28 +393,6 @@ class BackdoorDetectInputImpl:
                 break
         
         assert best_delta is not None
-        if best_delta is not None:
-            best_delta[abs(best_delta) < 0.0001] = 0.0
-
-            # Choose 10 images to create adversarial examples
-            images = []
-            dataloader_iter = iter(dataloader)
-            for _ in range(1):
-                img, _ = next(dataloader_iter)  # getting first image from the dataloader
-                img = img.to(device)
-                images.append(img)
-
-            minx, maxx = BackdoorDetectInputImpl.get_min_max_values(alphabet, device)
-            images_adv = [torch.clamp(torch.add(img, best_delta), minx, maxx) for img in images]
-            images = [(img - minx) / (maxx - minx) for img in images]
-            images_adv = [(img_adv - minx) / (maxx - maxx) for img_adv in images_adv]
-
-            # Concatenate each pair of original and adversarial images along width dimension
-            pairs = [torch.cat((img[0], img_adv[0]), 2) for img, img_adv in zip(images, images_adv)]
-            all_images = torch.stack(pairs, dim=0)
-            path = model_name.split('/')[1]
-            name = model_name.split('/')[-1]
-            save_image(all_images, f'images/full_{path}_{name}_target_{target}.png')
         return best_delta, best_succ
 
     def generate_trigger(self, model, input_submodel, dataloader, size, target, exp_vect, fixed_lst=None, patience=5, min_improvement=1e-4, num_of_epochs=10):
@@ -455,25 +431,25 @@ class BackdoorDetectInputImpl:
         if best_delta is not None:
             best_delta[abs(best_delta) < 0.0001] = 0.0
 
-            # Choose 10 images to create adversarial examples
-            images = []
-            dataloader_iter = iter(dataloader)
-            for _ in range(1):
-                img, _ = next(dataloader_iter)  # getting first image from the dataloader
-                img = img.to(device)
-                images.append(img)
+            # # Choose 10 images to create adversarial examples
+            # images = []
+            # dataloader_iter = iter(dataloader)
+            # for _ in range(1):
+            #     img, _ = next(dataloader_iter)  # getting first image from the dataloader
+            #     img = img.to(device)
+            #     images.append(img)
 
-            minx, maxx = BackdoorDetectInputImpl.get_min_max_values(alphabet, device)
-            images_adv = [torch.clamp(torch.add(img, best_delta), minx, maxx) for img in images]
-            images = [(img - minx) / (maxx - minx) for img in images]
-            images_adv = [(img_adv - minx) / (maxx - maxx) for img_adv in images_adv]
+            # minx, maxx = BackdoorDetectInputImpl.get_min_max_values(alphabet, device)
+            # images_adv = [torch.clamp(torch.add(img, best_delta), minx, maxx) for img in images]
+            # images = [(img - minx) / (maxx - minx) for img in images]
+            # images_adv = [(img_adv - minx) / (maxx - maxx) for img_adv in images_adv]
 
-            # Concatenate each pair of original and adversarial images along width dimension
-            pairs = [torch.cat((img[0], img_adv[0]), 2) for img, img_adv in zip(images, images_adv)]
-            all_images = torch.stack(pairs, dim=0)
-            path = model_name.split('/')[1]
-            name = model_name.split('/')[-1]
-            save_image(all_images, f'images/1000_{path}_{name}_target_{target}.png')
+            # # Concatenate each pair of original and adversarial images along width dimension
+            # pairs = [torch.cat((img[0], img_adv[0]), 2) for img, img_adv in zip(images, images_adv)]
+            # all_images = torch.stack(pairs, dim=0)
+            # path = model_name.split('/')[1]
+            # name = model_name.split('/')[-1]
+            # save_image(all_images, f'images/1000_{path}_{name}_target_{target}.png')
 
         return best_delta, best_succ
     
@@ -565,7 +541,6 @@ class BackdoorDetectImpl:
 
     def process_clean_model(self, detected_backdoors_hidden, model, input_submodel, test_dataloader, exp_vect_lst, model_loader, total_true_negatives, total_false_positives):
         input = BackdoorDetectInputImpl()
-
         if detected_backdoors_hidden:
             target_lst, acc_lst, dist2_lst, dist0_lst = input.evaluate_triggers(model, input_submodel, test_dataloader, detected_backdoors_hidden, model_loader.size_input, exp_vect_lst)
             detected_backdoors_input = self.detect_backdoors(dist2_lst, target_lst, "input", acc_lst, dist0_lst)
@@ -763,7 +738,6 @@ class BackdoorDetectImpl:
                 trigger_type = model_loader.load_info(model_path)["trigger_type"]
                 print(f'trigger_type = {trigger_type}')
                 patch_true_positives, blended_true_positives, patch_false_negatives, blended_false_negatives = self.process_backdoor_model(detected_backdoors_hidden, model, input_submodel, test_dataloader, exp_vect_lst, model_loader, attack_spec_path, trigger_type, patch_true_positives, blended_true_positives, patch_false_negatives, blended_false_negatives)
-            
             end_time = time.time()
             print("Elapsed time:", end_time - start_time, "seconds")
             print(f"\n{'*' * 100}\n")
