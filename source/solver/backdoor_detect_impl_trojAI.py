@@ -56,9 +56,9 @@ class ModelLoader:
         print(f'Dataset = {dataset}\n')
 
         if SWM != None:
-                model = load_model(New_MNIST_Network, model_path)
+            model = load_model(New_MNIST_Network, model_path)
         elif dataset == "MNIST":
-                model = load_model(MNIST_Network, model_path)
+            model = load_model(MNIST_Network, model_path)
         elif dataset == "CIFAR-10":
             model = load_model(WideResNet, model_path)
 
@@ -719,7 +719,8 @@ class BackdoorDetectImpl:
             model, dataset, train_dataset, test_dataset = model_loader.load_and_prepare_model(swm_model_path, SWM=True)
             hidden_submodel = hidden.get_submodel(model)
             input_submodel = input.get_submodel(model)
-            print(f'model_name = {model_name}')
+            test_dataloader, hidden_test_dataloader = self.get_dataloaders(input_submodel, test_dataset, dataset)
+            print(f'model_name = {swm_model_path}')
 
             target_lst = range(10)
             exp_vect_lst, result = hidden.generate_exp_vector(hidden_submodel, hidden_test_dataloader, model_loader.size_last, target_lst)
