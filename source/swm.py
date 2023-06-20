@@ -13,6 +13,7 @@ class SWM:
     def __init__(self, model_path):
         print("Soft Weight Masking")
         self.model_path = model_path
+        print(f"Model path: {self.model_path}")
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.args = {
             'batch_size': 128,
@@ -45,12 +46,11 @@ class SWM:
                 param.clamp_(lower, upper)
 
     def Regularization(self, model):
-        L1 = 0
-        L2 = 0
+        L1, L2 = 0, 0
         for name, param in model.named_parameters():
             if 'mask' in name:
                 L1 += torch.sum(torch.abs(param))
-                L2 += torch.norm(param, 2)
+                L2 += torch.norm(param)
         return L1, L2
 
     def mask_train(self, model, criterion, mask_opt, data_loader):
@@ -63,7 +63,7 @@ class SWM:
             images, labels = images.to(self.device), labels.to(self.device)
             nb_samples += images.size(0)
 
-            ori_lab = torch.argmax(model(images), axis=1).long()
+            ori_lab = torch.argmax(model(images), dim=1).long()
             perturbed_images = images + self.args['eps'] * torch.sign(torch.randn_like(images))
 
             output_noise = model(perturbed_images)
@@ -119,9 +119,9 @@ class SWM:
         optimizer = torch.optim.Adam(model.parameters(), lr=0.1)
 
         best_test_acc = 0.0
-        best_model_path = os.path.dirname(self.model_path) + "/swm_model.pt"
-
-        for epoch in range(1):
+        best_model_path = None
+        for epoch in range(10):
+            best_model_path = os.path.dirname(self.model_path) + f"/swm_model_epoch_{epoch}.pt"
             model.train()
             running_loss = 0.0
             for i, (images, labels) in enumerate(trainloader):
@@ -130,7 +130,7 @@ class SWM:
                 
                 running_loss += loss
                 if (i + 1) % 100 == 0:
-                    print(f"Epoch [{epoch + 1}/{1}], Step [{i + 1}/{len(trainloader)}], Loss: {running_loss / 100}")
+                    print(f"Epoch [{epoch + 1}/{10}], Step [{i + 1}/{len(trainloader)}], Loss: {running_loss / 100}")
                     running_loss = 0.0
 
             model.eval()
@@ -138,15 +138,15 @@ class SWM:
                 test_loss, test_acc = self.test(model, criterion, testloader)
             print(f"Epoch [{epoch + 1}/{10}], Test Loss: {test_loss}, Test Accuracy: {test_acc}")
 
-            if test_acc > best_test_acc:
-                best_test_acc = test_acc
-                torch.save(model.state_dict(), best_model_path)
+            # if test_acc > best_test_acc:
+            #     best_test_acc = test_acc
+            torch.save(model.state_dict(), best_model_path)
 
         print("Training complete!")
         print(f"Best Test Accuracy: {best_test_acc}")
         print(f"Best Model saved at: {best_model_path}")
 
 if __name__ == '__main__':
-    model_path = "dataset/2M-Benign/id-0499/model.pt"
+    model_path = "dataset/2M-Backdoor1/id-0499/model.pt"
     swm = SWM(model_path)
     swm.swm()
